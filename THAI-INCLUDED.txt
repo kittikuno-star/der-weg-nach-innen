@@ -1,0 +1,20 @@
+THAILÄNDISCHE WEBSITE ENTHALTEN
+
+Die thailändische Version erreichen Sie über:
+
+  /th
+
+Beispiele:
+
+  /th/meditation
+  /th/courses
+  /th/retreats
+  /th/locations
+  /th/contact
+  /th/registration
+
+Im Sprachmenü wählen Sie „ไทย“.
+
+ภาษาไทยรวมอยู่ในเว็บไซต์แล้ว
+หน้าแรกภาษาไทย: /th
+เลือกภาษา „ไทย“ จากเมนูภาษา
