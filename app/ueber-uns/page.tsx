@@ -15,9 +15,9 @@ import Container from "@/components/ui/Container";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
-  title: "Über uns | Der Weg nach innen",
+  title: "Über uns | Der Weg nach Innen",
   description:
-    "Erfahren Sie mehr über Der Weg nach innen, unsere Ausrichtung, unsere Werte und die Menschen hinter dem Projekt.",
+    "Erfahren Sie mehr über Der Weg nach Innen, unsere Ausrichtung, unsere Werte und die Menschen hinter dem Projekt.",
 };
 
 const values = [
@@ -95,7 +95,7 @@ export default function AboutPage() {
               </h1>
 
               <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-white/80 sm:text-xl sm:leading-9">
-                „Der Weg nach innen“ verbindet Meditationsangebote von sieben
+                „Der Weg nach Innen“ verbindet Meditationsangebote von sieben
                 buddhistischen Tempeln in Deutschland und macht Meditation in
                 einer verständlichen, offenen und zeitgemäßen Form zugänglich.
               </p>
@@ -212,7 +212,7 @@ export default function AboutPage() {
               Menschen hinter dem Projekt
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Hinter „Der Weg nach innen“ stehen buddhistische Mönche und
+              Hinter „Der Weg nach Innen“ stehen buddhistische Mönche und
               engagierte Unterstützer. Sie verbinden Erfahrung in Meditation,
               buddhistischer Lehre, Gemeinschaft, Medien und Technik.
             </p>

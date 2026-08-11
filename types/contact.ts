@@ -12,6 +12,16 @@ export type ContactRequestStatus =
   | "answered"
   | "archived";
 
+export type ContactLocation =
+  | "general"
+  | "bavaria"
+  | "heilbronn"
+  | "rheinland"
+  | "hamburg"
+  | "berlin"
+  | "nrw"
+  | "schwarzwald";
+
 export type ContactApiPayload = {
   requestType: "contact";
   submittedAt: string;
@@ -20,7 +30,7 @@ export type ContactApiPayload = {
   lastName: string;
   email: string;
   topic: ContactTopic;
-  location: string;
+  location: ContactLocation;
   message: string;
   privacyConsent: boolean;
 };

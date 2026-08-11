@@ -10,7 +10,6 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { navigation } from "@/data/navigation";
 import { routes } from "@/lib/routes";
-import { languageAlternatives } from "@/lib/languageRoutes";
 
 const englishNavigation = [
   {
@@ -55,24 +54,12 @@ const englishNavigation = [
   },
 ];
 
-const thaiNavigation = [
-  { id: "home", label: "หน้าแรก", href: "/th" },
-  { id: "meditation", label: "การทำสมาธิ", href: "/th/meditation" },
-  { id: "courses", label: "หลักสูตรสมาธิ", href: "/th/courses" },
-  { id: "retreats", label: "ปฏิบัติธรรม", href: "/th/retreats" },
-  { id: "locations", label: "สถานที่", href: "/th/locations" },
-  { id: "inspiration", label: "แรงบันดาลใจ", href: "/th/inspiration" },
-  { id: "about", label: "เกี่ยวกับเรา", href: "/th/about-us" },
-  { id: "contact", label: "ติดต่อ", href: "/th/contact" },
-];
-
 export default function Header() {
   const pathname = usePathname();
 
   const isEnglish =
     pathname === "/en" ||
     pathname.startsWith("/en/");
-  const isThai = pathname === "/th" || pathname.startsWith("/th/");
 
   const [scrolled, setScrolled] =
     useState(false);
@@ -83,26 +70,27 @@ export default function Header() {
   const [mounted, setMounted] =
     useState(false);
 
-  const activeNavigation = isThai
-    ? thaiNavigation
-    : isEnglish ? englishNavigation : navigation.filter(
+  const activeNavigation = isEnglish
+    ? englishNavigation
+    : navigation.filter(
         (item) => item.visible,
       );
 
-  const homeHref = isThai ? "/th" : isEnglish ? "/en" : routes.home;
+  const homeHref = isEnglish
+    ? "/en"
+    : routes.home;
 
-  const offersHref = isThai ? "/th/offers" : isEnglish ? "/en/offers" : routes.offers;
+  const offersHref = isEnglish
+    ? "/en/offers"
+    : routes.offers;
 
-  const offersLabel = isThai ? "ดูกิจกรรม" : isEnglish ? "View offers" : "Angebote ansehen";
-  const languageLinks = languageAlternatives(pathname);
+  const offersLabel = isEnglish
+    ? "View offers"
+    : "Angebote ansehen";
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    document.documentElement.lang = isThai ? "th" : isEnglish ? "en" : "de";
-  }, [isEnglish, isThai]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -263,15 +251,15 @@ export default function Header() {
 
               <div className="flex items-center gap-3 border-t border-[#ECE9E2] pt-7">
                 <Link
-                  href={languageLinks.de}
+                  href="/"
                   onClick={closeMenu}
                   aria-current={
-                    !isEnglish && !isThai
+                    !isEnglish
                       ? "page"
                       : undefined
                   }
                   className={
-                    !isEnglish && !isThai
+                    !isEnglish
                       ? "rounded-full bg-[#153B36] px-5 py-2.5 text-sm font-medium text-white"
                       : "rounded-full px-5 py-2.5 text-sm text-gray-500 transition hover:bg-[#F7F4ED] hover:text-[#153B36]"
                   }
@@ -280,7 +268,7 @@ export default function Header() {
                 </Link>
 
                 <Link
-                  href={languageLinks.en}
+                  href="/en"
                   onClick={closeMenu}
                   aria-current={
                     isEnglish
@@ -296,14 +284,16 @@ export default function Header() {
                   EN
                 </Link>
 
-                <Link
-                  href={languageLinks.th}
-                  onClick={closeMenu}
-                  aria-current={isThai ? "page" : undefined}
-                  className={isThai ? "rounded-full bg-[#153B36] px-5 py-2.5 text-sm font-medium text-white" : "rounded-full px-5 py-2.5 text-sm text-gray-500 transition hover:bg-[#F7F4ED] hover:text-[#153B36]"}
+                <span
+                  className="cursor-not-allowed rounded-full px-5 py-2.5 text-sm text-gray-300"
+                  aria-label={
+                    isEnglish
+                      ? "Thai version coming later"
+                      : "Thailändische Version folgt später"
+                  }
                 >
                   TH
-                </Link>
+                </span>
               </div>
 
               <div className="py-8">
@@ -377,14 +367,14 @@ export default function Header() {
 
             <div className="hidden items-center gap-4 lg:flex">
               <Link
-                href={languageLinks.de}
+                href="/"
                 aria-current={
-                  !isEnglish && !isThai
+                  !isEnglish
                     ? "page"
                     : undefined
                 }
                 className={
-                  !isEnglish && !isThai
+                  !isEnglish
                     ? "rounded-full bg-[#153B36] px-4 py-2 text-sm font-medium text-white"
                     : "text-sm text-gray-500 transition hover:text-[#153B36]"
                 }
@@ -393,7 +383,7 @@ export default function Header() {
               </Link>
 
               <Link
-                href={languageLinks.en}
+                href="/en"
                 aria-current={
                   isEnglish
                     ? "page"
@@ -408,13 +398,16 @@ export default function Header() {
                 EN
               </Link>
 
-              <Link
-                href={languageLinks.th}
-                aria-current={isThai ? "page" : undefined}
-                className={isThai ? "rounded-full bg-[#153B36] px-4 py-2 text-sm font-medium text-white" : "text-sm text-gray-500 transition hover:text-[#153B36]"}
+              <span
+                className="cursor-not-allowed text-sm text-gray-300"
+                aria-label={
+                  isEnglish
+                    ? "Thai version coming later"
+                    : "Thailändische Version folgt später"
+                }
               >
                 TH
-              </Link>
+              </span>
 
               <Button
                 href={offersHref}

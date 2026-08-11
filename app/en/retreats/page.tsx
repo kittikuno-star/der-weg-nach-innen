@@ -105,7 +105,7 @@ export default function EnglishRetreatsPage() {
           <FadeIn>
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">Current dates</p>
-              <h2 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl">Upcoming one-day retreats in 2026</h2>
+              <h2 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl">One-day retreats in August 2026</h2>
               <p className="mt-6 text-lg leading-8 text-slate-600">A full day of meditation, mindfulness and inner reflection. The current events are held in German and are suitable for beginners and experienced meditators.</p>
             </div>
           </FadeIn>
@@ -128,7 +128,7 @@ export default function EnglishRetreatsPage() {
                       <div className="flex items-start gap-3"><Euro className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" /><div><dt className="sr-only">Fee</dt><dd>Participation fee: {retreat.price}</dd></div></div>
                     </dl>
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                      <Button href={`/en/registration?event=${retreat.id}`} className="w-full sm:w-auto">Register now</Button>
+                      <Button href="/en/contact" className="w-full sm:w-auto">Ask about this retreat</Button>
                       <Button href="#day-programme" variant="outline" className="w-full sm:w-auto">View programme</Button>
                     </div>
                   </div>

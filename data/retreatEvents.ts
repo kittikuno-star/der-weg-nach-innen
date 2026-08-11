@@ -11,9 +11,25 @@ export type RetreatEvent = {
   price: string;
   image: string;
   imageAlt: string;
+  registrationType: "one-day-retreat" | "multi-day-retreat";
 };
 
 export const retreatEvents: RetreatEvent[] = [
+  {
+    id: "rheinland-2026-08-08",
+    temple: "Wat Phra Dhammakaya Rheinland",
+    dateLabel: "Samstag, 08. August 2026",
+    dateValue: "2026-08-08",
+    time: "09:30 – 17:00 Uhr",
+    street: "Mainzer Straße 255",
+    postalCode: "55218",
+    city: "Ingelheim am Rhein",
+    region: "Rheinland-Pfalz",
+    price: "25 €",
+    image: "/images/temples/rheinland/map-card-01.jpg",
+    imageAlt: "Wat Phra Dhammakaya Rheinland in Ingelheim am Rhein",
+    registrationType: "one-day-retreat",
+  },
   {
     id: "bavaria-2026-08-30",
     temple: "Wat Phra Dhammakaya Bavaria",
@@ -27,6 +43,7 @@ export const retreatEvents: RetreatEvent[] = [
     price: "25 €",
     image: "/images/temples/bavaria/map-card-01.jpg",
     imageAlt: "Wat Phra Dhammakaya Bavaria in Königsbrunn",
+    registrationType: "one-day-retreat",
   },
   {
     id: "heilbronn-2026-10-17",
@@ -38,9 +55,10 @@ export const retreatEvents: RetreatEvent[] = [
     postalCode: "71543",
     city: "Wüstenrot",
     region: "Baden-Württemberg",
-    price: "25 €",
+    price: "Information folgt",
     image: "/images/temples/heilbronn/map-card-01.png",
     imageAlt: "Wat Buddha Heilbronn in Wüstenrot",
+    registrationType: "one-day-retreat",
   },
 ];
 

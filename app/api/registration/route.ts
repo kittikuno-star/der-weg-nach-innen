@@ -13,6 +13,7 @@ const REGISTRATION_TYPES: RegistrationType[] = [
   "online",
   "one-day-retreat",
   "multi-day-retreat",
+  "ceremony",
 ];
 
 type GoogleAppsScriptResponse = {
@@ -104,15 +105,15 @@ function isValidRegistrationPayload(
   }
 
   if (
-    value.registrationType !== "online" &&
+    (value.registrationType === "onsite" ||
+      value.registrationType === "multi-day-retreat") &&
     !isNonEmptyString(value.phone)
   ) {
     return false;
   }
 
   if (
-    (value.registrationType === "one-day-retreat" ||
-      value.registrationType === "multi-day-retreat") &&
+    value.registrationType === "multi-day-retreat" &&
     (!isNonEmptyString(value.emergencyContactName) ||
       !isNonEmptyString(value.emergencyContactPhone))
   ) {
@@ -183,9 +184,6 @@ async function readJsonResponse(
 }
 
 export async function POST(request: Request) {
-  const language = new URL(request.url).searchParams.get("lang");
-  const isEnglish = language === "en";
-  const isThai = language === "th";
   const googleAppsScriptUrl =
     process.env.GOOGLE_APPS_SCRIPT_URL?.trim();
   const googleAppsScriptSecret =
@@ -199,11 +197,8 @@ export async function POST(request: Request) {
     return createJsonResponse(
       {
         success: false,
-        message: isThai
-          ? "ระบบลงทะเบียนไม่พร้อมใช้งานในขณะนี้ กรุณาลองใหม่ภายหลัง"
-          : isEnglish
-          ? "The registration service is currently unavailable. Please try again later."
-          : "Der Anmeldeservice ist derzeit nicht verfügbar. Bitte versuchen Sie es später erneut.",
+        message:
+          "Der Anmeldeservice ist derzeit nicht verfügbar. Bitte versuchen Sie es später erneut.",
       },
       500,
     );
@@ -217,11 +212,8 @@ export async function POST(request: Request) {
     return createJsonResponse(
       {
         success: false,
-        message: isThai
-          ? "ไม่สามารถอ่านข้อมูลการลงทะเบียนที่ส่งมาได้"
-          : isEnglish
-          ? "The submitted registration details could not be read."
-          : "Die übermittelten Anmeldedaten konnten nicht gelesen werden.",
+        message:
+          "Die übermittelten Anmeldedaten konnten nicht gelesen werden.",
       },
       400,
     );
@@ -231,11 +223,8 @@ export async function POST(request: Request) {
     return createJsonResponse(
       {
         success: false,
-        message: isThai
-          ? "กรุณาตรวจสอบข้อมูลและกรอกช่องที่จำเป็นให้ครบถ้วน"
-          : isEnglish
-          ? "Please check your information and complete all required fields."
-          : "Bitte überprüfen Sie Ihre Angaben und füllen Sie alle erforderlichen Felder vollständig aus.",
+        message:
+          "Bitte überprüfen Sie Ihre Angaben und füllen Sie alle erforderlichen Felder vollständig aus.",
       },
       400,
     );
@@ -277,11 +266,9 @@ export async function POST(request: Request) {
       return createJsonResponse(
         {
           success: false,
-          message: isThai
-            ? "ไม่สามารถส่งข้อมูลลงทะเบียนได้ในขณะนี้"
-            : isEnglish
-            ? "Your registration could not be submitted at this time."
-            : responseBody?.message ?? "Die Anmeldung konnte derzeit nicht übermittelt werden.",
+          message:
+            responseBody?.message ??
+            "Die Anmeldung konnte derzeit nicht übermittelt werden.",
         },
         502,
       );
@@ -291,11 +278,9 @@ export async function POST(request: Request) {
       return createJsonResponse(
         {
           success: false,
-          message: isThai
-            ? "ไม่สามารถดำเนินการลงทะเบียนได้"
-            : isEnglish
-            ? "Your registration could not be processed."
-            : responseBody.message ?? "Die Anmeldung konnte nicht verarbeitet werden.",
+          message:
+            responseBody.message ??
+            "Die Anmeldung konnte nicht verarbeitet werden.",
         },
         400,
       );
@@ -304,11 +289,9 @@ export async function POST(request: Request) {
     return createJsonResponse(
       {
         success: true,
-        message: isThai
-          ? "ส่งข้อมูลลงทะเบียนเรียบร้อยแล้ว"
-          : isEnglish
-          ? "Your registration has been submitted successfully."
-          : responseBody?.message ?? "Ihre Anmeldung wurde erfolgreich übermittelt.",
+        message:
+          responseBody?.message ??
+          "Ihre Anmeldung wurde erfolgreich übermittelt.",
       },
       200,
     );
@@ -324,11 +307,8 @@ export async function POST(request: Request) {
       return createJsonResponse(
         {
           success: false,
-          message: isThai
-            ? "ระบบใช้เวลาในการตอบสนองนานเกินไป กรุณาลองใหม่ภายหลัง"
-            : isEnglish
-            ? "The registration service is taking too long to respond. Please try again later."
-            : "Der Anmeldeservice benötigt derzeit zu lange. Bitte versuchen Sie es später erneut.",
+          message:
+            "Der Anmeldeservice benötigt derzeit zu lange. Bitte versuchen Sie es später erneut.",
         },
         504,
       );
@@ -342,11 +322,8 @@ export async function POST(request: Request) {
     return createJsonResponse(
       {
         success: false,
-        message: isThai
-          ? "เกิดข้อผิดพลาดขณะส่งข้อมูลลงทะเบียน"
-          : isEnglish
-          ? "An unexpected error occurred while submitting your registration."
-          : "Beim Senden Ihrer Anmeldung ist ein unerwarteter Fehler aufgetreten.",
+        message:
+          "Beim Senden Ihrer Anmeldung ist ein unerwarteter Fehler aufgetreten.",
       },
       500,
     );

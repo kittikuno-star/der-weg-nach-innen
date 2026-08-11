@@ -480,9 +480,12 @@ export default function CoursesPage() {
                         Teilnahme:
                       </span>{" "}
                       {course.price}
+                      {isActive && !course.registrationRequired
+                        ? " – ohne Anmeldung"
+                        : ""}
                     </div>
 
-                    {isActive && (
+                    {isActive && course.registrationRequired && (
                       <div className="mt-auto pt-8">
                         <Button href={`/anmeldung?course=${course.id}`}>
                           Jetzt anmelden
@@ -496,10 +499,8 @@ export default function CoursesPage() {
           </div>
 
           <p className="mx-auto mt-10 max-w-4xl text-center text-sm leading-7 text-slate-500">
-            Änderungen sind vorbehalten. Bei kurzfristigen Änderungen
-            informieren wir angemeldete Teilnehmende persönlich, sofern
-            Kontaktdaten vorliegen. Aktuelle Termine werden außerdem auf dieser
-            Website veröffentlicht.
+            Änderungen sind vorbehalten. Aktuelle Termine und kurzfristige
+            Änderungen werden auf dieser Website veröffentlicht.
           </p>
         </Container>
       </section>

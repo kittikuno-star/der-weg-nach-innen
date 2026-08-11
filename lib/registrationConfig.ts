@@ -69,6 +69,20 @@ const REGISTRATION_CONFIGS: Record<RegistrationType, RegistrationConfig> = {
     showPhotoConsent: true,
     showNewsletter: true,
   },
+
+  ceremony: {
+    title: "Zur buddhistischen Veranstaltung anmelden",
+    description:
+      "Wählen Sie den Tempel vor Ort, den gewünschten Termin und die Teilnahmezeit aus.",
+    showPhone: false,
+    showParticipants: true,
+    showFood: false,
+    showHealth: false,
+    showEmergencyContact: false,
+    showAccommodation: false,
+    showPhotoConsent: false,
+    showNewsletter: false,
+  },
 };
 
 export function getRegistrationConfig(

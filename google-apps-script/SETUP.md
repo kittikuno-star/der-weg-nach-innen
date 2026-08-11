@@ -31,9 +31,9 @@ Never put this secret into browser-side code.
 
 The endpoint is public, but requests are rejected unless the shared secret is correct.
 
-## 4. Configure the website
+## 4. Configure the website on Netlify
 
-On the server/hosting environment add:
+In Netlify open **Project configuration → Environment variables** and add:
 
 ```env
 GOOGLE_APPS_SCRIPT_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
@@ -41,6 +41,19 @@ GOOGLE_APPS_SCRIPT_SECRET=YOUR_LONG_RANDOM_SECRET
 ```
 
 Do not commit `.env.local` to Git.
+
+The value of `GOOGLE_APPS_SCRIPT_SECRET` must be exactly the same as the
+`SCRIPT_SECRET` script property in Google Apps Script. After saving the two
+variables, open **Deploys → Trigger deploy → Clear cache and deploy site**.
+
+For contact notifications, also add this script property in Google Apps Script:
+
+```text
+ADMIN_EMAIL=kittikuno@gmail.com
+```
+
+After changing `Registration.gs`, create a new Apps Script deployment version
+or edit the existing deployment so that the current version is published.
 
 ## 5. Activate automatic deletion
 

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type {
   ContactApiPayload,
   ContactApiResponse,
+  ContactLocation,
   ContactTopic,
 } from "@/types/contact";
 
@@ -16,6 +17,17 @@ const CONTACT_TOPICS: ContactTopic[] = [
   "school",
   "event",
   "other",
+];
+
+const CONTACT_LOCATIONS: ContactLocation[] = [
+  "general",
+  "bavaria",
+  "heilbronn",
+  "rheinland",
+  "hamburg",
+  "berlin",
+  "nrw",
+  "schwarzwald",
 ];
 
 type GoogleAppsScriptResponse = {
@@ -52,6 +64,13 @@ function isContactTopic(value: unknown): value is ContactTopic {
   );
 }
 
+function isContactLocation(value: unknown): value is ContactLocation {
+  return (
+    typeof value === "string" &&
+    CONTACT_LOCATIONS.includes(value as ContactLocation)
+  );
+}
+
 function isValidContactPayload(
   value: unknown,
 ): value is ContactApiPayload {
@@ -76,6 +95,10 @@ function isValidContactPayload(
   }
 
   if (!isContactTopic(value.topic)) {
+    return false;
+  }
+
+  if (!isContactLocation(value.location)) {
     return false;
   }
 
@@ -111,7 +134,6 @@ function normalizePayload(
     firstName: payload.firstName.trim(),
     lastName: payload.lastName.trim(),
     email: payload.email.trim(),
-    location: payload.location.trim(),
     message: payload.message.trim(),
     status: payload.status ?? "new",
   };

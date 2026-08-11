@@ -391,6 +391,9 @@ function sendRegistrationConfirmationEmail_(
   payload,
   adminEmail
 ) {
+  const isCeremony =
+    payload.registrationType ===
+    "ceremony";
   const recipientEmail =
     String(
       payload.email || ""
@@ -421,17 +424,28 @@ function sendRegistrationConfirmationEmail_(
       eventDate
     );
 
-  const subject =
-    "Bestätigung Ihrer Anmeldung zum One Day Retreat";
+  const subject = isCeremony
+    ? "Bestätigung Ihrer Anmeldung zur buddhistischen Veranstaltung"
+    : "Bestätigung Ihrer Anmeldung zum One Day Retreat";
+
+  const registrationIntro =
+    isCeremony
+      ? "vielen Dank für Ihre Anmeldung zur buddhistischen Veranstaltung"
+      : "vielen Dank für Ihre Anmeldung zu unserem One Day Retreat";
+
+  const welcomeText =
+    isCeremony
+      ? "Wir freuen uns, Sie bei dieser gemeinsamen Veranstaltung im Tempel begrüßen zu dürfen."
+      : "Wir freuen uns sehr, Sie an diesem besonderen Meditationstag persönlich begrüßen zu dürfen.";
 
   const plainTextBody = [
     `Guten Tag ${fullName},`,
     "",
-    "vielen Dank für Ihre Anmeldung zu unserem One Day Retreat" +
+    registrationIntro +
       eventDetails +
       ".",
     "",
-    "Wir freuen uns sehr, Sie an diesem besonderen Meditationstag persönlich begrüßen zu dürfen.",
+    welcomeText,
     "",
     "Falls Sie noch Fragen haben, können Sie sich jederzeit gerne an uns wenden.",
     "",
@@ -455,13 +469,11 @@ function sendRegistrationConfirmationEmail_(
       </p>
 
       <p>
-        vielen Dank für Ihre Anmeldung zu unserem
-        One Day Retreat${escapeHtml_(eventDetails)}.
+        ${escapeHtml_(registrationIntro)}${escapeHtml_(eventDetails)}.
       </p>
 
       <p>
-        Wir freuen uns sehr, Sie an diesem besonderen
-        Meditationstag persönlich begrüßen zu dürfen.
+        ${escapeHtml_(welcomeText)}
       </p>
 
       <p>
@@ -504,6 +516,9 @@ function sendRegistrationAdminEmail_(
   payload,
   adminEmail
 ) {
+  const isCeremony =
+    payload.registrationType ===
+    "ceremony";
   const fullName =
     formatFullName_(payload);
 
@@ -538,7 +553,9 @@ function sendRegistrationAdminEmail_(
     ).trim();
 
   const subjectParts = [
-    "Neue Retreat-Anmeldung:",
+    isCeremony
+      ? "Neue Anmeldung zur buddhistischen Veranstaltung:"
+      : "Neue Retreat-Anmeldung:",
     fullName
   ];
 
@@ -552,14 +569,16 @@ function sendRegistrationAdminEmail_(
     subjectParts.join(" ");
 
   const lines = [
-    "Eine neue Retreat-Anmeldung ist eingegangen.",
+    isCeremony
+      ? "Eine neue Anmeldung zu einer buddhistischen Veranstaltung ist eingegangen."
+      : "Eine neue Retreat-Anmeldung ist eingegangen.",
     "",
     `Name: ${fullName}`,
     `E-Mail: ${payload.email}`,
     `Telefon: ${
       phone || "Nicht angegeben"
     }`,
-    `Retreat: ${
+    `Veranstaltung: ${
       eventName || "Nicht angegeben"
     }`,
     `Datum: ${
@@ -720,9 +739,9 @@ function sendContactAdminEmail_(
     );
 
   const location =
-    String(
-      payload.location || ""
-    ).trim();
+    formatTempleLocation_(
+      payload.location
+    );
 
   const message =
     String(
@@ -738,9 +757,7 @@ function sendContactAdminEmail_(
     `Name: ${fullName}`,
     `E-Mail: ${payload.email}`,
     `Thema: ${topic}`,
-    `Standort oder Region: ${
-      location || "Nicht angegeben"
-    }`,
+    `Gewählter Tempel: ${location}`,
     "",
     "Nachricht:",
     message || "Keine Nachricht",
@@ -1786,26 +1803,29 @@ function formatTempleLocation_(
   value
 ) {
   const locations = {
+    general:
+      "Allgemeine Anfrage (kein bestimmter Tempel)",
+
     hamburg:
-      "Hamburg",
+      "Dhammakaya Hamburg (Gerdau, Niedersachsen)",
 
     berlin:
-      "Berlin",
+      "Wat Phra Dhammakaya Berlin (Blankenfelde-Mahlow, Brandenburg)",
 
     nrw:
-      "Nordrhein-Westfalen",
+      "Wat Buddha Nordrhein-Westfalen (Moers, Nordrhein-Westfalen)",
 
     rheinland:
-      "Rheinland",
+      "Wat Phra Dhammakaya Rheinland (Ingelheim, Rheinland-Pfalz)",
 
     heilbronn:
-      "Heilbronn",
+      "Wat Buddha Heilbronn (Wüstenrot, Baden-Württemberg)",
 
     schwarzwald:
-      "Schwarzwald",
+      "Wat Phra Dhammakaya Schwarzwald (Kippenheim, Baden-Württemberg)",
 
     bavaria:
-      "Bavaria / Königsbrunn"
+      "Wat Phra Dhammakaya Bavaria (Königsbrunn, Bayern)"
   };
 
   return (

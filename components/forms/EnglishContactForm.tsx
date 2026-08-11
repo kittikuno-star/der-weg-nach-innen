@@ -3,7 +3,8 @@
 import { CheckCircle2, LoaderCircle, Send, TriangleAlert } from "lucide-react";
 import { FormEvent, useState } from "react";
 import EnglishContactTopicSelect from "./EnglishContactTopicSelect";
-import type { ContactApiPayload, ContactApiResponse, ContactTopic } from "@/types/contact";
+import ContactLocationSelect from "./ContactLocationSelect";
+import type { ContactApiPayload, ContactApiResponse, ContactLocation, ContactTopic } from "@/types/contact";
 
 const topics: ContactTopic[] = ["unsure", "meditation", "retreat", "visit", "school", "event", "other"];
 const value = (data: FormData, key: string) => String(data.get(key) ?? "").trim();
@@ -18,7 +19,7 @@ export default function EnglishContactForm() {
     const data = new FormData(form);
     const topic = value(data, "topic") as ContactTopic;
     if (!topics.includes(topic)) { setStatus("error"); setMessage("Please select a topic."); return; }
-    const payload: ContactApiPayload = { requestType: "contact", submittedAt: new Date().toISOString(), status: "new", firstName: value(data,"firstName"), lastName: value(data,"lastName"), email: value(data,"email"), topic, location: value(data,"location"), message: value(data,"message"), privacyConsent: data.get("privacy") === "on" };
+    const payload: ContactApiPayload = { requestType: "contact", submittedAt: new Date().toISOString(), status: "new", firstName: value(data,"firstName"), lastName: value(data,"lastName"), email: value(data,"email"), topic, location: value(data,"location") as ContactLocation, message: value(data,"message"), privacyConsent: data.get("privacy") === "on" };
     setStatus("submitting"); setMessage("");
     try {
       const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json", "Accept-Language": "en" }, body: JSON.stringify(payload) });
@@ -36,7 +37,7 @@ export default function EnglishContactForm() {
     <div className="grid gap-6 sm:grid-cols-2"><div><label htmlFor="en-firstName" className="block text-sm font-semibold text-[#153B36]">First name</label><input id="en-firstName" name="firstName" required disabled={disabled} autoComplete="given-name" className={inputClass}/></div><div><label htmlFor="en-lastName" className="block text-sm font-semibold text-[#153B36]">Last name</label><input id="en-lastName" name="lastName" required disabled={disabled} autoComplete="family-name" className={inputClass}/></div></div>
     <div><label htmlFor="en-email" className="block text-sm font-semibold text-[#153B36]">Email address</label><input id="en-email" name="email" type="email" required disabled={disabled} autoComplete="email" className={inputClass}/></div>
     <div><label htmlFor="topic" className="block text-sm font-semibold text-[#153B36]">Topic of your enquiry</label><EnglishContactTopicSelect/></div>
-    <div><label htmlFor="en-location" className="block text-sm font-semibold text-[#153B36]">Location or region <span className="font-normal text-slate-400">(optional)</span></label><input id="en-location" name="location" disabled={disabled} className={inputClass}/></div>
+    <div><label htmlFor="location" className="block text-sm font-semibold text-[#153B36]">Temple or location <span className="text-red-600">*</span></label><ContactLocationSelect disabled={disabled}/></div>
     <div><label htmlFor="en-message" className="block text-sm font-semibold text-[#153B36]">Your message</label><textarea id="en-message" name="message" rows={7} required disabled={disabled} className={inputClass}/></div>
     <label className="flex items-start gap-4"><input type="checkbox" name="privacy" required disabled={disabled} className="mt-1 h-5 w-5"/><span className="text-sm leading-7 text-slate-600">I agree that my details may be used to respond to my enquiry. See our <a href="/en/privacy" className="underline">privacy policy</a>.</span></label>
     {status === "error" && <p role="alert" className="flex gap-2 rounded-2xl bg-red-50 p-4 text-sm text-red-700"><TriangleAlert className="h-5 w-5 shrink-0"/>{message}</p>}

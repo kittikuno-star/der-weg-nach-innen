@@ -1,5 +1,5 @@
 export const SITE = {
-  name: "Der Weg nach innen",
+  name: "Der Weg nach Innen",
   title: "Meditation in Deutschland",
   description:
     "Meditation, Achtsamkeit und buddhistische Weisheit in Deutschland.",
@@ -10,5 +10,5 @@ export const SITE = {
 export const ORGANIZATION = {
   name: "Wat Phra Dhammakaya Germany",
   country: "Deutschland",
-  email: "Kittikuno@gmail.com",
+  email: "info@wegnachinnen.de",
 };

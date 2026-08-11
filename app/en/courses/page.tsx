@@ -475,7 +475,7 @@ export default function EnglishCoursesPage() {
 
                     {isActive && (
                       <div className="mt-auto pt-8">
-                        <Button href={`/en/registration?course=${course.id}`}>
+                        <Button href={`/en/contact`}>
                           Register now
                         </Button>
                       </div>

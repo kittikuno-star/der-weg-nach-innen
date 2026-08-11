@@ -2,7 +2,8 @@ export type RegistrationType =
   | "onsite"
   | "online"
   | "one-day-retreat"
-  | "multi-day-retreat";
+  | "multi-day-retreat"
+  | "ceremony";
 
 export type MeditationExperience =
   | "none"

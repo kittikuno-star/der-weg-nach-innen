@@ -10,6 +10,7 @@ export type WeeklyCourseEvent = {
   city: string;
   region: string;
   price: "kostenfrei";
+  registrationRequired?: boolean;
 };
 
 export const weeklyCourseEvents: WeeklyCourseEvent[] = [
@@ -25,6 +26,7 @@ export const weeklyCourseEvents: WeeklyCourseEvent[] = [
     city: "Königsbrunn",
     region: "Bayern",
     price: "kostenfrei",
+    registrationRequired: true,
   },
   {
     id: "heilbronn-weekly-wednesday",
@@ -38,6 +40,7 @@ export const weeklyCourseEvents: WeeklyCourseEvent[] = [
     city: "Wüstenrot",
     region: "Baden-Württemberg",
     price: "kostenfrei",
+    registrationRequired: true,
   },
   {
     id: "heilbronn-weekly-friday",
@@ -51,6 +54,7 @@ export const weeklyCourseEvents: WeeklyCourseEvent[] = [
     city: "Wüstenrot",
     region: "Baden-Württemberg",
     price: "kostenfrei",
+    registrationRequired: true,
   },
   {
     id: "rheinland-weekly-planned",
@@ -125,6 +129,7 @@ export type WeeklyCourseGroup = {
   city: string;
   region: string;
   price: "kostenfrei";
+  registrationRequired: boolean;
   events: WeeklyCourseEvent[];
 };
 
@@ -148,6 +153,7 @@ export function getWeeklyCourseGroups(): WeeklyCourseGroup[] {
       city: course.city,
       region: course.region,
       price: course.price,
+      registrationRequired: course.registrationRequired !== false,
       events: [course],
     });
   }
@@ -164,7 +170,17 @@ export function getWeeklyCourseGroup(id?: string) {
 
   if (!selectedCourse) return undefined;
 
-  return getWeeklyCourseGroups().find(
+  const group = getWeeklyCourseGroups().find(
     (group) => group.temple === selectedCourse.temple && group.status === "active",
   );
+
+  if (!group) return undefined;
+
+  return {
+    ...group,
+    events: [
+      selectedCourse,
+      ...group.events.filter((event) => event.id !== selectedCourse.id),
+    ],
+  };
 }

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 import FadeIn from "@/components/animations/FadeIn";
-import EnglishContactForm from "@/components/forms/EnglishContactForm";
+import EnglishContactTopicSelect from "@/components/forms/EnglishContactTopicSelect";
 import PageHero from "@/components/sections/PageHero";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
@@ -190,7 +190,68 @@ export default function EnglishContactPage() {
 
             <FadeIn delay={0.1}>
               <div className="rounded-[32px] border border-[#E1E2DE] bg-white p-7 shadow-[0_24px_80px_rgba(21,59,54,0.07)] sm:p-10">
-                <EnglishContactForm />
+                <form className="space-y-7">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="firstName" className="block text-sm font-semibold text-[#153B36]">First name</label>
+                      <input id="firstName" name="firstName" type="text" autoComplete="given-name" placeholder="Your first name" className="mt-3 w-full rounded-2xl border border-[#DADCD7] bg-[#FAFAF8] px-5 py-4 text-base text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#B08D57] focus:bg-white focus:ring-4 focus:ring-[#B08D57]/10" />
+                    </div>
+                    <div>
+                      <label htmlFor="lastName" className="block text-sm font-semibold text-[#153B36]">Last name</label>
+                      <input id="lastName" name="lastName" type="text" autoComplete="family-name" placeholder="Your last name" className="mt-3 w-full rounded-2xl border border-[#DADCD7] bg-[#FAFAF8] px-5 py-4 text-base text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#B08D57] focus:bg-white focus:ring-4 focus:ring-[#B08D57]/10" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-semibold text-[#153B36]">Email address</label>
+                    <input id="email" name="email" type="email" autoComplete="email" placeholder="name@example.com" className="mt-3 w-full rounded-2xl border border-[#DADCD7] bg-[#FAFAF8] px-5 py-4 text-base text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#B08D57] focus:bg-white focus:ring-4 focus:ring-[#B08D57]/10" />
+                  </div>
+
+                  <div>
+                    <label htmlFor="topic" className="block text-sm font-semibold text-[#153B36]">Topic of your enquiry</label>
+                    <EnglishContactTopicSelect />
+                  </div>
+
+                  <div>
+                    <label htmlFor="location" className="block text-sm font-semibold text-[#153B36]">
+                      Which temple would you like to contact?
+                    </label>
+                    <select id="location" name="location" defaultValue="" required className="mt-3 w-full appearance-none rounded-2xl border border-[#DADCD7] bg-[#FAFAF8] px-5 py-4 text-base text-slate-700 outline-none transition-colors focus:border-[#B08D57] focus:bg-white focus:ring-4 focus:ring-[#B08D57]/10">
+                      <option value="" disabled>Please select</option>
+                      <option value="general">General enquiry (no specific temple)</option>
+                      <option value="bavaria">Wat Phra Dhammakaya Bavaria (Königsbrunn, Bavaria)</option>
+                      <option value="heilbronn">Wat Buddha Heilbronn (Wüstenrot, Baden-Württemberg)</option>
+                      <option value="rheinland">Wat Phra Dhammakaya Rheinland (Ingelheim, Rhineland-Palatinate)</option>
+                      <option value="hamburg">Dhammakaya Hamburg (Gerdau, Lower Saxony)</option>
+                      <option value="berlin">Wat Phra Dhammakaya Berlin (Blankenfelde-Mahlow, Brandenburg)</option>
+                      <option value="nrw">Wat Buddha Nordrhein-Westfalen (Moers, North Rhine-Westphalia)</option>
+                      <option value="schwarzwald">Wat Phra Dhammakaya Schwarzwald (Kippenheim, Baden-Württemberg)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-semibold text-[#153B36]">Your message</label>
+                    <textarea id="message" name="message" rows={7} placeholder="How can we help you?" className="mt-3 w-full resize-y rounded-2xl border border-[#DADCD7] bg-[#FAFAF8] px-5 py-4 text-base leading-7 text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#B08D57] focus:bg-white focus:ring-4 focus:ring-[#B08D57]/10" />
+                  </div>
+
+                  <label className="flex cursor-pointer items-start gap-4">
+                    <input type="checkbox" name="privacy" className="mt-1 h-5 w-5 shrink-0 rounded border-[#C9CCC6] text-[#153B36] focus:ring-[#B08D57]" />
+                    <span className="text-sm leading-7 text-slate-600">
+                      I agree that my details may be used to respond to my enquiry. Further information will be provided in the privacy policy.
+                    </span>
+                  </label>
+
+                  <div className="rounded-2xl border border-[#E5DCCB] bg-[#FBF7EF] p-5">
+                    <p className="text-sm leading-7 text-[#735D38]">
+                      The form design is complete. Technical submission will be connected to the final recipient address in a later step.
+                    </p>
+                  </div>
+
+                  <button type="button" disabled className="inline-flex w-full cursor-not-allowed items-center justify-center gap-3 rounded-full bg-[#153B36]/55 px-7 py-4 font-semibold text-white/80 sm:w-auto">
+                    Send message
+                    <Send aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
+                  </button>
+                </form>
               </div>
             </FadeIn>
           </div>

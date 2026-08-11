@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, CalendarDays, Clock3, MapPin } from "lucide-react";
 
 import Container from "@/components/ui/Container";
+import BuddhistEventCard from "@/components/offers/BuddhistEventCard";
+import { getBuddhistEventsByTemple } from "@/data/buddhistEvents";
 import { getRetreatEventsByTemple } from "@/data/retreatEvents";
 import { getWeeklyCourseEventsByTemple } from "@/data/weeklyCourseEvents";
 import type { TempleLocation } from "../../data/templeLocations";
@@ -16,6 +18,7 @@ export default function TempleLocationPage({
 }: TempleLocationPageProps) {
   const weeklyCourses = getWeeklyCourseEventsByTemple(location.name);
   const retreats = getRetreatEventsByTemple(location.name);
+  const buddhistEvents = getBuddhistEventsByTemple(location.slug);
   const hasOffers = weeklyCourses.length > 0 || retreats.length > 0;
 
   return (
@@ -160,9 +163,22 @@ export default function TempleLocationPage({
                       </dl>
 
                       <p className="mt-6 text-sm leading-6 text-slate-500">
-                        Die Teilnahme ist kostenfrei. Anfänger und Menschen mit
-                        Meditationserfahrung sind herzlich willkommen.
+                        Die Teilnahme ist kostenfrei
+                        {course.registrationRequired === false
+                          ? " und ohne Anmeldung möglich"
+                          : ""}
+                        . Anfänger und Menschen mit Meditationserfahrung sind
+                        herzlich willkommen.
                       </p>
+
+                      {course.registrationRequired !== false ? (
+                        <Link
+                          href={`/anmeldung?course=${course.id}`}
+                          className="mt-7 inline-flex rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+                        >
+                          Zur Meditation anmelden
+                        </Link>
+                      ) : null}
                     </article>
                   ))}
                 </div>
@@ -237,6 +253,75 @@ export default function TempleLocationPage({
           </Container>
         </section>
       ) : null}
+
+      <section
+        aria-labelledby="buddhist-events-heading"
+        className="bg-[#F7F4ED] py-20 lg:py-28"
+      >
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
+              Buddhistischer Jahreskalender
+            </p>
+            <h2
+              id="buddhist-events-heading"
+              className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
+            >
+              Feiertage und Zeremonien in {location.city}
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-slate-600">
+              Hier finden Sie die buddhistischen Feiertage, Gedenktage und
+              besonderen Veranstaltungen dieses Tempels. Noch nicht bestätigte
+              Termine werden später ergänzt.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-7 lg:grid-cols-2">
+            {buddhistEvents.map((event) => (
+              <BuddhistEventCard
+                key={event.id}
+                event={event}
+                templeSlug={location.slug}
+              />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section
+        aria-labelledby="future-retreat-heading"
+        className="bg-white py-20 lg:py-24"
+      >
+        <Container>
+          <div className="mx-auto max-w-4xl rounded-[30px] border border-[#DEDCD4] bg-[#FAF9F5] p-8 shadow-[0_18px_55px_rgba(21,59,54,0.06)] sm:p-10 lg:p-12">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#153B36] text-[#E7D7B8]">
+              <CalendarDays className="h-6 w-6" aria-hidden="true" />
+            </div>
+
+            <p className="mt-7 text-sm font-semibold uppercase tracking-[0.3em] text-[#B08D57]">
+              Ausblick
+            </p>
+
+            <h2
+              id="future-retreat-heading"
+              className="mt-4 font-serif text-3xl leading-tight text-[#153B36] sm:text-4xl"
+            >
+              Mehrtägige Retreats
+            </h2>
+
+            <p className="mt-5 text-xl font-semibold text-[#8C6B35]">
+              Termine folgen in Kürze
+            </p>
+
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+              Für die Zukunft sind mehrtägige Retreats mit Meditation,
+              gemeinsamer Praxis und Übernachtungsmöglichkeit geplant. Die
+              Termine und weiteren Informationen werden rechtzeitig bekannt
+              gegeben.
+            </p>
+          </div>
+        </Container>
+      </section>
     </main>
   );
 }

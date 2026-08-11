@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, Clock3, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin } from "lucide-react";
 
 import Container from "@/components/ui/Container";
 import type { TempleLocation } from "@/data/templeLocations";
-import { getRetreatEventsByTemple } from "@/data/retreatEvents";
-import { getWeeklyCourseEventsByTemple } from "@/data/weeklyCourseEvents";
 
 type EnglishTempleLocationPageProps = {
   location: TempleLocation;
@@ -28,18 +26,9 @@ const descriptions: Record<string, string> = {
     "A meditation centre in the Black Forest for inner calm, Dhamma and shared practice.",
 };
 
-const regions: Record<string, string> = {
-  Bayern: "Bavaria", Niedersachsen: "Lower Saxony", Brandenburg: "Brandenburg",
-  "Nordrhein-Westfalen": "North Rhine-Westphalia", "Rheinland-Pfalz": "Rhineland-Palatinate",
-  "Baden-Württemberg": "Baden-Württemberg",
-};
-
 export default function EnglishTempleLocationPage({
   location,
 }: EnglishTempleLocationPageProps) {
-  const weeklyCourses = getWeeklyCourseEventsByTemple(location.name);
-  const retreats = getRetreatEventsByTemple(location.name);
-  const hasOffers = weeklyCourses.length > 0 || retreats.length > 0;
   return (
     <main>
       <section className="bg-white py-12 sm:py-16 lg:py-20">
@@ -86,7 +75,7 @@ export default function EnglishTempleLocationPage({
                     <p className="font-semibold text-[#153B36]">
                       {location.city}
                     </p>
-                    <p>{regions[location.region] ?? location.region}</p>
+                    <p>{location.region}</p>
                   </div>
                 </div>
 
@@ -122,11 +111,6 @@ export default function EnglishTempleLocationPage({
           </div>
         </Container>
       </section>
-      {hasOffers && <section className="bg-[#F7F6F2] py-20 lg:py-28"><Container>
-        <div className="mx-auto max-w-3xl text-center"><p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">Offers at this location</p><h2 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl">Meditation and retreats in {location.city}</h2><p className="mt-6 text-lg leading-8 text-slate-600">Discover regular meditation sessions and special retreat dates at this temple.</p></div>
-        {weeklyCourses.length > 0 && <div className="mt-14"><h3 className="font-serif text-3xl text-[#153B36]">Regular meditation sessions</h3><div className="mt-7 grid gap-6 md:grid-cols-2">{weeklyCourses.map(course => <article key={course.id} className="rounded-[28px] border border-[#E3E1DA] bg-white p-7"><dl className="space-y-4 text-slate-600"><div className="flex gap-3"><CalendarDays className="h-5 w-5 text-[#B08D57]"/><dd className="font-semibold text-[#153B36]">{course.weekday === "Mittwoch" ? "Every Wednesday" : "Every Friday"}</dd></div><div className="flex gap-3"><Clock3 className="h-5 w-5 text-[#B08D57]"/><dd>{course.time?.replace(" Uhr", "")}</dd></div></dl><p className="mt-6 text-sm leading-6 text-slate-500">Free of charge. Beginners and experienced meditators are welcome.</p></article>)}</div></div>}
-        {retreats.length > 0 && <div className="mt-14"><h3 className="font-serif text-3xl text-[#153B36]">One-day retreats</h3><div className="mt-7 grid gap-6 lg:grid-cols-2">{retreats.map(retreat => <article key={retreat.id} className="rounded-[28px] border border-[#DDD9CF] bg-white p-7"><p className="font-semibold text-[#153B36]">{new Intl.DateTimeFormat("en-GB", { weekday:"long", day:"numeric", month:"long", year:"numeric" }).format(new Date(`${retreat.dateValue}T12:00:00+02:00`))}</p><p className="mt-3 text-slate-600">{retreat.time.replace(" Uhr", "")}</p><p className="mt-5 leading-7 text-slate-600">A full day of meditation, mindfulness and inner reflection. The programme is held in German.</p><Link href={`/en/registration?event=${retreat.id}`} className="mt-7 inline-flex rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white">Register now</Link></article>)}</div></div>}
-      </Container></section>}
     </main>
   );
 }

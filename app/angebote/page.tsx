@@ -68,9 +68,9 @@ const offers = [
     icon: MessagesSquare,
   },
   {
-    title: "Zeremonien und Veranstaltungen",
-    text: "Buddhistische Feiertage, kulturelle Begegnungen und besondere Veranstaltungen in unseren Tempeln.",
-    action: "Angebot ansehen",
+    title: "Buddhistische Angebote",
+    text: "Bucha Khao Phra, buddhistische Feiertage, Gedenktage und besondere Tempelveranstaltungen.",
+    action: "Veranstaltungen ansehen",
     href: routes.ceremonies,
     image: "/images/offers/zeremonien-veranstaltungen-neu.png",
     alt: "Buddhistische Zeremonie mit Dhammakaya-Mönchen und Gästen",

@@ -9,9 +9,11 @@ import {
 import { FormEvent, useState } from "react";
 
 import ContactTopicSelect from "@/components/forms/ContactTopicSelect";
+import ContactLocationSelect from "@/components/forms/ContactLocationSelect";
 import type {
   ContactApiPayload,
   ContactApiResponse,
+  ContactLocation,
   ContactTopic,
 } from "@/types/contact";
 
@@ -30,6 +32,21 @@ function isContactTopic(value: FormDataEntryValue | null): value is ContactTopic
     value === "school" ||
     value === "event" ||
     value === "other"
+  );
+}
+
+function isContactLocation(
+  value: FormDataEntryValue | null,
+): value is ContactLocation {
+  return (
+    value === "general" ||
+    value === "bavaria" ||
+    value === "heilbronn" ||
+    value === "rheinland" ||
+    value === "hamburg" ||
+    value === "berlin" ||
+    value === "nrw" ||
+    value === "schwarzwald"
   );
 }
 
@@ -64,11 +81,20 @@ export default function GeneralContactForm() {
     const formData = new FormData(form);
 
     const topic = formData.get("topic");
+    const location = formData.get("location");
 
     if (!isContactTopic(topic)) {
       setStatus("error");
       setResponseMessage(
         "Bitte wählen Sie ein Thema für Ihre Anfrage aus.",
+      );
+      return;
+    }
+
+    if (!isContactLocation(location)) {
+      setStatus("error");
+      setResponseMessage(
+        "Bitte wählen Sie einen Tempel oder die allgemeine Anfrage aus.",
       );
       return;
     }
@@ -90,10 +116,7 @@ export default function GeneralContactForm() {
         "email",
       ),
       topic,
-      location: getStringValue(
-        formData,
-        "location",
-      ),
+      location,
       message: getStringValue(
         formData,
         "message",
@@ -272,21 +295,10 @@ export default function GeneralContactForm() {
           htmlFor="location"
           className="block text-sm font-semibold text-[#153B36]"
         >
-          Standort oder Region
-          <span className="ml-2 font-normal text-slate-400">
-            optional
-          </span>
+          Welchen Tempel möchten Sie kontaktieren?
         </label>
 
-        <input
-          id="location"
-          name="location"
-          type="text"
-          autoComplete="address-level2"
-          placeholder="Zum Beispiel: Königsbrunn, Ingelheim oder Berlin"
-          disabled={status === "submitting"}
-          className="mt-3 w-full rounded-2xl border border-[#DADCD7] bg-[#FAFAF8] px-5 py-4 text-base text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-[#B08D57] focus:bg-white focus:ring-4 focus:ring-[#B08D57]/10 disabled:cursor-not-allowed disabled:opacity-60"
-        />
+        <ContactLocationSelect disabled={status === "submitting"} />
       </div>
 
       <div>
