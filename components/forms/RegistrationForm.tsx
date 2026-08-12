@@ -52,10 +52,23 @@ const initialFormData: FormDataState = {
 export default function RegistrationForm({
   selectedRetreat,
   selectedCourseGroup,
+  language = "de",
 }: RegistrationFormProps) {
   const isCourseRegistration = Boolean(selectedCourseGroup);
   const isMultiDayRetreat =
     selectedRetreat?.registrationType === "multi-day-retreat";
+  const eventLanguageNotice =
+    language === "th"
+      ? "ภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน"
+      : language === "en"
+        ? "Event language: German"
+        : "Veranstaltungssprache: Deutsch";
+  const phoneLabel =
+    language === "th"
+      ? "หมายเลขโทรศัพท์ (ไม่บังคับ)"
+      : language === "en"
+        ? "Telephone number (optional)"
+        : "Telefonnummer (optional)";
   const defaultCourseId = selectedCourseGroup?.events[0]?.id ?? "";
   const [formData, setFormData] = useState<FormDataState>({
     ...initialFormData,
@@ -91,12 +104,6 @@ export default function RegistrationForm({
     if (!formData.firstName.trim()) return "Bitte geben Sie Ihren Vornamen ein.";
     if (!formData.lastName.trim()) return "Bitte geben Sie Ihren Nachnamen ein.";
     if (!formData.email.trim()) return "Bitte geben Sie Ihre E-Mail-Adresse ein.";
-    if (
-      (isCourseRegistration || isMultiDayRetreat) &&
-      !formData.phone.trim()
-    ) {
-      return "Bitte geben Sie Ihre Telefonnummer ein.";
-    }
     if (
       isMultiDayRetreat &&
       (!formData.emergencyContactName.trim() ||
@@ -252,6 +259,9 @@ export default function RegistrationForm({
               {selectedCourseGroup.postalCode} {selectedCourseGroup.city}
             </p>
             <p>Teilnahme: {selectedCourseGroup.price}</p>
+            <p className="mt-2 font-semibold text-[#153B36]">
+              {eventLanguageNotice}
+            </p>
           </div>
 
           <div className="mt-6">
@@ -295,6 +305,9 @@ export default function RegistrationForm({
               {selectedRetreat.postalCode} {selectedRetreat.city}
             </p>
             <p>Teilnahmebeitrag: {selectedRetreat.price}</p>
+            <p className="mt-2 font-semibold text-[#153B36]">
+              {eventLanguageNotice}
+            </p>
           </div>
         </section>
       ) : (
@@ -338,9 +351,8 @@ export default function RegistrationForm({
         />
         <FormField
           id="phone"
-          label="Telefonnummer"
+          label={phoneLabel}
           type="tel"
-          required={isCourseRegistration || isMultiDayRetreat}
           value={formData.phone}
           onChange={(value) => updateField("phone", value)}
         />

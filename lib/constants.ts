@@ -8,7 +8,7 @@ export const SITE = {
 };
 
 export const ORGANIZATION = {
-  name: "Wat Phra Dhammakaya Germany",
+  name: "DIDE - Dhammakaya International Deutschland gemeinnützige GmbH",
   country: "Deutschland",
-  email: "info@wegnachinnen.de",
+  email: "Kittikuno@gmail.com",
 };

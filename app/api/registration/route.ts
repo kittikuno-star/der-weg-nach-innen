@@ -105,14 +105,6 @@ function isValidRegistrationPayload(
   }
 
   if (
-    (value.registrationType === "onsite" ||
-      value.registrationType === "multi-day-retreat") &&
-    !isNonEmptyString(value.phone)
-  ) {
-    return false;
-  }
-
-  if (
     value.registrationType === "multi-day-retreat" &&
     (!isNonEmptyString(value.emergencyContactName) ||
       !isNonEmptyString(value.emergencyContactPhone))

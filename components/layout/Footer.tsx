@@ -47,6 +47,13 @@ export default function Footer() {
                 ? "Meditation, mindfulness and Buddhist wisdom — open and accessible to everyone."
                 : SITE.description}
             </p>
+            <p className="mt-5 max-w-md text-sm leading-6 text-gray-500">
+              {isThai
+                ? "โครงการของ DIDE - Dhammakaya International Deutschland gemeinnützige GmbH"
+                : isEnglish
+                  ? "A project of DIDE - Dhammakaya International Deutschland gemeinnützige GmbH"
+                  : "Ein Projekt der DIDE - Dhammakaya International Deutschland gemeinnützige GmbH"}
+            </p>
           </div>
 
           <div>
@@ -65,7 +72,7 @@ export default function Footer() {
             <div className="space-y-3 text-gray-600">
               <p>{ORGANIZATION.name}</p>
               <p>{isThai ? "ประเทศเยอรมนี" : isEnglish ? "Germany" : ORGANIZATION.country}</p>
-              <a href="mailto:Kittikuno@gmail.com" className="inline-block transition hover:text-[#153B36]">Kittikuno@gmail.com</a>
+              <a href={`mailto:${ORGANIZATION.email}`} className="inline-block transition hover:text-[#153B36]">{ORGANIZATION.email}</a>
             </div>
           </div>
         </div>

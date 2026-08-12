@@ -26,9 +26,9 @@ export default function ImpressumPage() {
                 Angaben zum Betreiber dieser Website
               </h2>
               <address className="mt-4 not-italic">
-                Phra Somkait Pumarin
+                DIDE - Dhammakaya International Deutschland gemeinnützige GmbH
                 <br />
-                Heinkelstraße 1
+                Heinkelstr. 1
                 <br />
                 86343 Königsbrunn
                 <br />
@@ -37,11 +37,41 @@ export default function ImpressumPage() {
               <p className="mt-4">
                 E-Mail:{" "}
                 <a
-                  href="mailto:info@wegnachinnen.de"
+                  href="mailto:Kittikuno@gmail.com"
                   className="font-medium text-[#153B36] underline decoration-[#B08D57] underline-offset-4"
                 >
-                  info@wegnachinnen.de
+                  Kittikuno@gmail.com
                 </a>
+              </p>
+              <p className="mt-4">
+                Registergericht: Amtsgericht Augsburg
+                <br />
+                Registernummer: HRB 24820
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-serif text-2xl text-[#153B36]">
+                Vertretungsberechtigte Geschäftsführung
+              </h2>
+              <p className="mt-4">
+                Phibul Choompolpaisal, Chantira Ehrlich, Thunthip
+                Wongwaideeying, Wairot Treenet und Nikorn Wongkaew.
+              </p>
+              <p className="mt-3 text-sm text-slate-500">
+                Angaben gemäß dem vorliegenden Handelsregisterauszug des
+                Amtsgerichts Augsburg, Abruf vom 1. Februar 2012. Bei Änderungen
+                im Handelsregister werden diese Angaben aktualisiert.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-serif text-2xl text-[#153B36]">
+                Prokura
+              </h2>
+              <p className="mt-4">
+                Somkait Pumarin und Kantikarn Husdaja, jeweils Gesamtprokura
+                gemeinsam mit einem Geschäftsführer.
               </p>
             </section>
 
@@ -59,8 +89,8 @@ export default function ImpressumPage() {
                 Einordnung des Angebots
               </h2>
               <p className="mt-4">
-                „Der Weg nach innen“ ist ein persönlich verantwortetes
-                Informations- und Vermittlungsangebot von Phra Somkait Pumarin.
+                „Der Weg nach innen“ ist ein Projekt der DIDE - Dhammakaya
+                International Deutschland gemeinnützige GmbH.
                 Die auf dieser Website vorgestellten Tempel, Vereine und
                 Veranstalter bleiben für die Durchführung ihrer jeweiligen
                 Angebote und Veranstaltungen selbst verantwortlich.

@@ -18,7 +18,7 @@ import { weeklyCourseEvents } from "@/data/weeklyCourseEvents";
 export const metadata: Metadata = {
   title: "Meditation Courses | The Way Within",
   description:
-    "Free meditation courses in English at Buddhist temples in Germany, suitable for beginners and experienced meditators.",
+    "Free meditation courses held in German at Buddhist temples in Germany, suitable for beginners and experienced meditators.",
 };
 
 const courseBenefits = [
@@ -178,7 +178,7 @@ export default function EnglishCoursesPage() {
               </div>
 
               <p className="mt-7 text-sm leading-6 text-white/55">
-                Our regular meditation courses are free of charge and open to people with no previous experience.
+                Our regular meditation courses are held in German, free of charge and open to people with no previous experience.
               </p>
             </div>
           </FadeIn>

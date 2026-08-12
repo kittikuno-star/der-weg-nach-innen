@@ -370,7 +370,7 @@ export default function CoursesPage() {
             <p className="mt-6 text-lg leading-8 text-slate-600">
               Unsere regelmäßigen Meditationskurse sind kostenfrei und sowohl
               für Anfänger als auch für Menschen mit Meditationserfahrung
-              geeignet.
+              geeignet. Die Kurse finden in deutscher Sprache statt.
             </p>
           </div>
 

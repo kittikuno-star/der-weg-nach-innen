@@ -168,7 +168,8 @@ export default function TempleLocationPage({
                           ? " und ohne Anmeldung möglich"
                           : ""}
                         . Anfänger und Menschen mit Meditationserfahrung sind
-                        herzlich willkommen.
+                        herzlich willkommen. Die Meditation findet in deutscher
+                        Sprache statt.
                       </p>
 
                       {course.registrationRequired !== false ? (

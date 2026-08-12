@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, MapPin, Navigation } from "lucide-react";
 
 import FadeIn from "@/components/animations/FadeIn";
+import GermanyMap from "@/components/locations/GermanyMap";
 import Container from "@/components/ui/Container";
 import { templeLocations } from "@/data/templeLocations";
 
@@ -28,26 +29,33 @@ export default function EnglishLocationsPage() {
 
   return (
     <main>
-      <section className="border-b border-[#E5DED0] bg-white py-20 sm:py-24 lg:py-28">
+      <section className="border-b border-[#E5DED0] bg-white pb-16 pt-10 sm:pt-12 lg:pb-20">
         <Container>
           <FadeIn>
-            <div className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto max-w-5xl rounded-[32px] border border-[#E4DED1] bg-[#FBFAF6] px-5 py-9 text-center shadow-[0_24px_70px_rgba(21,59,54,0.08)] sm:px-10 lg:px-14">
               <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#9A7644]">
                 Seven locations in Germany
               </p>
-              <h1 className="mt-6 font-serif text-5xl leading-[1.05] tracking-[-0.025em] text-[#153B36] sm:text-6xl lg:text-7xl">
+              <h1 className="mt-4 font-serif text-4xl leading-[1.08] tracking-[-0.025em] text-[#153B36] sm:text-5xl lg:text-6xl">
                 Find a place near you
               </h1>
-              <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-600">
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
                 Discover our Buddhist temples and meditation centres. Choose a
                 location to learn more about visits, meditation and activities.
               </p>
+              <div className="mt-7 rounded-[26px] border border-[#E4DED1] bg-white px-2 py-6 sm:px-8">
+                <GermanyMap language="en" />
+              </div>
+              <Link href="#english-locations" className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition hover:bg-[#244B45]">
+                View all locations
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </FadeIn>
         </Container>
       </section>
 
-      <section className="bg-[#F7F6F2] py-20 lg:py-28">
+      <section id="english-locations" className="scroll-mt-28 bg-[#F7F6F2] py-16 lg:py-24">
         <Container>
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {locations.map((location, index) => (

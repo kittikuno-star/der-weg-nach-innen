@@ -29,9 +29,9 @@ export default function DatenschutzPage() {
           <div className="mt-10 space-y-10 leading-7 text-slate-700">
             <Section title="1. Verantwortlicher">
               <address className="not-italic">
-                Phra Somkait Pumarin
+                DIDE - Dhammakaya International Deutschland gemeinnützige GmbH
                 <br />
-                Heinkelstraße 1
+                Heinkelstr. 1
                 <br />
                 86343 Königsbrunn
                 <br />
@@ -40,18 +40,19 @@ export default function DatenschutzPage() {
               <p className="mt-4">
                 E-Mail:{" "}
                 <a
-                  href="mailto:info@wegnachinnen.de"
+                  href="mailto:Kittikuno@gmail.com"
                   className="font-medium text-[#153B36] underline decoration-[#B08D57] underline-offset-4"
                 >
-                  info@wegnachinnen.de
+                  Kittikuno@gmail.com
                 </a>
               </p>
             </Section>
 
-            <Section title="2. Hosting bei GoDaddy">
+            <Section title="2. Hosting bei Netlify und Domainverwaltung bei GoDaddy">
               <p>
-                Diese Website wird bei GoDaddy gehostet. Beim Aufruf der Website
-                verarbeitet der Hostinganbieter technisch erforderliche Daten,
+                Diese Website wird bei Netlify gehostet. Die Domain wird bei
+                GoDaddy verwaltet. Beim Aufruf der Website verarbeitet Netlify
+                technisch erforderliche Daten,
                 insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs,
                 aufgerufene Seite, übertragene Datenmenge, Browsertyp,
                 Betriebssystem und Referrer-Informationen. Diese Verarbeitung
@@ -62,7 +63,7 @@ export default function DatenschutzPage() {
                 Rechtsgrundlage ist Art. 6 Abs. 1 Buchst. f DSGVO. Das
                 berechtigte Interesse besteht in der sicheren, stabilen und
                 technisch fehlerfreien Bereitstellung der Website. Soweit
-                GoDaddy Daten außerhalb des Europäischen Wirtschaftsraums
+                Netlify Daten außerhalb des Europäischen Wirtschaftsraums
                 verarbeitet, werden die vom Anbieter vorgesehenen Garantien für
                 internationale Datenübermittlungen genutzt.
               </p>
@@ -212,10 +213,10 @@ export default function DatenschutzPage() {
               <p className="mt-4">
                 Zur Ausübung Ihrer Rechte genügt eine Nachricht an{" "}
                 <a
-                  href="mailto:info@wegnachinnen.de"
+                  href="mailto:Kittikuno@gmail.com"
                   className="font-medium text-[#153B36] underline decoration-[#B08D57] underline-offset-4"
                 >
-                  info@wegnachinnen.de
+                  Kittikuno@gmail.com
                 </a>
                 .
               </p>

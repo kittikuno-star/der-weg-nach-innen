@@ -72,7 +72,7 @@ export default function EnglishHomePage() {
         <Container className="relative flex min-h-[760px] items-center py-28 lg:min-h-[calc(100svh-5rem)]">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.38em] text-[#E2CFA8] sm:text-sm">
-              Wat Phra Dhammakaya Germany
+              The Way Within
             </p>
             <h1 className="mt-7 max-w-3xl font-serif text-5xl leading-[0.98] tracking-[-0.025em] sm:text-6xl lg:text-[5.75rem]">
               Peace begins
@@ -238,7 +238,7 @@ export default function EnglishHomePage() {
               <h2 className="mt-7 font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">Ready for your next step?</h2>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/68">Begin wherever feels right for you — with a meditation course, a retreat or a visit to one of our temples.</p>
               <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <Button href="mailto:info@wegnachinnen.de" size="lg" variant="secondary">Contact us<ArrowRight className="ml-2 h-5 w-5" /></Button>
+                <Button href="mailto:Kittikuno@gmail.com" size="lg" variant="secondary">Contact us<ArrowRight className="ml-2 h-5 w-5" /></Button>
                 <Button href="/" size="lg" className="border border-white/25 bg-transparent text-white shadow-none hover:bg-white hover:text-[#153B36]">German website</Button>
               </div>
             </div>

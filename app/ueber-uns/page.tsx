@@ -216,6 +216,10 @@ export default function AboutPage() {
               engagierte Unterstützer. Sie verbinden Erfahrung in Meditation,
               buddhistischer Lehre, Gemeinschaft, Medien und Technik.
             </p>
+            <p className="mt-4 leading-7 text-slate-600">
+              „Der Weg nach Innen“ ist ein Projekt der DIDE - Dhammakaya
+              International Deutschland gemeinnützige GmbH.
+            </p>
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-2">

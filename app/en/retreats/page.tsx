@@ -117,7 +117,7 @@ export default function EnglishRetreatsPage() {
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#EAE7DF]">
                     <Image src={retreat.image} alt={retreat.imageAlt} fill sizes="(min-width: 1024px) 46vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#153B36]/35 via-transparent to-transparent" />
-                    <div className="absolute left-6 top-6 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#153B36] shadow-sm">One-day retreat</div>
+                    <div className="absolute left-6 top-6 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#153B36] shadow-sm">One-day retreat · German</div>
                   </div>
                   <div className="p-7 sm:p-9">
                     <h3 className="font-serif text-3xl leading-tight text-[#153B36]">{retreat.temple}</h3>

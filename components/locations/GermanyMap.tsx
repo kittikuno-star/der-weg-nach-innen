@@ -45,7 +45,37 @@ const locations: MapLocation[] = [
   { id: "bavaria", name: "Wat Phra Dhammakaya Bavaria", city: "Königsbrunn", href: "/standorte/bavaria", x: 286, y: 636, labelX: 22, labelY: -18, labelWidth: 145, image: "/images/temples/bavaria/map-card-01.jpg" },
 ];
 
-export default function GermanyMap() {
+type GermanyMapProps = {
+  language?: "de" | "en" | "th";
+};
+
+const mapCopy = {
+  de: {
+    title: "Standorte in Deutschland",
+    description: "Vollständige Deutschlandkarte mit sieben Tempel- und Meditationsstandorten.",
+    activity: "Meditation · Dhamma · Gemeinschaft",
+  },
+  en: {
+    title: "Locations in Germany",
+    description: "Map of Germany showing seven Buddhist temples and meditation centres.",
+    activity: "Meditation · Dhamma · Community",
+  },
+  th: {
+    title: "สถานที่ในประเทศเยอรมนี",
+    description: "แผนที่ประเทศเยอรมนีแสดงวัดและศูนย์ปฏิบัติธรรมเจ็ดแห่ง",
+    activity: "สมาธิ · ธรรมะ · กัลยาณมิตร",
+  },
+} as const;
+
+export default function GermanyMap({ language = "de" }: GermanyMapProps) {
+  const copy = mapCopy[language];
+  const locationHref = (id: string) =>
+    language === "en"
+      ? `/en/locations/${id}`
+      : language === "th"
+        ? `/th/locations/${id}`
+        : `/standorte/${id}`;
+
   return (
     <div className="mx-auto w-full max-w-[360px] sm:max-w-[390px]">
       <svg
@@ -55,10 +85,8 @@ export default function GermanyMap() {
         aria-labelledby="germany-map-title germany-map-description"
         className="block h-auto w-full overflow-visible"
       >
-        <title id="germany-map-title">Standorte in Deutschland</title>
-        <desc id="germany-map-description">
-          Vollständige Deutschlandkarte mit sieben Tempel- und Meditationsstandorten.
-        </desc>
+        <title id="germany-map-title">{copy.title}</title>
+        <desc id="germany-map-description">{copy.description}</desc>
 
         <defs>
           <filter id="map-shadow" x="-25%" y="-20%" width="150%" height="150%">
@@ -86,7 +114,7 @@ export default function GermanyMap() {
         {locations.map((location) => (
           <Link
             key={location.id}
-            href={location.href}
+            href={locationHref(location.id)}
             aria-label={`${location.name}, ${location.city}`}
             className="group outline-none"
           >
@@ -170,7 +198,7 @@ export default function GermanyMap() {
                         {location.city}
                       </span>
                       <div className="mt-3 border-t border-[#DCCAA8] pt-2 text-[10px] text-slate-500">
-                        Meditation · Dhamma · Gemeinschaft
+                        {copy.activity}
                       </div>
                     </div>
                   </div>
