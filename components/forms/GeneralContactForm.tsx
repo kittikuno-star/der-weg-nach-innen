@@ -99,6 +99,29 @@ export default function GeneralContactForm() {
       return;
     }
 
+    const registrationKind =
+      topic === "retreat"
+        ? "retreat"
+        : topic === "meditation"
+          ? "meditation"
+          : topic === "event"
+            ? "ceremony"
+            : topic === "school" || topic === "visit"
+              ? "school"
+              : undefined;
+
+    if (registrationKind) {
+      const templeQuery =
+        location === "general"
+          ? ""
+          : `&tempel=${encodeURIComponent(location)}`;
+
+      window.location.assign(
+        `/anmeldung?art=${registrationKind}${templeQuery}`,
+      );
+      return;
+    }
+
     const payload: ContactApiPayload = {
       requestType: "contact",
       submittedAt: new Date().toISOString(),

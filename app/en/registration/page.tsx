@@ -1,56 +1,37 @@
 import type { Metadata } from "next";
 
-import RegistrationForm from "@/components/forms/RegistrationForm";
-import { getRetreatEvent } from "@/data/retreatEvents";
-import { getWeeklyCourseGroup } from "@/data/weeklyCourseEvents";
+import RegistrationHub from "@/components/forms/RegistrationHub";
 
 export const metadata: Metadata = {
-  title: "Registration | The Way Within",
-  description: "Register for an in-person meditation course or a one-day retreat.",
+  title: "Central registration | The Way Within",
+  description: "Choose an offer and continue directly to the correct registration form.",
 };
 
-type EnglishRegistrationPageProps = {
-  searchParams: Promise<{ event?: string; course?: string }>;
+type Props = {
+  searchParams: Promise<{
+    art?: string;
+    event?: string;
+    course?: string;
+    ceremony?: string;
+    tempel?: string;
+  }>;
 };
 
-export default async function EnglishRegistrationPage({
-  searchParams,
-}: EnglishRegistrationPageProps) {
-  const { event: eventId, course: courseId } = await searchParams;
-  const selectedRetreat = getRetreatEvent(eventId);
-  const selectedCourseGroup = getWeeklyCourseGroup(courseId);
-  const isCourseRegistration = Boolean(selectedCourseGroup);
+export default async function EnglishRegistrationPage({ searchParams }: Props) {
+  const params = await searchParams;
 
   return (
     <main className="bg-stone-50" lang="en">
-      <section className="border-b border-stone-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
-              {isCourseRegistration ? "In-person meditation course" : "One-day retreat"}
-            </p>
-            <h1 className="font-serif text-4xl tracking-tight text-[#153B36] md:text-5xl">
-              {isCourseRegistration
-                ? "Meditation course registration"
-                : "Retreat registration"}
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-slate-600">
-              {isCourseRegistration
-                ? "Select your preferred regular session and complete the form below."
-                : "Please complete a separate form for each participant. Your selected retreat will be added automatically."}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <RegistrationForm
-            selectedRetreat={selectedRetreat}
-            selectedCourseGroup={selectedCourseGroup}
-            language="en"
-          />
-        </div>
+      <section className="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-24">
+        <RegistrationHub
+          language="en"
+          basePath="/en/registration"
+          kind={params.art}
+          eventId={params.event}
+          courseId={params.course}
+          ceremonyId={params.ceremony}
+          templeSlug={params.tempel}
+        />
       </section>
     </main>
   );

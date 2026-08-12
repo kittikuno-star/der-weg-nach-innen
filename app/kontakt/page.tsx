@@ -29,23 +29,30 @@ const contactReasons = [
   {
     icon: CalendarDays,
     title: "Meditationskurse",
-    text: "Entdecken Sie unsere regelmäßigen Meditationsangebote und finden Sie einen passenden Termin.",
-    href: "/kurse",
-    actionLabel: "Kurse ansehen",
+    text: "Wählen Sie Standort und Termin und gelangen Sie direkt zur Anmeldung.",
+    href: "/anmeldung?art=meditation",
+    actionLabel: "Meditation anmelden",
   },
   {
     icon: Users,
-    title: "Retreats und Veranstaltungen",
-    text: "Informieren Sie sich zuerst über aktuelle Meditationstage, Retreats und besondere Veranstaltungen.",
-    href: "/retreats",
-    actionLabel: "Angebote ansehen",
+    title: "Retreats",
+    text: "Wählen Sie einen ein- oder mehrtägigen Retreat und öffnen Sie das passende Anmeldeformular.",
+    href: "/anmeldung?art=retreat",
+    actionLabel: "Retreat anmelden",
+  },
+  {
+    icon: CalendarDays,
+    title: "Buddhistische Veranstaltungen",
+    text: "Melden Sie sich für Zeremonien, Feiertage und weitere buddhistische Veranstaltungen an.",
+    href: "/anmeldung?art=ceremony",
+    actionLabel: "Veranstaltung anmelden",
   },
   {
     icon: MapPin,
-    title: "Tempelbesuch",
-    text: "Lernen Sie unsere Standorte kennen und finden Sie den Tempel, den Sie besuchen möchten.",
-    href: "/standorte",
-    actionLabel: "Standorte ansehen",
+    title: "Schulbesuch oder Gruppenführung",
+    text: "Öffnen Sie direkt das Anfrageformular für Schulen, Gruppen und Tempelbesuche.",
+    href: "/anmeldung?art=school",
+    actionLabel: "Besuch anfragen",
   },
   {
     icon: MessageCircle,
@@ -115,12 +122,12 @@ export default function ContactPage() {
         icon={Mail}
         headingId="contact-page-heading"
         primaryButton={{
-          label: "Nachricht schreiben",
-          href: "#kontaktformular",
+          label: "Zentrale Anmeldung",
+          href: "/anmeldung",
         }}
         secondaryButton={{
-          label: "Standorte ansehen",
-          href: "/standorte",
+          label: "Nachricht schreiben",
+          href: "#kontaktformular",
         }}
       />
 

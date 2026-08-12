@@ -19,7 +19,14 @@ export default function EnglishContactForm() {
     const data = new FormData(form);
     const topic = value(data, "topic") as ContactTopic;
     if (!topics.includes(topic)) { setStatus("error"); setMessage("Please select a topic."); return; }
-    const payload: ContactApiPayload = { requestType: "contact", submittedAt: new Date().toISOString(), status: "new", firstName: value(data,"firstName"), lastName: value(data,"lastName"), email: value(data,"email"), topic, location: value(data,"location") as ContactLocation, message: value(data,"message"), privacyConsent: data.get("privacy") === "on" };
+    const location = value(data,"location") as ContactLocation;
+    const registrationKind = topic === "retreat" ? "retreat" : topic === "meditation" ? "meditation" : topic === "event" ? "ceremony" : topic === "school" || topic === "visit" ? "school" : undefined;
+    if (registrationKind) {
+      const templeQuery = location === "general" ? "" : `&tempel=${encodeURIComponent(location)}`;
+      window.location.assign(`/en/registration?art=${registrationKind}${templeQuery}`);
+      return;
+    }
+    const payload: ContactApiPayload = { requestType: "contact", submittedAt: new Date().toISOString(), status: "new", firstName: value(data,"firstName"), lastName: value(data,"lastName"), email: value(data,"email"), topic, location, message: value(data,"message"), privacyConsent: data.get("privacy") === "on" };
     setStatus("submitting"); setMessage("");
     try {
       const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json", "Accept-Language": "en" }, body: JSON.stringify(payload) });

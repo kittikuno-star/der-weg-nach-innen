@@ -130,7 +130,11 @@ function isPublicationPermission(
   );
 }
 
-export default function SchoolVisitForm() {
+type SchoolVisitFormProps = {
+  initialTempleSlug?: string;
+};
+
+export default function SchoolVisitForm({ initialTempleSlug }: SchoolVisitFormProps) {
   const [status, setStatus] =
     useState<FormStatus>("idle");
 
@@ -559,7 +563,7 @@ export default function SchoolVisitForm() {
               id="groupType"
               name="groupType"
               required
-              defaultValue=""
+              defaultValue={templeOptions.some((option) => option.value === initialTempleSlug) ? initialTempleSlug : ""}
               disabled={
                 status ===
                 "submitting"
