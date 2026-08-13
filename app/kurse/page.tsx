@@ -41,6 +41,8 @@ const courseFormats = [
     title: "Einführung in die Meditation",
     description:
       "Ein ruhiger und verständlicher Einstieg für Menschen, die Meditation kennenlernen oder neu beginnen möchten.",
+    href: routes.meditation,
+    actionLabel: "Meditation kennenlernen",
     details: [
       {
         icon: Clock3,
@@ -61,6 +63,8 @@ const courseFormats = [
     title: "Wöchentliche Meditation",
     description:
       "Vertiefen Sie Ihre Meditation durch regelmäßige Übung und entwickeln Sie Schritt für Schritt mehr innere Ruhe.",
+    href: "#wochenkurse",
+    actionLabel: "Wochenkurse ansehen",
     details: [
       {
         icon: CalendarDays,
@@ -81,6 +85,8 @@ const courseFormats = [
     title: "Meditationstage",
     description:
       "Ein ganzer Tag bietet Ihnen die Möglichkeit, zur Ruhe zu kommen und Ihre Meditation in geschützter Atmosphäre zu vertiefen.",
+    href: routes.retreats,
+    actionLabel: "Retreats ansehen",
     details: [
       {
         icon: Clock3,
@@ -329,16 +335,8 @@ export default function CoursesPage() {
                     </ul>
 
                     <div className="mt-auto pt-9">
-                      <Button
-                        href={
-                          course.title === "Meditationstage"
-                            ? routes.retreats
-                            : "#wochenkurse"
-                        }
-                      >
-                        {course.title === "Meditationstage"
-                          ? "Retreats ansehen"
-                          : "Wochenkurse ansehen"}
+                      <Button href={course.href}>
+                        {course.actionLabel}
                       </Button>
                     </div>
                   </div>
@@ -370,7 +368,7 @@ export default function CoursesPage() {
             <p className="mt-6 text-lg leading-8 text-slate-600">
               Unsere regelmäßigen Meditationskurse sind kostenfrei und sowohl
               für Anfänger als auch für Menschen mit Meditationserfahrung
-              geeignet. Die Kurse finden in deutscher Sprache statt.
+              geeignet.
             </p>
           </div>
 
@@ -480,12 +478,9 @@ export default function CoursesPage() {
                         Teilnahme:
                       </span>{" "}
                       {course.price}
-                      {isActive && !course.registrationRequired
-                        ? " – ohne Anmeldung"
-                        : ""}
                     </div>
 
-                    {isActive && course.registrationRequired && (
+                    {isActive && (
                       <div className="mt-auto pt-8">
                         <Button href={`/anmeldung?course=${course.id}`}>
                           Jetzt anmelden
@@ -499,8 +494,10 @@ export default function CoursesPage() {
           </div>
 
           <p className="mx-auto mt-10 max-w-4xl text-center text-sm leading-7 text-slate-500">
-            Änderungen sind vorbehalten. Aktuelle Termine und kurzfristige
-            Änderungen werden auf dieser Website veröffentlicht.
+            Änderungen sind vorbehalten. Bei kurzfristigen Änderungen
+            informieren wir angemeldete Teilnehmende persönlich, sofern
+            Kontaktdaten vorliegen. Aktuelle Termine werden außerdem auf dieser
+            Website veröffentlicht.
           </p>
         </Container>
       </section>

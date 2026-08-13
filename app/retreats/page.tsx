@@ -21,7 +21,10 @@ import FadeIn from "@/components/animations/FadeIn";
 import PageHero from "@/components/sections/PageHero";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
-import { retreatEvents } from "@/data/retreatEvents";
+import {
+  getPastRetreatEvents,
+  getUpcomingRetreatEvents,
+} from "@/data/retreatEvents";
 
 export const metadata: Metadata = {
   title: "Retreats | Der Weg nach innen",
@@ -29,7 +32,7 @@ export const metadata: Metadata = {
     "Entdecken Sie Meditationstage und Retreats von Wat Phra Dhammakaya in Deutschland. Zeit für Ruhe, Achtsamkeit und neue innere Klarheit.",
 };
 
-const currentRetreats = retreatEvents;
+export const dynamic = "force-dynamic";
 
 const benefits = [
   {
@@ -173,6 +176,9 @@ const frequentlyAskedQuestions = [
 ];
 
 export default function RetreatsPage() {
+  const upcomingRetreats = getUpcomingRetreatEvents();
+  const pastRetreats = getPastRetreatEvents();
+
   return (
     <>
       <PageHero
@@ -201,109 +207,162 @@ export default function RetreatsPage() {
           <FadeIn>
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
-                Aktuelle Termine
+                Kommende Veranstaltungen
               </p>
               <h2
                 id="current-retreats-heading"
                 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
               >
-                One Day Retreats im August 2026
+                Kommende One Day Retreats
               </h2>
               <p className="mt-6 text-lg leading-8 text-slate-600">
-                Ein ganzer Tag für Meditation, Achtsamkeit und innere Einkehr.
-                Beide Angebote finden in deutscher Sprache statt und sind für
-                Anfänger sowie Fortgeschrittene geeignet.
+                Hier finden Sie alle bevorstehenden Meditationstage. Sobald ein
+                Termin vorbei ist, wird er automatisch in den Bereich
+                „Vergangene Veranstaltungen“ verschoben.
               </p>
             </div>
           </FadeIn>
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-2">
-            {currentRetreats.map((retreat, index) => (
-              <FadeIn key={retreat.temple} delay={index * 0.1}>
-                <article className="group h-full overflow-hidden rounded-[30px] border border-[#DDD9CF] bg-white shadow-[0_20px_60px_rgba(21,59,54,0.07)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(21,59,54,0.12)]">
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#EAE7DF]">
-                    <Image
-                      src={retreat.image}
-                      alt={retreat.imageAlt}
-                      fill
-                      sizes="(min-width: 1024px) 46vw, 100vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                    <div
-                      aria-hidden="true"
-                      className="absolute inset-0 bg-gradient-to-t from-[#153B36]/35 via-transparent to-transparent"
-                    />
-                    <div className="absolute left-6 top-6 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#153B36] shadow-sm backdrop-blur-sm">
-                      One Day Retreat
+          {upcomingRetreats.length > 0 ? (
+            <div className="mt-14 grid gap-8 lg:grid-cols-2">
+              {upcomingRetreats.map((retreat, index) => (
+                <FadeIn key={retreat.id} delay={index * 0.1}>
+                  <article className="group h-full overflow-hidden rounded-[30px] border border-[#DDD9CF] bg-white shadow-[0_20px_60px_rgba(21,59,54,0.07)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(21,59,54,0.12)]">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#EAE7DF]">
+                      <Image
+                        src={retreat.image}
+                        alt={retreat.imageAlt}
+                        fill
+                        sizes="(min-width: 1024px) 46vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 bg-gradient-to-t from-[#153B36]/35 via-transparent to-transparent"
+                      />
+                      <div className="absolute left-6 top-6 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#153B36] shadow-sm backdrop-blur-sm">
+                        One Day Retreat
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="p-7 sm:p-9">
-                    <h3 className="font-serif text-3xl leading-tight text-[#153B36]">
+                    <div className="p-7 sm:p-9">
+                      <h3 className="font-serif text-3xl leading-tight text-[#153B36]">
+                        {retreat.temple}
+                      </h3>
+
+                      <dl className="mt-7 space-y-4 text-slate-600">
+                        <div className="flex items-start gap-3">
+                          <CalendarDays aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
+                          <div><dt className="sr-only">Datum</dt><dd>{retreat.dateLabel}</dd></div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <Clock3 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
+                          <div><dt className="sr-only">Uhrzeit</dt><dd>{retreat.time}</dd></div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <MapPin aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
+                          <div>
+                            <dt className="sr-only">Adresse</dt>
+                            <dd className="leading-7">
+                              <span className="block font-medium text-[#153B36]">{retreat.street}</span>
+                              <span className="block">{retreat.postalCode} {retreat.city}</span>
+                            </dd>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <Euro aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
+                          <div><dt className="sr-only">Teilnahmebeitrag</dt><dd>Teilnahmebeitrag: {retreat.price}</dd></div>
+                        </div>
+                      </dl>
+
+                      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                        <Button href={`/anmeldung?event=${retreat.id}`} className="w-full sm:w-auto">
+                          Jetzt anmelden
+                        </Button>
+                        <Button href="#tagesprogramm" variant="outline" className="w-full sm:w-auto">
+                          Programm ansehen
+                        </Button>
+                      </div>
+                    </div>
+                  </article>
+                </FadeIn>
+              ))}
+            </div>
+          ) : (
+            <FadeIn>
+              <div className="mx-auto mt-12 max-w-2xl rounded-[24px] border border-[#DED9CD] bg-white px-6 py-8 text-center text-slate-600">
+                Zurzeit ist kein weiterer Retreat-Termin veröffentlicht. Neue
+                Termine werden hier ergänzt, sobald sie feststehen.
+              </div>
+            </FadeIn>
+          )}
+
+          {upcomingRetreats.length > 0 ? (
+            <FadeIn delay={0.15}>
+              <div className="mt-10 rounded-[24px] border border-[#DED9CD] bg-white px-6 py-5 text-center text-slate-600 sm:px-8">
+                <span className="font-semibold text-[#153B36]">Im Teilnahmebeitrag enthalten:</span>{" "}
+                geführte Meditationen, Dhamma-Vorträge, Mittagessen und Tee-Pause.
+              </div>
+            </FadeIn>
+          ) : null}
+        </Container>
+      </section>
+
+      {pastRetreats.length > 0 ? (
+        <section
+          aria-labelledby="past-retreats-heading"
+          className="border-t border-[#E4E1D8] bg-white py-16 lg:py-20"
+        >
+          <Container>
+            <FadeIn>
+              <div className="mx-auto max-w-3xl text-center">
+                <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#9A845E]">
+                  Rückblick
+                </p>
+                <h2
+                  id="past-retreats-heading"
+                  className="mt-5 font-serif text-3xl leading-tight text-[#153B36] sm:text-4xl"
+                >
+                  Vergangene Veranstaltungen
+                </h2>
+                <p className="mt-5 leading-7 text-slate-600">
+                  Bereits stattgefundene Meditationstage bleiben hier als
+                  Übersicht erhalten. Eine Anmeldung ist für diese Termine
+                  nicht mehr möglich.
+                </p>
+              </div>
+            </FadeIn>
+
+            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {pastRetreats.map((retreat, index) => (
+                <FadeIn key={retreat.id} delay={index * 0.06}>
+                  <article className="h-full rounded-[24px] border border-[#E3E1DA] bg-[#F8F7F3] p-6">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#9A845E]">
+                      One Day Retreat
+                    </p>
+                    <h3 className="mt-3 font-serif text-2xl leading-tight text-[#153B36]">
                       {retreat.temple}
                     </h3>
-
-                    <dl className="mt-7 space-y-4 text-slate-600">
+                    <dl className="mt-5 space-y-3 text-sm text-slate-600">
                       <div className="flex items-start gap-3">
-                        <CalendarDays aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
+                        <CalendarDays aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-[#B08D57]" />
                         <div><dt className="sr-only">Datum</dt><dd>{retreat.dateLabel}</dd></div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <Clock3 aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
-                        <div><dt className="sr-only">Uhrzeit</dt><dd>{retreat.time}</dd></div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <MapPin aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
-                        <div className="flex items-start gap-3">
-  <MapPin
-    aria-hidden="true"
-    className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
-    strokeWidth={1.8}
-  />
-
-  <div>
-    <dt className="sr-only">Adresse</dt>
-
-    <dd className="leading-7">
-      <span className="block font-medium text-[#153B36]">
-        {retreat.street}
-      </span>
-
-      <span className="block">
-        {retreat.postalCode} {retreat.city}
-      </span>
-    </dd>
-  </div>
-</div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Euro aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" strokeWidth={1.8} />
-                        <div><dt className="sr-only">Teilnahmebeitrag</dt><dd>Teilnahmebeitrag: {retreat.price}</dd></div>
+                        <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-[#B08D57]" />
+                        <div><dt className="sr-only">Ort</dt><dd>{retreat.city}</dd></div>
                       </div>
                     </dl>
-
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                      <Button href={`/anmeldung?event=${retreat.id}`} className="w-full sm:w-auto">
-                        Jetzt anmelden
-                      </Button>
-                      <Button href="#tagesprogramm" variant="outline" className="w-full sm:w-auto">
-                        Programm ansehen
-                      </Button>
-                    </div>
-                  </div>
-                </article>
-              </FadeIn>
-            ))}
-          </div>
-
-          <FadeIn delay={0.15}>
-            <div className="mt-10 rounded-[24px] border border-[#DED9CD] bg-white px-6 py-5 text-center text-slate-600 sm:px-8">
-              <span className="font-semibold text-[#153B36]">Im Teilnahmebeitrag enthalten:</span>{" "}
-              geführte Meditationen, Dhamma-Vorträge, Mittagessen und Tee-Pause.
+                    <p className="mt-5 text-sm font-medium text-slate-500">
+                      Veranstaltung beendet
+                    </p>
+                  </article>
+                </FadeIn>
+              ))}
             </div>
-          </FadeIn>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      ) : null}
 
       <section
         aria-labelledby="retreat-introduction-heading"

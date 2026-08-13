@@ -46,6 +46,21 @@ export const retreatEvents: RetreatEvent[] = [
     registrationType: "one-day-retreat",
   },
   {
+    id: "hamburg-2026-10-10",
+    temple: "Wat Phra Dhammakaya Hamburg",
+    dateLabel: "Samstag, 10. Oktober 2026",
+    dateValue: "2026-10-10",
+    time: "09:30 – 17:00 Uhr",
+    street: "Am Silberberg 1",
+    postalCode: "29581",
+    city: "Gerdau",
+    region: "Niedersachsen",
+    price: "25 €",
+    image: "/images/temples/hamburg/map-card-01.png",
+    imageAlt: "Wat Phra Dhammakaya Hamburg in Gerdau",
+    registrationType: "one-day-retreat",
+  },
+  {
     id: "heilbronn-2026-10-17",
     temple: "Wat Buddha Heilbronn",
     dateLabel: "Samstag, 17. Oktober 2026",
@@ -62,10 +77,48 @@ export const retreatEvents: RetreatEvent[] = [
   },
 ];
 
+function getLocalDateValue(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function isRetreatPast(event: RetreatEvent, now = new Date()) {
+  return event.dateValue < getLocalDateValue(now);
+}
+
+export function getUpcomingRetreatEvents(now = new Date()) {
+  const today = getLocalDateValue(now);
+
+  return retreatEvents
+    .filter((event) => event.dateValue >= today)
+    .sort((a, b) => a.dateValue.localeCompare(b.dateValue));
+}
+
+export function getPastRetreatEvents(now = new Date()) {
+  const today = getLocalDateValue(now);
+
+  return retreatEvents
+    .filter((event) => event.dateValue < today)
+    .sort((a, b) => b.dateValue.localeCompare(a.dateValue));
+}
+
 export function getRetreatEvent(id?: string) {
   return retreatEvents.find((event) => event.id === id);
 }
 
 export function getRetreatEventsByTemple(temple: string) {
   return retreatEvents.filter((event) => event.temple === temple);
+}
+
+export function getUpcomingRetreatEventsByTemple(
+  temple: string,
+  now = new Date(),
+) {
+  const today = getLocalDateValue(now);
+
+  return retreatEvents
+    .filter((event) => event.temple === temple && event.dateValue >= today)
+    .sort((a, b) => a.dateValue.localeCompare(b.dateValue));
 }

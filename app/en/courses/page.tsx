@@ -12,7 +12,7 @@ import {
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
-import { weeklyCourseEvents } from "@/data/weeklyCourseEvents";
+import { getWeeklyCourseGroups } from "@/data/weeklyCourseEvents";
 
 
 export const metadata: Metadata = {
@@ -45,6 +45,8 @@ const courseFormats = [
     title: "Introduction to meditation",
     description:
       "A calm and accessible introduction for anyone who would like to discover meditation or begin again.",
+    href: "/en/meditation",
+    actionLabel: "Learn about meditation",
     details: [
       {
         icon: Clock3,
@@ -65,6 +67,8 @@ const courseFormats = [
     title: "Weekly meditation",
     description:
       "Deepen your meditation through regular practice and gradually develop greater inner calm.",
+    href: "#wochenkurse",
+    actionLabel: "View weekly courses",
     details: [
       {
         icon: CalendarDays,
@@ -85,6 +89,8 @@ const courseFormats = [
     title: "Meditation days",
     description:
       "A full day gives you the opportunity to slow down and deepen your meditation in a supportive setting.",
+    href: "/en/retreats",
+    actionLabel: "View retreats",
     details: [
       {
         icon: Clock3,
@@ -124,6 +130,18 @@ const courseSteps = [
     text: "Afterwards, there is time for questions, personal experiences and practical guidance for everyday life.",
   },
 ];
+
+const weeklyCourseGroups = getWeeklyCourseGroups();
+
+function englishSchedule(schedule?: string) {
+  if (schedule === "Jeden Mittwoch") return "Every Wednesday";
+  if (schedule === "Jeden Freitag") return "Every Friday";
+  return schedule ?? "";
+}
+
+function englishTime(time?: string) {
+  return time?.replace(" Uhr", "") ?? "";
+}
 
 export default function EnglishCoursesPage() {
   return (
@@ -324,16 +342,8 @@ export default function EnglishCoursesPage() {
                     </ul>
 
                     <div className="mt-auto pt-9">
-                      <Button
-                        href={
-                          course.title === "Meditation days"
-                            ? "/en/retreats"
-                            : "#wochenkurse"
-                        }
-                      >
-                        {course.title === "Meditation days"
-                          ? "View retreats"
-                          : "View weekly courses"}
+                      <Button href={course.href}>
+                        {course.actionLabel}
                       </Button>
                     </div>
                   </div>
@@ -369,7 +379,7 @@ export default function EnglishCoursesPage() {
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-2">
-            {weeklyCourseEvents.map((course, index) => {
+            {weeklyCourseGroups.map((course, index) => {
               const isActive = course.status === "active";
 
               return (
@@ -386,55 +396,53 @@ export default function EnglishCoursesPage() {
                     </h3>
 
                     {isActive ? (
-                      <dl className="mt-8 space-y-5 text-slate-600">
-                        <div className="flex items-start gap-3">
-                          <CalendarDays
-                            aria-hidden="true"
-                            className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
-                            strokeWidth={1.8}
-                          />
-
-                          <div>
-                            <dt className="sr-only">Day</dt>
-                            <dd className="font-medium text-[#153B36]">
-                              {course.id === "bavaria-weekly-wednesday" ? "Every Wednesday" : course.id === "heilbronn-weekly-friday" ? "Every Friday" : course.schedule}
-                            </dd>
-                          </div>
+                      <div className="mt-8 space-y-6">
+                        <div className="space-y-4">
+                          {course.events.map((event) => (
+                            <div
+                              key={event.id}
+                              className="rounded-2xl border border-[#E4E5E1] bg-white px-5 py-4"
+                            >
+                              <div className="flex items-start gap-3">
+                                <CalendarDays
+                                  aria-hidden="true"
+                                  className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
+                                  strokeWidth={1.8}
+                                />
+                                <p className="font-medium text-[#153B36]">
+                                  {englishSchedule(event.schedule)}
+                                </p>
+                              </div>
+                              <div className="mt-3 flex items-start gap-3">
+                                <Clock3
+                                  aria-hidden="true"
+                                  className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
+                                  strokeWidth={1.8}
+                                />
+                                <p className="text-slate-600">
+                                  {englishTime(event.time)}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
                         </div>
 
-                        <div className="flex items-start gap-3">
-                          <Clock3
-                            aria-hidden="true"
-                            className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
-                            strokeWidth={1.8}
-                          />
-
-                          <div>
-                            <dt className="sr-only">Time</dt>
-                            <dd>{course.time?.replace(" Uhr", "") }</dd>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-3 text-slate-600">
                           <MapPin
                             aria-hidden="true"
                             className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
                             strokeWidth={1.8}
                           />
-
-                          <div>
-                            <dt className="sr-only">Address</dt>
-                            <dd className="leading-7">
-                              <span className="block font-medium text-[#153B36]">
-                                {course.street}
-                              </span>
-                              <span className="block">
-                                {course.postalCode} {course.city}
-                              </span>
-                            </dd>
+                          <div className="leading-7">
+                            <p className="font-medium text-[#153B36]">
+                              {course.street}
+                            </p>
+                            <p>
+                              {course.postalCode} {course.city}
+                            </p>
                           </div>
                         </div>
-                      </dl>
+                      </div>
                     ) : (
                       <div className="mt-8 space-y-6">
                         <div className="flex items-start gap-3 text-slate-600">
@@ -443,7 +451,6 @@ export default function EnglishCoursesPage() {
                             className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
                             strokeWidth={1.8}
                           />
-
                           <div className="leading-7">
                             <p className="font-medium text-[#153B36]">
                               {course.street}
@@ -470,12 +477,12 @@ export default function EnglishCoursesPage() {
                       <span className="font-semibold text-[#153B36]">
                         Participation:
                       </span>{" "}
-                      {course.price === "kostenfrei" ? "free of charge" : course.price}
+                      free of charge
                     </div>
 
                     {isActive && (
                       <div className="mt-auto pt-8">
-                        <Button href={`/en/contact`}>
+                        <Button href={`/en/registration?course=${course.events[0].id}`}>
                           Register now
                         </Button>
                       </div>

@@ -6,14 +6,18 @@ import { ArrowRight, BookOpenText, CalendarDays, CheckCircle2, Clock3, Globe2, H
 
 import FadeIn from "@/components/animations/FadeIn";
 import GermanyMap from "@/components/locations/GermanyMap";
+import TempleLocationPage from "@/components/locations/TempleLocationPage";
 import Container from "@/components/ui/Container";
-import { retreatEvents } from "@/data/retreatEvents";
+import { getPastRetreatEvents, getUpcomingRetreatEvents } from "@/data/retreatEvents";
 import { templeLocations } from "@/data/templeLocations";
+import { getWeeklyCourseGroups } from "@/data/weeklyCourseEvents";
 
 export const metadata: Metadata = {
   title: "เส้นทางสู่ความสงบภายใน",
   description: "การทำสมาธิ สติ และหลักธรรมทางพระพุทธศาสนาในประเทศเยอรมนี เปิดกว้างสำหรับทุกคน",
 };
+
+export const dynamic = "force-dynamic";
 
 type PageContent = { eyebrow: string; title: string; intro: string; sections: { title: string; text: string; items?: string[] }[]; cta?: { label: string; href: string } };
 
@@ -30,15 +34,7 @@ const pageImages: Record<string, string> = {
   privacy: "/images/meditation/why-meditation-01.png",
 };
 
-const locations = [
-  ["bavaria", "วัดพระธรรมกายบาวาเรีย", "Heinkelstraße 1, 86343 Königsbrunn", "ทุกวันพุธ เวลา 19:30–21:00 น."],
-  ["rheinland", "วัดพระธรรมกายไรน์ลันด์", "Ingelheim am Rhein", "กิจกรรมสมาธิและ One Day Retreat ตามกำหนดการ"],
-  ["nrw", "วัดพระธรรมกายนอร์ดไรน์ เวสต์ฟาเลิน", "Nordrhein-Westfalen", "หลักสูตรสมาธิและกิจกรรมทางพระพุทธศาสนา"],
-  ["berlin", "วัดพระธรรมกายเบอร์ลิน", "Dahlewitz, Brandenburg", "การทำสมาธิและกิจกรรมสำหรับผู้สนใจ"],
-  ["hamburg", "วัดพระธรรมกายฮัมบวร์ก", "Am Silberberg 1, 29581 Gerdau", "One Day Retreat วันที่ 10 ตุลาคม 2026"],
-  ["heilbronn", "วัดพุทธไฮล์บรอนน์", "Waldeck 7, 71543 Wüstenrot", "หลักสูตรสมาธิและ One Day Retreat วันที่ 17 ตุลาคม 2026"],
-  ["schwarzwald", "วัดพระธรรมกายชวาร์ซวัลด์", "Baden-Württemberg", "การทำสมาธิและกิจกรรมตามกำหนดการ"],
-] as const;
+
 
 const pages: Record<string, PageContent> = {
   home: { eyebrow: "DER WEG NACH INNEN", title: "หยุดพัก เพื่อค้นพบความสงบภายใน", intro: "พื้นที่สำหรับการทำสมาธิ การเจริญสติ และการเรียนรู้หลักธรรมทางพระพุทธศาสนาในประเทศเยอรมนี ไม่ว่าท่านจะเพิ่งเริ่มต้นหรือมีประสบการณ์แล้ว ทุกคนสามารถเข้าร่วมได้", sections: [
@@ -51,10 +47,6 @@ const pages: Record<string, PageContent> = {
     { title: "ประโยชน์ในชีวิตประจำวัน", text: "การฝึกอย่างสม่ำเสมอช่วยให้เรามีสติ รับมือกับความเครียดได้ดีขึ้น และมองเหตุการณ์ต่าง ๆ ด้วยความชัดเจนและเมตตามากขึ้น" },
     { title: "สำหรับผู้เริ่มต้น", text: "เริ่มจากช่วงเวลาสั้น ๆ ในท่านั่งที่สบาย ไม่คาดหวังผลเร็วเกินไป และฝึกด้วยความสม่ำเสมอ ความสงบจะค่อย ๆ เติบโตจากภายใน" },
   ], cta: { label: "ดูหลักสูตรสมาธิ", href: "/th/courses" } },
-  courses: { eyebrow: "หลักสูตรสมาธิ", title: "ฝึกสมาธิร่วมกันอย่างสม่ำเสมอ", intro: "หลักสูตรของเราเหมาะสำหรับทั้งผู้เริ่มต้นและผู้มีประสบการณ์ ดำเนินกิจกรรมเป็นภาษาเยอรมันและไม่มีค่าใช้จ่าย", sections: [
-    { title: "รูปแบบของหลักสูตร", text: "แต่ละครั้งประกอบด้วยคำแนะนำที่เข้าใจง่าย การทำสมาธิร่วมกัน และช่วงแลกเปลี่ยนประสบการณ์อย่างเป็นกันเอง\n\nภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน" },
-    { title: "หลักสูตรที่จัดเป็นประจำ", text: "กรุณาตรวจสอบกำหนดการล่าสุดก่อนเดินทาง\n\nภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน", items: ["Königsbrunn: ทุกวันพุธ เวลา 19:30–21:00 น.", "กิจกรรมตามกำหนดการที่ Heilbronn, Rheinland, NRW, Berlin, Hamburg และ Schwarzwald", "เหมาะสำหรับผู้เริ่มต้นและผู้มีประสบการณ์"] },
-  ], cta: { label: "ลงทะเบียนเข้าร่วม", href: "/th/registration" } },
   retreats: { eyebrow: "ONE DAY RETREAT", title: "หนึ่งวันเพื่อความสงบและการฟื้นฟูใจ", intro: "วันปฏิบัติธรรมเปิดโอกาสให้ท่านได้หยุดพักจากความเร่งรีบ ฝึกสมาธิอย่างลึกซึ้งขึ้น และนำความสงบกลับไปสู่ชีวิตประจำวัน", sections: [
     { title: "กิจกรรมตลอดวัน", text: "One Day Retreat (ภาษาเยอรมัน)\n\nประกอบด้วยการทำสมาธิแบบมีผู้นำ การเจริญสติ ธรรมบรรยาย และช่วงพักอย่างเพียงพอ\n\nภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน", items: ["30 สิงหาคม 2026 — Wat Phra Dhammakaya Bavaria, Königsbrunn", "10 ตุลาคม 2026 — Wat Phra Dhammakaya Hamburg, Gerdau", "17 ตุลาคม 2026 — Wat Buddha Heilbronn, Wüstenrot", "เวลาโดยทั่วไป 09:30–17:00 น. ค่าเข้าร่วม 25 ยูโร"] },
     { title: "ใครสามารถเข้าร่วมได้", text: "ผู้ใหญ่ทั้งผู้เริ่มต้นและผู้มีประสบการณ์สามารถเข้าร่วมได้ กรุณาลงทะเบียนล่วงหน้าเนื่องจากจำนวนที่มีจำกัด" },
@@ -64,7 +56,6 @@ const pages: Record<string, PageContent> = {
     { title: "การเรียนรู้และการแลกเปลี่ยน", text: "การบรรยาย สนทนาธรรม กิจกรรมเยี่ยมชมวัดสำหรับโรงเรียน และการเรียนรู้พระพุทธศาสนาในบรรยากาศที่เปิดกว้าง" },
     { title: "พิธีกรรมและกิจกรรมวัฒนธรรม", text: "โอกาสในการทำความรู้จักประเพณีทางพระพุทธศาสนาอย่างเข้าใจ พร้อมคำอธิบายเป็นภาษาเยอรมัน" },
   ], cta: { label: "ติดต่อสอบถาม", href: "/th/contact" } },
-  locations: { eyebrow: "สถานที่", title: "วัดและศูนย์ปฏิบัติธรรมในประเทศเยอรมนี", intro: "ค้นหากิจกรรมใกล้ท่าน แต่ละแห่งมีตารางกิจกรรมแตกต่างกัน กรุณาตรวจสอบรายละเอียดก่อนเดินทาง", sections: locations.map(([slug, name, address, schedule]) => ({ title: name, text: `${address} — ${schedule}`, items: [`ดูรายละเอียด: /th/locations/${slug}`] })), cta: { label: "สอบถามสถานที่", href: "/th/contact" } },
   inspiration: { eyebrow: "แรงบันดาลใจ", title: "ความสงบเริ่มต้นจากช่วงเวลานี้", intro: "ข้อคิดและหลักธรรมที่ช่วยให้เรากลับมามีสติ เข้าใจตนเอง และดำเนินชีวิตด้วยความเมตตา", sections: [
     { title: "หยุดก่อนที่จะตอบสนอง", text: "เมื่อมีสิ่งมากระทบใจ การหยุดเพียงชั่วขณะช่วยให้เราเห็นอารมณ์ของตนเอง และเลือกตอบสนองด้วยปัญญาแทนความเคยชิน" },
     { title: "ความสุขที่ไม่ต้องแสวงหาไกล", text: "ความสุขที่มั่นคงไม่ได้ขึ้นอยู่กับการได้ทุกอย่างดังใจ แต่เกิดจากใจที่รู้จักพอ รู้จักวาง และเห็นคุณค่าของสิ่งที่มีอยู่" },
@@ -91,17 +82,15 @@ const pages: Record<string, PageContent> = {
 };
 
 function LocationPage({ slug }: { slug: string }) {
-  const location = locations.find(([id]) => id === slug);
+  const location = templeLocations[slug];
   if (!location) notFound();
-  const [, name, address, schedule] = location;
-  return <ThaiPage image={templeLocations[slug]?.image ?? "/images/hero/hero-01.png"} content={{ eyebrow: "สถานที่ปฏิบัติธรรม", title: name, intro: address, sections: [
-    { title: "กิจกรรม", text: schedule },
-    { title: "ก่อนเดินทาง", text: "กรุณาตรวจสอบวัน เวลา และการลงทะเบียนล่วงหน้า เนื่องจากกำหนดการอาจแตกต่างกันในแต่ละสัปดาห์" },
-    { title: "สำหรับผู้มาใหม่", text: "ทุกคนสามารถเข้าร่วมได้ ไม่จำเป็นต้องมีประสบการณ์ทำสมาธิหรือเป็นชาวพุทธ กรุณาสวมเสื้อผ้าที่สุภาพและสบาย" },
-  ], cta: { label: "สอบถามหรือลงทะเบียน", href: "/th/contact" } }} />;
+
+  return <TempleLocationPage location={location} language="th" />;
 }
 
 function ThaiLocationsPage() {
+  const locations = Object.values(templeLocations);
+
   return (
     <main lang="th" className="bg-[#F7F6F2] text-slate-700">
       <section className="border-b border-[#E5DED0] bg-white pb-16 pt-10 sm:pt-12 lg:pb-20">
@@ -123,23 +112,92 @@ function ThaiLocationsPage() {
       <section id="thai-locations" className="scroll-mt-28 py-16 lg:py-24">
         <Container>
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {locations.map(([slug, name, address], index) => {
-              const temple = templeLocations[slug];
+            {locations.map((temple, index) => (
+              <FadeIn key={temple.slug} delay={index * 0.05}>
+                <Link href={`/th/locations/${temple.slug}`} className="group block h-full overflow-hidden rounded-[28px] border border-[#E0E1DC] bg-white shadow-[0_16px_50px_rgba(21,59,54,0.05)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_28px_80px_rgba(21,59,54,0.12)]">
+                  <article className="flex h-full flex-col">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#E9E7DF]">
+                      <Image src={temple.image ?? "/images/hero/hero-01.png"} alt={temple.nameTh ?? temple.name} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
+                      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#153B36]/40 to-transparent" />
+                    </div>
+                    <div className="flex flex-1 flex-col p-7">
+                      <div className="flex items-start gap-2 text-sm leading-6 text-slate-500"><Navigation className="mt-1 h-4 w-4 shrink-0 text-[#B08D57]" /><span>{temple.street}, {temple.postalCode} {temple.city}</span></div>
+                      <h2 className="mt-4 text-2xl font-semibold leading-tight text-[#153B36]">{temple.nameTh ?? temple.name}</h2>
+                      <span className="mt-7 inline-flex items-center gap-2 font-semibold text-[#153B36]">ดูสถานที่<ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                    </div>
+                  </article>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </Container>
+      </section>
+    </main>
+  );
+}
+
+function thaiCourseSchedule(weekday?: string, fallback?: string) {
+  const weekdayMap: Record<string, string> = {
+    Montag: "ทุกวันจันทร์",
+    Dienstag: "ทุกวันอังคาร",
+    Mittwoch: "ทุกวันพุธ",
+    Donnerstag: "ทุกวันพฤหัสบดี",
+    Freitag: "ทุกวันศุกร์",
+    Samstag: "ทุกวันเสาร์",
+    Sonntag: "ทุกวันอาทิตย์",
+  };
+
+  return weekday ? weekdayMap[weekday] ?? fallback ?? weekday : fallback ?? "";
+}
+
+function ThaiCoursesPage() {
+  const courseGroups = getWeeklyCourseGroups();
+
+  return (
+    <main lang="th" className="bg-[#F7F6F2] text-slate-700">
+      <section className="relative isolate overflow-hidden bg-[#153B36] py-20 text-white sm:py-24">
+        <Container>
+          <FadeIn>
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="text-sm font-semibold tracking-[0.28em] text-[#D6BC8C]">หลักสูตรสมาธิ</p>
+              <h1 className="mt-5 text-4xl font-semibold leading-tight sm:text-5xl">ฝึกสมาธิร่วมกันอย่างสม่ำเสมอ</h1>
+              <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">ตารางด้านล่างดึงข้อมูลจากกำหนดการส่วนกลางของเว็บไซต์โดยตรง เมื่อมีการเปลี่ยนวันหรือเวลา จึงแก้ไขเพียงที่เดียว</p>
+              <p className="mt-5 font-semibold text-[#E7D7B8]">ภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน</p>
+            </div>
+          </FadeIn>
+        </Container>
+      </section>
+
+      <section className="py-16 lg:py-24">
+        <Container>
+          <div className="grid gap-7 lg:grid-cols-2">
+            {courseGroups.map((group, index) => {
+              const temple = Object.values(templeLocations).find((item) => item.name === group.temple);
               return (
-                <FadeIn key={slug} delay={index * 0.05}>
-                  <Link href={`/th/locations/${slug}`} className="group block h-full overflow-hidden rounded-[28px] border border-[#E0E1DC] bg-white shadow-[0_16px_50px_rgba(21,59,54,0.05)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_28px_80px_rgba(21,59,54,0.12)]">
-                    <article className="flex h-full flex-col">
-                      <div className="relative aspect-[16/10] overflow-hidden bg-[#E9E7DF]">
-                        <Image src={temple?.image ?? "/images/hero/hero-01.png"} alt={name} fill sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
-                        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#153B36]/40 to-transparent" />
-                      </div>
-                      <div className="flex flex-1 flex-col p-7">
-                        <div className="flex items-start gap-2 text-sm leading-6 text-slate-500"><Navigation className="mt-1 h-4 w-4 shrink-0 text-[#B08D57]" />{address}</div>
-                        <h2 className="mt-4 text-2xl font-semibold leading-tight text-[#153B36]">{name}</h2>
-                        <span className="mt-7 inline-flex items-center gap-2 font-semibold text-[#153B36]">ดูสถานที่<ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-                      </div>
-                    </article>
-                  </Link>
+                <FadeIn key={group.id} delay={index * 0.06}>
+                  <article className="h-full rounded-[28px] border border-[#E3E1DA] bg-white p-7 shadow-[0_18px_50px_rgba(21,59,54,0.06)] sm:p-8">
+                    <p className="text-xs font-semibold tracking-[0.22em] text-[#B08D57]">{group.status === "active" ? "สมาธิประจำสัปดาห์" : "กำลังวางแผน"}</p>
+                    <h2 className="mt-4 text-2xl font-semibold text-[#153B36]">{temple?.nameTh ?? group.temple}</h2>
+                    <div className="mt-4 leading-7 text-slate-600"><p>{group.street}</p><p>{group.postalCode} {group.city}</p></div>
+                    {group.status === "active" ? (
+                      <>
+                        <div className="mt-6 space-y-4">
+                          {group.events.map((event) => (
+                            <div key={event.id} className="rounded-2xl border border-[#E4E1D8] bg-[#FAF9F5] px-5 py-4">
+                              <p className="font-semibold text-[#153B36]">{thaiCourseSchedule(event.weekday, event.schedule)}</p>
+                              <p className="mt-1 text-slate-600">{event.time?.replace(" Uhr", " น.")}</p>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="mt-6 text-sm leading-6 text-slate-500">เข้าร่วมได้โดยไม่มีค่าใช้จ่าย กรุณาเลือกวันประจำสัปดาห์ที่ต้องการในแบบฟอร์มลงทะเบียน</p>
+                        {group.registrationRequired ? (
+                          <Link href={`/th/registration?course=${group.id}`} className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5">ลงทะเบียน<ArrowRight className="h-4 w-4" /></Link>
+                        ) : null}
+                      </>
+                    ) : (
+                      <p className="mt-6 rounded-2xl bg-[#F7F6F2] px-5 py-4 leading-7 text-slate-600">กำหนดการจะประกาศเมื่อได้รับการยืนยัน</p>
+                    )}
+                  </article>
                 </FadeIn>
               );
             })}
@@ -161,6 +219,9 @@ function thaiRetreatDate(dateValue: string) {
 }
 
 function ThaiRetreatsPage() {
+  const upcomingRetreats = getUpcomingRetreatEvents();
+  const pastRetreats = getPastRetreatEvents();
+
   return (
     <main lang="th" className="bg-[#F7F6F2] text-slate-700">
       <section className="relative isolate min-h-[440px] overflow-hidden bg-[#102F2B] text-white">
@@ -180,37 +241,76 @@ function ThaiRetreatsPage() {
         <Container>
           <FadeIn>
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-semibold tracking-[0.28em] text-[#B08D57]">กิจกรรมตลอดวัน</p>
+              <p className="text-sm font-semibold tracking-[0.28em] text-[#B08D57]">กิจกรรมที่กำลังจะมาถึง</p>
               <h2 className="mt-5 text-3xl font-semibold leading-tight text-[#153B36] sm:text-4xl">One Day Retreat (ภาษาเยอรมัน)</h2>
               <p className="mt-6 text-base leading-8 text-slate-600 sm:text-lg">ประกอบด้วยการทำสมาธิแบบมีผู้นำ การเจริญสติ ธรรมบรรยาย ช่วงพัก และการรับประทานอาหารร่วมกัน เหมาะสำหรับทั้งผู้เริ่มต้นและผู้มีประสบการณ์</p>
             </div>
           </FadeIn>
 
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            {retreatEvents.map((retreat, index) => (
-              <FadeIn key={retreat.id} delay={index * 0.08}>
-                <article className="group h-full overflow-hidden rounded-[30px] border border-[#DDD9CF] bg-white shadow-[0_20px_60px_rgba(21,59,54,0.08)]">
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#EAE7DF]">
-                    <Image src={retreat.image} alt={retreat.imageAlt} fill sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#153B36]/45 via-transparent to-transparent" />
-                    <div className="absolute left-5 top-5 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-[#153B36] shadow-sm">ONE DAY RETREAT · ภาษาเยอรมัน</div>
-                  </div>
-                  <div className="p-7 sm:p-8">
-                    <h3 className="text-2xl font-semibold leading-tight text-[#153B36]">{retreat.temple}</h3>
-                    <dl className="mt-6 space-y-4 text-slate-600">
-                      <div className="flex items-start gap-3"><CalendarDays className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" /><dd>{thaiRetreatDate(retreat.dateValue)}</dd></div>
-                      <div className="flex items-start gap-3"><Clock3 className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" /><dd>{retreat.time}</dd></div>
-                      <div className="flex items-start gap-3"><MapPin className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" /><dd><span className="block font-semibold text-[#153B36]">{retreat.street}</span>{retreat.postalCode} {retreat.city}</dd></div>
-                    </dl>
-                    <p className="mt-6 font-semibold text-[#153B36]">ภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน</p>
-                    <Link href={`/th/registration?event=${retreat.id}`} className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5">ลงทะเบียน<ArrowRight className="h-4 w-4" /></Link>
-                  </div>
-                </article>
-              </FadeIn>
-            ))}
-          </div>
+          {upcomingRetreats.length > 0 ? (
+            <div className="mt-12 grid gap-8 lg:grid-cols-2">
+              {upcomingRetreats.map((retreat, index) => (
+                <FadeIn key={retreat.id} delay={index * 0.08}>
+                  <article className="group h-full overflow-hidden rounded-[30px] border border-[#DDD9CF] bg-white shadow-[0_20px_60px_rgba(21,59,54,0.08)]">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#EAE7DF]">
+                      <Image src={retreat.image} alt={retreat.imageAlt} fill sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#153B36]/45 via-transparent to-transparent" />
+                      <div className="absolute left-5 top-5 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-[#153B36] shadow-sm">ONE DAY RETREAT · ภาษาเยอรมัน</div>
+                    </div>
+                    <div className="p-7 sm:p-8">
+                      <h3 className="text-2xl font-semibold leading-tight text-[#153B36]">{retreat.temple}</h3>
+                      <dl className="mt-6 space-y-4 text-slate-600">
+                        <div className="flex items-start gap-3"><CalendarDays className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" /><dd>{thaiRetreatDate(retreat.dateValue)}</dd></div>
+                        <div className="flex items-start gap-3"><Clock3 className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" /><dd>{retreat.time}</dd></div>
+                        <div className="flex items-start gap-3"><MapPin className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" /><dd><span className="block font-semibold text-[#153B36]">{retreat.street}</span>{retreat.postalCode} {retreat.city}</dd></div>
+                      </dl>
+                      <p className="mt-6 font-semibold text-[#153B36]">ภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน</p>
+                      <Link href={`/th/registration?event=${retreat.id}`} className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5">ลงทะเบียน<ArrowRight className="h-4 w-4" /></Link>
+                    </div>
+                  </article>
+                </FadeIn>
+              ))}
+            </div>
+          ) : (
+            <FadeIn><div className="mx-auto mt-12 max-w-2xl rounded-[24px] border border-[#DED9CD] bg-white px-6 py-8 text-center leading-8 text-slate-600">ขณะนี้ยังไม่มีกำหนดการ One Day Retreat ใหม่ เมื่อมีการยืนยันวันจัดกิจกรรม ระบบจะแสดงข้อมูลที่นี่โดยอัตโนมัติ</div></FadeIn>
+          )}
         </Container>
       </section>
+
+      {pastRetreats.length > 0 ? (
+        <section className="bg-white py-16 lg:py-24" aria-labelledby="thai-past-retreats-heading">
+          <Container>
+            <FadeIn>
+              <div className="mx-auto max-w-3xl text-center">
+                <p className="text-sm font-semibold tracking-[0.28em] text-[#B08D57]">คลังย้อนหลัง</p>
+                <h2 id="thai-past-retreats-heading" className="mt-5 text-3xl font-semibold leading-tight text-[#153B36] sm:text-4xl">กิจกรรมที่ผ่านมา</h2>
+                <p className="mt-6 text-base leading-8 text-slate-600 sm:text-lg">เมื่อกิจกรรมสิ้นสุดแล้ว ระบบจะย้ายรายการมาไว้ในส่วนนี้โดยอัตโนมัติ เพื่อเก็บไว้เป็นข้อมูลย้อนหลัง</p>
+              </div>
+            </FadeIn>
+            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+              {pastRetreats.map((retreat, index) => (
+                <FadeIn key={retreat.id} delay={index * 0.08}>
+                  <article className="overflow-hidden rounded-[26px] border border-[#E2E0D8] bg-[#F7F6F2]">
+                    <div className="grid sm:grid-cols-[180px_1fr]">
+                      <div className="relative min-h-[180px] bg-[#EAE7DF]">
+                        <Image src={retreat.image} alt={retreat.imageAlt} fill sizes="180px" className="object-cover grayscale-[15%]" />
+                      </div>
+                      <div className="p-6">
+                        <p className="text-xs font-semibold tracking-[0.18em] text-[#9A845E]">ONE DAY RETREAT · กิจกรรมที่ผ่านมา</p>
+                        <h3 className="mt-3 text-2xl font-semibold text-[#153B36]">{retreat.temple}</h3>
+                        <div className="mt-4 space-y-2 text-sm leading-6 text-slate-600">
+                          <p>{thaiRetreatDate(retreat.dateValue)}</p>
+                          <p>{retreat.street}, {retreat.postalCode} {retreat.city}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </FadeIn>
+              ))}
+            </div>
+          </Container>
+        </section>
+      ) : null}
     </main>
   );
 }
@@ -379,6 +479,7 @@ export default async function ThaiCatchAllPage({ params }: { params: Promise<{ s
   if (slug[0] === "locations" && slug[1]) return <LocationPage slug={slug[1]} />;
   const key = slug.join("/") || "home";
   if (key === "locations") return <ThaiLocationsPage />;
+  if (key === "courses") return <ThaiCoursesPage />;
   if (key === "offers") return <ThaiOffersPage />;
   if (key === "about-us") return <ThaiAboutPage />;
   if (key === "retreats") return <ThaiRetreatsPage />;

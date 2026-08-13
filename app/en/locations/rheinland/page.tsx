@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import EnglishTempleLocationPage from "@/components/locations/EnglishTempleLocationPage";
+import TempleLocationPage from "@/components/locations/TempleLocationPage";
 import { templeLocations } from "@/data/templeLocations";
 
 const location = templeLocations["rheinland"];
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <EnglishTempleLocationPage location={location} />;
+  return <TempleLocationPage location={location} language="en" />;
 }
