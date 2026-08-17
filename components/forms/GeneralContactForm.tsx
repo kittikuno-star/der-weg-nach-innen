@@ -106,7 +106,7 @@ export default function GeneralContactForm() {
           ? "meditation"
           : topic === "event"
             ? "ceremony"
-            : topic === "school" || topic === "visit"
+            : topic === "school"
               ? "school"
               : undefined;
 
