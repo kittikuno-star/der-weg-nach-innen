@@ -10,5 +10,5 @@ export const SITE = {
 export const ORGANIZATION = {
   name: "DIDE - Dhammakaya International Deutschland gemeinnützige GmbH",
   country: "Deutschland",
-  email: "Kittikuno@gmail.com",
+  email: "info@derwegnachinnen.de",
 };

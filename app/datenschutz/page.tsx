@@ -40,10 +40,10 @@ export default function DatenschutzPage() {
               <p className="mt-4">
                 E-Mail:{" "}
                 <a
-                  href="mailto:Kittikuno@gmail.com"
+                  href="mailto:info@derwegnachinnen.de"
                   className="font-medium text-[#153B36] underline decoration-[#B08D57] underline-offset-4"
                 >
-                  Kittikuno@gmail.com
+                  info@derwegnachinnen.de
                 </a>
               </p>
             </Section>
@@ -213,10 +213,10 @@ export default function DatenschutzPage() {
               <p className="mt-4">
                 Zur Ausübung Ihrer Rechte genügt eine Nachricht an{" "}
                 <a
-                  href="mailto:Kittikuno@gmail.com"
+                  href="mailto:info@derwegnachinnen.de"
                   className="font-medium text-[#153B36] underline decoration-[#B08D57] underline-offset-4"
                 >
-                  Kittikuno@gmail.com
+                  info@derwegnachinnen.de
                 </a>
                 .
               </p>

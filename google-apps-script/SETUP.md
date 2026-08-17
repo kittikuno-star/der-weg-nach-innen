@@ -49,7 +49,7 @@ variables, open **Deploys → Trigger deploy → Clear cache and deploy site**.
 For contact notifications, also add this script property in Google Apps Script:
 
 ```text
-ADMIN_EMAIL=kittikuno@gmail.com
+ADMIN_EMAIL=info@derwegnachinnen.de
 ```
 
 After changing `Registration.gs`, create a new Apps Script deployment version

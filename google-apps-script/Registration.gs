@@ -35,7 +35,7 @@ const SCRIPT_SECRET_FALLBACK =
   "CHANGE_THIS_TO_A_LONG_RANDOM_SECRET";
 
 const ADMIN_EMAIL_FALLBACK =
-  "kittikuno@gmail.com";
+  "info@derwegnachinnen.de";
 
 const EMAIL_SENDER_NAME =
   "Phra Kittikuno";
