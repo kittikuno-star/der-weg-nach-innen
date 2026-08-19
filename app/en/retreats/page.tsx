@@ -8,9 +8,11 @@ import {
   Clock3,
   Coffee,
   Euro,
+  ExternalLink,
   Flower2,
   HeartHandshake,
   HelpCircle,
+  Languages,
   Leaf,
   MapPin,
   MoonStar,
@@ -79,6 +81,31 @@ const faqs = [
   { question: "What should I bring?", answer: "Please wear comfortable clothing. Warm socks, a light blanket and a water bottle may be useful." },
   { question: "Is the retreat completely silent?", answer: "Not every meditation day is a silent retreat. The programme includes quiet periods, guided meditation, Dhamma teachings and opportunities for exchange." },
   { question: "Is there a participation fee?", answer: "Some events have a contribution toward meals and organisational costs. The exact amount is shown with each retreat." },
+];
+
+const partnerRetreats = [
+  {
+    title: "Calm Camp Thailand 2027",
+    date: "2–18 January 2027",
+    location: "Koh Samui, Thailand",
+    image: "/images/partner-retreats/calm-camp-thailand-2027.jpg",
+    imageAlt:
+      "Poster for Calm Camp Thailand from 2 to 18 January 2027 on Koh Samui",
+    contactHref: "https://wa.me/447554624445",
+    contactLabel: "Contact the organiser on WhatsApp",
+  },
+  {
+    title: "Choose Your Retreat",
+    date: "17–18 October 2026",
+    location: "Norton Park Hotel, England",
+    image: "/images/partner-retreats/choose-your-retreat-october-2026.jpg",
+    imageAlt:
+      "Poster for Choose Your Retreat on 17 and 18 October 2026 in England",
+    contactHref:
+      "/images/partner-retreats/choose-your-retreat-october-2026.jpg",
+    contactLabel: "Open poster with booking QR code",
+    websiteHref: "https://www.dmkl.uk/",
+  },
 ];
 
 function englishDate(dateValue: string) {
@@ -262,6 +289,108 @@ export default function EnglishRetreatsPage() {
           </Container>
         </section>
       ) : null}
+
+      <section
+        aria-labelledby="english-partner-retreats-heading"
+        className="border-t border-[#E4E1D8] bg-[#F7F6F2] py-20 lg:py-28"
+      >
+        <Container>
+          <FadeIn>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
+                More retreat opportunities
+              </p>
+              <h2
+                id="english-partner-retreats-heading"
+                className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
+              >
+                Retreats from our partners
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-600">
+                These events are offered by partner centres and independent
+                organisers. Information and booking are handled directly by
+                the respective organiser.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="mx-auto mt-14 grid max-w-5xl gap-8 lg:grid-cols-2">
+            {partnerRetreats.map((retreat, index) => (
+              <FadeIn key={retreat.title} delay={index * 0.1}>
+                <article className="flex h-full flex-col overflow-hidden rounded-[30px] border border-[#DDD9CF] bg-white shadow-[0_20px_60px_rgba(21,59,54,0.07)]">
+                  <a
+                    href={retreat.image}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${retreat.title}: open the poster at full size`}
+                    className="relative block aspect-[1076/1522] overflow-hidden bg-[#EAE7DF]"
+                  >
+                    <Image
+                      src={retreat.image}
+                      alt={retreat.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 42vw, 100vw"
+                      className="object-contain"
+                    />
+                  </a>
+
+                  <div className="flex flex-1 flex-col p-7 sm:p-8">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B08D57]">
+                      Event offered by a partner centre
+                    </p>
+                    <h3 className="mt-3 font-serif text-3xl leading-tight text-[#153B36]">
+                      {retreat.title}
+                    </h3>
+
+                    <dl className="mt-6 space-y-3 text-slate-600">
+                      <div className="flex items-start gap-3">
+                        <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" />
+                        <div><dt className="sr-only">Date</dt><dd>{retreat.date}</dd></div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" />
+                        <div><dt className="sr-only">Location</dt><dd>{retreat.location}</dd></div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Languages className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" />
+                        <div><dt className="sr-only">Language</dt><dd>Language: English</dd></div>
+                      </div>
+                    </dl>
+
+                    <p className="mt-6 leading-7 text-slate-600">
+                      “The Way Within” does not accept bookings for this
+                      retreat.
+                    </p>
+
+                    <div className="mt-7 flex flex-col items-start gap-4">
+                      <a
+                        href={retreat.contactHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-medium text-white transition hover:bg-[#244B45] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-2"
+                      >
+                        {retreat.contactLabel}
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                      {"websiteHref" in retreat ? (
+                        <a
+                          href={retreat.websiteHref}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 font-medium text-[#153B36] underline decoration-[#B08D57]/60 underline-offset-4 transition hover:text-[#244B45]"
+                        >
+                          Visit our partner website dmkl.uk
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                </article>
+              </FadeIn>
+            ))}
+          </div>
+        </Container>
+      </section>
 
       <section className="bg-white py-20 lg:py-28">
         <Container>

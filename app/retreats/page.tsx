@@ -10,6 +10,7 @@ import {
   Flower2,
   HeartHandshake,
   HelpCircle,
+  Languages,
   Leaf,
   MapPin,
   MoonStar,
@@ -463,6 +464,17 @@ export default function RetreatsPage() {
                         <div>
                           <dt className="sr-only">Ort</dt>
                           <dd>{retreat.location}</dd>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Languages
+                          aria-hidden="true"
+                          className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
+                          strokeWidth={1.8}
+                        />
+                        <div>
+                          <dt className="sr-only">Veranstaltungssprache</dt>
+                          <dd>Veranstaltungssprache: Englisch</dd>
                         </div>
                       </div>
                     </dl>
