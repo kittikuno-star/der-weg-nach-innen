@@ -6,6 +6,7 @@ import {
   CheckCircle2,
   Clock3,
   Coffee,
+  ExternalLink,
   Flower2,
   HeartHandshake,
   HelpCircle,
@@ -172,6 +173,31 @@ const frequentlyAskedQuestions = [
     question: "Entstehen Kosten für die Teilnahme?",
     answer:
       "Bei einigen Veranstaltungen wird ein Selbstkostenbeitrag erhoben, beispielsweise für Verpflegung oder Raumnutzung. Die genaue Höhe wird jeweils bei der Anmeldung angegeben.",
+  },
+];
+
+const partnerRetreats = [
+  {
+    title: "Calm Camp Thailand 2027",
+    date: "2. bis 18. Januar 2027",
+    location: "Koh Samui, Thailand",
+    image: "/images/partner-retreats/calm-camp-thailand-2027.jpg",
+    imageAlt:
+      "Poster zum Calm Camp Thailand vom 2. bis 18. Januar 2027 auf Koh Samui",
+    contactHref: "https://wa.me/447554624445",
+    contactLabel: "Veranstalter über WhatsApp kontaktieren",
+  },
+  {
+    title: "Choose Your Retreat",
+    date: "17. und 18. Oktober 2026",
+    location: "Norton Park Hotel, England",
+    image: "/images/partner-retreats/choose-your-retreat-october-2026.jpg",
+    imageAlt:
+      "Poster zum Choose Your Retreat am 17. und 18. Oktober 2026 in England",
+    contactHref:
+      "/images/partner-retreats/choose-your-retreat-october-2026.jpg",
+    contactLabel: "Poster mit Anmelde-QR öffnen",
+    websiteHref: "https://www.dmkl.uk/",
   },
 ];
 
@@ -363,6 +389,118 @@ export default function RetreatsPage() {
           </Container>
         </section>
       ) : null}
+
+      <section
+        aria-labelledby="partner-retreats-heading"
+        className="border-t border-[#E4E1D8] bg-[#F7F6F2] py-20 lg:py-28"
+      >
+        <Container>
+          <FadeIn>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
+                Weitere Retreat-Angebote
+              </p>
+              <h2
+                id="partner-retreats-heading"
+                className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
+              >
+                Retreats unserer Partner
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-600">
+                Diese Veranstaltungen werden von befreundeten Zentren und
+                Veranstaltern angeboten. Informationen und Anmeldung erfolgen
+                ausschließlich direkt beim jeweiligen Veranstalter.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="mx-auto mt-14 grid max-w-5xl gap-8 lg:grid-cols-2">
+            {partnerRetreats.map((retreat, index) => (
+              <FadeIn key={retreat.title} delay={index * 0.1}>
+                <article className="flex h-full flex-col overflow-hidden rounded-[30px] border border-[#DDD9CF] bg-white shadow-[0_20px_60px_rgba(21,59,54,0.07)]">
+                  <a
+                    href={retreat.image}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${retreat.title}: Poster in voller Größe öffnen`}
+                    className="relative block aspect-[1076/1522] overflow-hidden bg-[#EAE7DF]"
+                  >
+                    <Image
+                      src={retreat.image}
+                      alt={retreat.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 42vw, 100vw"
+                      className="object-contain"
+                    />
+                  </a>
+
+                  <div className="flex flex-1 flex-col p-7 sm:p-8">
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B08D57]">
+                      Veranstaltung eines Partnerzentrums
+                    </p>
+                    <h3 className="mt-3 font-serif text-3xl leading-tight text-[#153B36]">
+                      {retreat.title}
+                    </h3>
+
+                    <dl className="mt-6 space-y-3 text-slate-600">
+                      <div className="flex items-start gap-3">
+                        <CalendarDays
+                          aria-hidden="true"
+                          className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
+                          strokeWidth={1.8}
+                        />
+                        <div>
+                          <dt className="sr-only">Datum</dt>
+                          <dd>{retreat.date}</dd>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <MapPin
+                          aria-hidden="true"
+                          className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]"
+                          strokeWidth={1.8}
+                        />
+                        <div>
+                          <dt className="sr-only">Ort</dt>
+                          <dd>{retreat.location}</dd>
+                        </div>
+                      </div>
+                    </dl>
+
+                    <p className="mt-6 leading-7 text-slate-600">
+                      „Der Weg nach innen“ nimmt für dieses Retreat keine
+                      Anmeldungen entgegen.
+                    </p>
+
+                    <div className="mt-7 flex flex-col items-start gap-4">
+                      <a
+                        href={retreat.contactHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-medium text-white transition hover:bg-[#244B45] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-2"
+                      >
+                        {retreat.contactLabel}
+                        <ExternalLink aria-hidden="true" className="h-4 w-4" />
+                      </a>
+                      {"websiteHref" in retreat ? (
+                        <a
+                          href={retreat.websiteHref}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 font-medium text-[#153B36] underline decoration-[#B08D57]/60 underline-offset-4 transition hover:text-[#244B45]"
+                        >
+                          Partnerwebsite dmkl.uk besuchen
+                          <ExternalLink aria-hidden="true" className="h-4 w-4" />
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                </article>
+              </FadeIn>
+            ))}
+          </div>
+        </Container>
+      </section>
 
       <section
         aria-labelledby="retreat-introduction-heading"
