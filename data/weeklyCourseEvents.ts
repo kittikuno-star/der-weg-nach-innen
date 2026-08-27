@@ -32,7 +32,7 @@ export const weeklyCourseEvents: WeeklyCourseEvent[] = [
     id: "heilbronn-weekly-wednesday",
     temple: "Wat Buddha Heilbronn",
     status: "active",
-    schedule: "Jeden Mittwoch",
+    schedule: "Jeden Mittwoch · ab März 2027",
     weekday: "Mittwoch",
     time: "19:00–20:30 Uhr",
     street: "Waldeck 7",

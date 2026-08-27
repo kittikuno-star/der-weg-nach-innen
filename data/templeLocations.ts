@@ -113,6 +113,7 @@ export const templeLocations: Record<string, TempleLocation> = {
       "A Buddhist temple in the Heilbronn region offering meditation and community activities.",
     nameTh: "วัดพุทธไฮล์บรอนน์",
     descriptionTh: "วัดพุทธในเขตไฮล์บรอนน์ที่มีกิจกรรมสมาธิและกิจกรรมชุมชน",
+    website: "https://watheilbronn.de",
     facebook: "https://www.facebook.com/WatBuddhaHeilbronn.de/",
   },
   schwarzwald: {
