@@ -154,7 +154,7 @@ export default function HomePage() {
             <FadeIn>
               <div className="relative mx-auto aspect-[1054/1492] w-full max-w-md overflow-hidden rounded-[28px] bg-white shadow-[0_24px_70px_rgba(21,59,54,0.12)]">
                 <Image
-                src="/images/events/kathinafest-bavaria-2026.webp"
+                  src="/images/events/kathinafest-bavaria-2026.webp"
                   alt="Plakat zum Kathinafest 2026 im Wat Phra Dhammakaya Bavaria"
                   fill
                   sizes="(min-width: 1024px) 36vw, 90vw"
@@ -207,6 +207,74 @@ export default function HomePage() {
                     Zur Tempelwebseite
                   </a>
                 </div>
+              </div>
+            </FadeIn>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-b border-[#E5DED0] bg-white py-20 lg:py-28">
+        <Container>
+          <div className="grid items-center gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-20">
+            <FadeIn>
+              <div className="max-w-2xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#9A7644]">
+                  Laufendes Online-Programm
+                </p>
+                <h2 className="mt-6 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl lg:text-6xl">
+                  Donnerstags: Der Weg nach innen
+                </h2>
+
+                <p className="mt-7 text-lg leading-8 text-slate-600">
+                  Buddhistische Lehre und Meditation für den Alltag – jeden
+                  Donnerstag von <strong>19:30 bis 20:45 Uhr</strong> über Zoom.
+                  Alle sind herzlich willkommen, unabhängig von Vorkenntnissen.
+                </p>
+
+                <div className="mt-7 rounded-[26px] border border-[#E8E3D8] bg-[#F7F4ED] p-6 text-slate-700 sm:p-7">
+                  <p className="font-semibold text-[#153B36]">
+                    Ablauf des Abends
+                  </p>
+                  <ul className="mt-4 space-y-2 leading-7">
+                    <li>20 Minuten buddhistische Lehre</li>
+                    <li>30–45 Minuten Meditation</li>
+                    <li>10 Minuten Fragen und Antworten</li>
+                  </ul>
+                  <p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#9A7644]">
+                    Themenprogramm bis Januar 2027
+                  </p>
+                </div>
+
+                <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                  <a
+                    href="https://forms.gle/kSkK2UzT43TopeHc7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#153B36] px-7 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+                  >
+                    Zur Anmeldung
+                  </a>
+                  <a
+                    href="https://watbavaria.de/?p=102"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#153B36] bg-white px-7 py-3 font-semibold text-[#153B36] transition-colors hover:bg-[#EEF2EF]"
+                  >
+                    Vollständiges Programm
+                  </a>
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.08}>
+              <div className="relative mx-auto aspect-[724/1086] w-full max-w-md overflow-hidden rounded-[28px] bg-[#F7F4ED] shadow-[0_24px_70px_rgba(21,59,54,0.12)]">
+                <Image
+                  src="/images/events/donnerstag-programm-2026-2027.jpeg"
+                  alt="Themenprogramm der Donnerstags-Online-Meditation Der Weg nach innen"
+                  fill
+                  sizes="(min-width: 1024px) 34vw, 90vw"
+                  className="object-contain"
+                />
               </div>
             </FadeIn>
           </div>
