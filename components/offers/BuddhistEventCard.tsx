@@ -28,6 +28,8 @@ export default function BuddhistEventCard({
   const registrationHref = templeSlug
     ? `/anmeldung?ceremony=${event.id}&tempel=${templeSlug}`
     : `/anmeldung?ceremony=${event.id}`;
+  const finalRegistrationHref = event.registrationUrl ?? registrationHref;
+  const usesExternalRegistration = Boolean(event.registrationUrl);
 
   return (
     <article className="flex h-full flex-col rounded-[28px] border border-[#E1DDD3] bg-white p-7 shadow-[0_18px_55px_rgba(21,59,54,0.06)] sm:p-8">
@@ -77,12 +79,27 @@ export default function BuddhistEventCard({
       </div>
 
       {canRegister ? (
-        <Link
-          href={registrationHref}
-          className="mt-7 inline-flex w-fit rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
-        >
-          Tempel wählen und anmelden
-        </Link>
+        <div className="mt-7 flex flex-wrap items-center gap-4">
+          <Link
+            href={finalRegistrationHref}
+            target={usesExternalRegistration ? "_blank" : undefined}
+            rel={usesExternalRegistration ? "noopener noreferrer" : undefined}
+            className="inline-flex w-fit rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+          >
+            {usesExternalRegistration ? "Jetzt anmelden" : "Tempel wählen und anmelden"}
+          </Link>
+
+          {event.detailsUrl ? (
+            <a
+              href={event.detailsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#153B36] underline decoration-[#B08D57]/50 underline-offset-4 transition hover:decoration-[#B08D57]"
+            >
+              Mehr beim Tempel erfahren
+            </a>
+          ) : null}
+        </div>
       ) : (
         <p className="mt-7 w-fit rounded-full bg-[#F1EEE7] px-5 py-2.5 text-sm font-semibold text-[#806C4C]">
           {hasDate ? "Anmeldung wird noch freigeschaltet" : "Termin folgt in Kürze"}

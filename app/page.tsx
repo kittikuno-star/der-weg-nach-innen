@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   ArrowDown,
   ArrowRight,
+  CalendarDays,
   Flower2,
   MapPin,
   Sparkles,
@@ -145,6 +146,71 @@ export default function HomePage() {
           Entdecken
           <ArrowDown className="h-5 w-5 motion-safe:animate-bounce" />
         </a>
+      </section>
+
+      <section className="border-b border-[#E5DED0] bg-[#F7F4ED] py-20 lg:py-28">
+        <Container>
+          <div className="grid items-center gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
+            <FadeIn>
+              <div className="relative mx-auto aspect-[1054/1492] w-full max-w-md overflow-hidden rounded-[28px] bg-white shadow-[0_24px_70px_rgba(21,59,54,0.12)]">
+                <Image
+                src="/images/events/kathinafest-bavaria-2026.webp"
+                  alt="Plakat zum Kathinafest 2026 im Wat Phra Dhammakaya Bavaria"
+                  fill
+                  sizes="(min-width: 1024px) 36vw, 90vw"
+                  className="object-contain"
+                />
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.08}>
+              <div className="max-w-2xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#9A7644]">
+                  Aktuelle Tempelveranstaltung
+                </p>
+                <h2 className="mt-6 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl lg:text-6xl">
+                  Kathinafest 2026 in Königsbrunn
+                </h2>
+
+                <div className="mt-7 space-y-4 text-lg text-slate-600">
+                  <p className="flex items-start gap-3">
+                    <CalendarDays className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" />
+                    <span>Sonntag, 8. November 2026 · Beginn 9:30 Uhr</span>
+                  </p>
+                  <p className="flex items-start gap-3">
+                    <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" />
+                    <span>Wat Phra Dhammakaya Bavaria, Heinkelstraße 1, 86343 Königsbrunn</span>
+                  </p>
+                </div>
+
+                <p className="mt-7 text-lg leading-8 text-slate-600">
+                  Alle Interessierten sind herzlich willkommen. Zum Programm
+                  gehören die Kathinazeremonie, Rezitationen, Dhammaimpulse,
+                  ein gemeinsames Mittagessen und Zeit für Begegnung.
+                </p>
+
+                <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                  <a
+                    href="https://forms.gle/kyCfxFFEoYfo8Vs1A"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#153B36] px-7 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+                  >
+                    Jetzt anmelden
+                  </a>
+                  <a
+                    href="https://watbavaria.de/?p=168"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#153B36] bg-white px-7 py-3 font-semibold text-[#153B36] transition-colors hover:bg-[#EEF2EF]"
+                  >
+                    Zur Tempelwebseite
+                  </a>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </Container>
       </section>
 
       <section id="warum-meditation" className="bg-[#F7F4ED] py-24 lg:py-36">

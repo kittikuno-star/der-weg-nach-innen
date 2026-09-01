@@ -21,6 +21,8 @@ export type BuddhistEvent = {
   templeSlugs: string[];
   participationOptions?: string[];
   registrationOpen?: boolean;
+  registrationUrl?: string;
+  detailsUrl?: string;
 };
 
 export const allTempleSlugs = Object.keys(templeLocations);
@@ -200,13 +202,21 @@ export const buddhistEvents: BuddhistEvent[] = [
   },
   {
     id: "kathina-local",
-    title: "Kathinazeremonie im Tempel",
+    title: "Kathinafest 2026 in Bavaria",
     thaiTitle: "พิธีทอดกฐิน",
     category: "temple-festival",
     description:
-      "Die Kathinazeremonie ist eine der bedeutenden jährlichen Zeremonien nach der Regenzeit. Der bestätigte Termin wird für jeden Tempel gesondert veröffentlicht.",
-    dates: [{ value: "2026-11-08", label: "Wat Bavaria: Sonntag, 8. November 2026" }],
-    templeSlugs: allTempleSlugs,
+      "Das Kathinafest findet einmal im Jahr nach dem Ende der Regenzeitklausur statt. Im Wat Phra Dhammakaya Bavaria erwarten Sie die Kathinazeremonie, Rezitationen, Dhammaimpulse, ein gemeinsames Mittagessen und Zeit für Begegnung.",
+    dates: [
+      {
+        value: "2026-11-08",
+        label: "Sonntag, 8. November 2026 · Beginn 9:30 Uhr",
+      },
+    ],
+    templeSlugs: ["bavaria"],
+    registrationOpen: true,
+    registrationUrl: "https://forms.gle/kyCfxFFEoYfo8Vs1A",
+    detailsUrl: "https://watbavaria.de/?p=168",
   },
   {
     id: "loy-krathong",
