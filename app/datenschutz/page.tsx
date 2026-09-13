@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main className="bg-[#F7F6F2] py-16 sm:py-20 lg:py-24">
+    <div className="bg-[#F7F6F2] py-16 sm:py-20 lg:py-24">
       <Container>
         <article className="mx-auto max-w-4xl rounded-[30px] border border-[#E1DDD3] bg-white px-6 py-10 shadow-[0_20px_60px_rgba(21,59,54,0.07)] sm:px-10 lg:px-14">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#B08D57]">
@@ -255,7 +255,7 @@ export default function DatenschutzPage() {
           </div>
         </article>
       </Container>
-    </main>
+    </div>
   );
 }
 

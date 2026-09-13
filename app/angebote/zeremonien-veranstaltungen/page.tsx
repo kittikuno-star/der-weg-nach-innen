@@ -42,7 +42,7 @@ const sections = [
 
 export default function BuddhistOffersPage() {
   return (
-    <main className="bg-[#F7F4ED]">
+    <div className="bg-[#F7F4ED]">
       <section className="border-b border-[#E5DED0] bg-white py-16 sm:py-20 lg:py-24">
         <Container>
           <Link
@@ -99,6 +99,6 @@ export default function BuddhistOffersPage() {
           </section>
         );
       })}
-    </main>
+    </div>
   );
 }

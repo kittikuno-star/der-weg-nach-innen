@@ -40,7 +40,7 @@ export default function EnglishOfferLocationsPage({
   contactText,
 }: EnglishOfferLocationsPageProps) {
   return (
-    <main className="bg-[#F7F4ED]">
+    <div className="bg-[#F7F4ED]">
       <section className="border-b border-[#E5DED0] bg-white py-12 sm:py-16 lg:py-20">
         <Container>
           <FadeIn>
@@ -186,6 +186,6 @@ export default function EnglishOfferLocationsPage({
           </FadeIn>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

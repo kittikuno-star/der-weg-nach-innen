@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import BackToTop from "@/components/layout/BackToTop";
+import { SITE } from "@/lib/constants";
+import { DEFAULT_DESCRIPTIONS, DEFAULT_TITLES, alternatesForPath, socialMetadataForPath } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -19,25 +22,36 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Der Weg nach innen",
-    template: "%s | Der Weg nach innen",
-  },
-  description:
-    "Meditation, Achtsamkeit und buddhistische Weisheit – kostenlos und offen für alle.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const pathname = requestHeaders.get("x-page-pathname") ?? "/";
+  const language = (requestHeaders.get("x-page-language") ?? "de") as keyof typeof DEFAULT_TITLES;
+
+  return {
+    metadataBase: new URL(SITE.url),
+    title: {
+      default: DEFAULT_TITLES[language],
+      template: language === "en" ? "%s | The Way Within" : language === "th" ? "%s | เส้นทางสู่ความสงบภายใน" : "%s | Der Weg nach innen",
+    },
+    description: DEFAULT_DESCRIPTIONS[language],
+    alternates: alternatesForPath(pathname),
+    ...socialMetadataForPath(pathname),
+  };
+}
 
 type RootLayoutProps = {
   children: ReactNode;
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: RootLayoutProps) {
+  const requestHeaders = await headers();
+  const language = requestHeaders.get("x-page-language") ?? "de";
+
   return (
     <html
-      lang="de"
+      lang={language}
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >

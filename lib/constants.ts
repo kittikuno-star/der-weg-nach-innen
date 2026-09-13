@@ -1,4 +1,5 @@
 export const SITE = {
+  url: "https://derwegnachinnen.de",
   name: "Der Weg nach Innen",
   title: "Meditation in Deutschland",
   description:

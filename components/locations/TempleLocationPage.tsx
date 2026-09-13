@@ -114,6 +114,12 @@ const copy = {
   },
 } satisfies Record<SupportedLanguage, Record<string, unknown>>;
 
+const heilbronnRetreatRegistrationLabel: Record<SupportedLanguage, string> = {
+  de: "Zum One Day Retreat anmelden",
+  en: "Register for the One Day Retreat",
+  th: "ลงทะเบียน One Day Retreat",
+};
+
 function formatCourseSchedule(
   weekday: string | undefined,
   fallback: string | undefined,
@@ -186,7 +192,7 @@ export default function TempleLocationPage({
         : location.description;
 
   return (
-    <main>
+    <div>
       <section className="bg-white py-12 sm:py-16 lg:py-20">
         <Container>
           <Link
@@ -428,12 +434,23 @@ export default function TempleLocationPage({
                           {t.retreatText as string}
                         </p>
 
-                        <Link
-                          href={(t.registerHref as (id: string) => string)(retreat.id)}
-                          className="mt-7 inline-flex rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
-                        >
-                          {t.register as string}
-                        </Link>
+                        {retreat.registrationUrl ? (
+                          <a
+                            href={retreat.registrationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-7 inline-flex w-full justify-center rounded-full bg-[#153B36] px-6 py-3 text-center font-semibold text-white transition-transform hover:-translate-y-0.5 sm:w-auto"
+                          >
+                            {heilbronnRetreatRegistrationLabel[language]}
+                          </a>
+                        ) : (
+                          <Link
+                            href={(t.registerHref as (id: string) => string)(retreat.id)}
+                            className="mt-7 inline-flex rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+                          >
+                            {t.register as string}
+                          </Link>
+                        )}
                       </div>
                     </article>
                   ))}
@@ -443,6 +460,6 @@ export default function TempleLocationPage({
           </Container>
         </section>
       ) : null}
-    </main>
+    </div>
   );
 }

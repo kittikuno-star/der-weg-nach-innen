@@ -28,7 +28,7 @@ const benefits = [
 
 export default function EnglishMeditationPage() {
   return (
-    <main lang="en">
+    <div lang="en">
       <section
         aria-labelledby="meditation-page-heading"
         className="relative isolate overflow-hidden bg-[#153B36] py-24 sm:py-28 lg:py-36"
@@ -247,6 +247,6 @@ export default function EnglishMeditationPage() {
           </FadeIn>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

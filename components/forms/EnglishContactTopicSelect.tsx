@@ -1,19 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function EnglishContactTopicSelect() {
-  const [topic, setTopic] = useState("");
-
-  useEffect(() => {
-    const selectedTopic = new URLSearchParams(window.location.search).get(
-      "topic",
-    );
-
-    if (selectedTopic === "unsure") {
-      setTopic("unsure");
-    }
-  }, []);
+  const searchParams = useSearchParams();
+  const [topic, setTopic] = useState(() =>
+    searchParams.get("topic") === "unsure" ? "unsure" : "",
+  );
 
   return (
     <select

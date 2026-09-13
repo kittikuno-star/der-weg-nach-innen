@@ -77,11 +77,9 @@ export default function Header() {
   const [scrolled, setScrolled] =
     useState(false);
 
-  const [menuOpen, setMenuOpen] =
-    useState(false);
-
-  const [mounted, setMounted] =
-    useState(false);
+  const [menuPath, setMenuPath] =
+    useState<string | null>(null);
+  const menuOpen = menuPath === pathname;
 
   const activeNavigation = isThai
     ? thaiNavigation
@@ -95,10 +93,6 @@ export default function Header() {
 
   const offersLabel = isThai ? "ดูกิจกรรม" : isEnglish ? "View offers" : "Angebote ansehen";
   const languageLinks = languageAlternatives(pathname);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     document.documentElement.lang = isThai ? "th" : isEnglish ? "en" : "de";
@@ -126,10 +120,6 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!menuOpen) {
       return;
     }
@@ -144,7 +134,7 @@ export default function Header() {
       event: KeyboardEvent,
     ) => {
       if (event.key === "Escape") {
-        setMenuOpen(false);
+        setMenuPath(null);
       }
     };
 
@@ -165,11 +155,11 @@ export default function Header() {
   }, [menuOpen]);
 
   const closeMenu = () => {
-    setMenuOpen(false);
+    setMenuPath(null);
   };
 
   const mobileMenu =
-    mounted && menuOpen
+    menuOpen
       ? createPortal(
           <div
             id="mobile-navigation"
@@ -427,7 +417,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() =>
-                setMenuOpen(true)
+                setMenuPath(pathname)
               }
               aria-label={
                 isEnglish

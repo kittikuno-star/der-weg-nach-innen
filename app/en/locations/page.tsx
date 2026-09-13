@@ -28,7 +28,7 @@ export default function EnglishLocationsPage() {
   const locations = locationOrder.map((slug) => templeLocations[slug]);
 
   return (
-    <main>
+    <div>
       <section className="border-b border-[#E5DED0] bg-white pb-16 pt-10 sm:pt-12 lg:pb-20">
         <Container>
           <FadeIn>
@@ -114,6 +114,6 @@ export default function EnglishLocationsPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

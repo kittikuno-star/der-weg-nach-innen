@@ -14,12 +14,14 @@ import {
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/",
   title: "Meditation und Buddhismus in Deutschland | Der Weg nach innen",
   description:
     "Meditation, Retreats und buddhistische Weisheit von Wat Phra Dhammakaya Deutschland.",
-};
+});
 
 const offers = [
   {

@@ -11,11 +11,7 @@ import Container from "@/components/ui/Container";
 import { getPastRetreatEvents, getUpcomingRetreatEvents } from "@/data/retreatEvents";
 import { templeLocations } from "@/data/templeLocations";
 import { getWeeklyCourseGroups } from "@/data/weeklyCourseEvents";
-
-export const metadata: Metadata = {
-  title: "เส้นทางสู่ความสงบภายใน",
-  description: "การทำสมาธิ สติ และหลักธรรมทางพระพุทธศาสนาในประเทศเยอรมนี เปิดกว้างสำหรับทุกคน",
-};
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -92,7 +88,7 @@ function ThaiLocationsPage() {
   const locations = Object.values(templeLocations);
 
   return (
-    <main lang="th" className="bg-[#F7F6F2] text-slate-700">
+    <div lang="th" className="bg-[#F7F6F2] text-slate-700">
       <section className="border-b border-[#E5DED0] bg-white pb-16 pt-10 sm:pt-12 lg:pb-20">
         <Container>
           <FadeIn>
@@ -132,7 +128,7 @@ function ThaiLocationsPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }
 
@@ -154,7 +150,7 @@ function ThaiCoursesPage() {
   const courseGroups = getWeeklyCourseGroups();
 
   return (
-    <main lang="th" className="bg-[#F7F6F2] text-slate-700">
+    <div lang="th" className="bg-[#F7F6F2] text-slate-700">
       <section className="relative isolate overflow-hidden bg-[#153B36] py-20 text-white sm:py-24">
         <Container>
           <FadeIn>
@@ -204,7 +200,7 @@ function ThaiCoursesPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }
 
@@ -223,7 +219,7 @@ function ThaiRetreatsPage() {
   const pastRetreats = getPastRetreatEvents();
 
   return (
-    <main lang="th" className="bg-[#F7F6F2] text-slate-700">
+    <div lang="th" className="bg-[#F7F6F2] text-slate-700">
       <section className="relative isolate min-h-[440px] overflow-hidden bg-[#102F2B] text-white">
         <Image src="/images/retreat/retreat-hero-01.png" alt="บรรยากาศการปฏิบัติธรรม" fill priority sizes="100vw" className="object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B2522]/95 via-[#0B2522]/72 to-[#0B2522]/25" />
@@ -265,7 +261,19 @@ function ThaiRetreatsPage() {
                         <div className="flex items-start gap-3"><MapPin className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" /><dd><span className="block font-semibold text-[#153B36]">{retreat.street}</span>{retreat.postalCode} {retreat.city}</dd></div>
                       </dl>
                       <p className="mt-6 font-semibold text-[#153B36]">ภาษาที่ใช้ในกิจกรรม: ภาษาเยอรมัน</p>
-                      <Link href={`/th/registration?event=${retreat.id}`} className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5">ลงทะเบียน<ArrowRight className="h-4 w-4" /></Link>
+                      {retreat.registrationUrl ? (
+                        <a
+                          href={retreat.registrationUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#153B36] px-6 py-3 text-center font-semibold text-white transition hover:-translate-y-0.5 sm:w-auto"
+                        >
+                          ลงทะเบียน One Day Retreat
+                          <ArrowRight className="h-4 w-4" />
+                        </a>
+                      ) : (
+                        <Link href={`/th/registration?event=${retreat.id}`} className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#153B36] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5">ลงทะเบียน<ArrowRight className="h-4 w-4" /></Link>
+                      )}
                     </div>
                   </article>
                 </FadeIn>
@@ -311,7 +319,7 @@ function ThaiRetreatsPage() {
           </Container>
         </section>
       ) : null}
-    </main>
+    </div>
   );
 }
 
@@ -341,7 +349,7 @@ const thaiOffers = [
 
 function ThaiOffersPage() {
   return (
-    <main lang="th" className="bg-[#F7F4ED] text-slate-700">
+    <div lang="th" className="bg-[#F7F4ED] text-slate-700">
       <section className="border-b border-[#E5DED0] bg-white py-14 sm:py-16 lg:py-20">
         <Container>
           <FadeIn>
@@ -374,7 +382,7 @@ function ThaiOffersPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }
 
@@ -386,7 +394,7 @@ const thaiValues = [
 
 function ThaiAboutPage() {
   return (
-    <main lang="th">
+    <div lang="th">
       <section className="relative isolate overflow-hidden bg-[#153B36] py-20 sm:py-24 lg:py-28">
         <div aria-hidden="true" className="absolute -left-24 top-10 -z-10 h-80 w-80 rounded-full bg-[#B08D57]/15 blur-3xl" />
         <div aria-hidden="true" className="absolute -bottom-36 right-0 -z-10 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
@@ -431,12 +439,12 @@ function ThaiAboutPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }
 
 function ThaiPage({ content, image = "/images/hero/hero-01.png", separateImage = false }: { content: PageContent; image?: string; separateImage?: boolean }) {
-  return <main lang="th" className="bg-[#F8F6F0] text-slate-700">
+  return <div lang="th" className="bg-[#F8F6F0] text-slate-700">
     <section className="relative min-h-[440px] overflow-hidden bg-[#102F2B] text-white">
       {!separateImage && <Image src={image} alt="" fill priority sizes="100vw" className="object-cover object-center motion-safe:animate-[heroZoom_16s_ease-out_forwards]" />}
       {!separateImage && <div className="absolute inset-0 bg-gradient-to-r from-[#0B2522]/94 via-[#0B2522]/68 to-[#0B2522]/20" />}
@@ -471,10 +479,74 @@ function ThaiPage({ content, image = "/images/hero/hero-01.png", separateImage =
         </div>
       </Container>
     </section>
-  </main>;
+  </div>;
 }
 
-export default async function ThaiCatchAllPage({ params }: { params: Promise<{ slug?: string[] }> }) {
+type ThaiPageProps = { params: Promise<{ slug?: string[] }> };
+
+export async function generateMetadata({ params }: ThaiPageProps): Promise<Metadata> {
+  const { slug = [] } = await params;
+  const key = slug.join("/") || "home";
+  const pathname = `/th${slug.length ? `/${key}` : ""}`;
+
+  if (slug[0] === "locations" && slug[1]) {
+    const location = templeLocations[slug[1]];
+    if (!location) return {};
+
+    return pageMetadata({
+      pathname,
+      title: location.nameTh ?? location.name,
+      description: `${location.nameTh ?? location.name} ใน ${location.city} ประเทศเยอรมนี`,
+    });
+  }
+
+  if (key === "locations") {
+    return pageMetadata({
+      pathname,
+      title: "วัดและศูนย์ปฏิบัติธรรมในประเทศเยอรมนี",
+      description: "ค้นหาวัดและศูนย์ปฏิบัติธรรมทั้งเจ็ดแห่ง พร้อมข้อมูลที่อยู่ หลักสูตรสมาธิ และกิจกรรม",
+    });
+  }
+
+  if (key === "courses") {
+    return pageMetadata({
+      pathname,
+      title: "หลักสูตรสมาธิในประเทศเยอรมนี",
+      description: "หลักสูตรสมาธิประจำสัปดาห์สำหรับผู้เริ่มต้นและผู้มีประสบการณ์ ณ วัดและศูนย์ปฏิบัติธรรมในประเทศเยอรมนี",
+    });
+  }
+
+  if (key === "retreats") {
+    return pageMetadata({
+      pathname,
+      title: "วันปฏิบัติธรรมและรีทรีตในประเทศเยอรมนี",
+      description: "วันปฏิบัติธรรมเพื่อฝึกสมาธิ เรียนรู้หลักธรรม และใช้เวลาอย่างสงบ ณ วัดในประเทศเยอรมนี",
+    });
+  }
+
+  if (key === "offers") {
+    return pageMetadata({
+      pathname,
+      title: "กิจกรรมสมาธิและพระพุทธศาสนา",
+      description: "ค้นพบหลักสูตรสมาธิ วันปฏิบัติธรรม การบรรยาย และกิจกรรมทางพระพุทธศาสนาในประเทศเยอรมนี",
+    });
+  }
+
+  if (key === "about-us") {
+    return pageMetadata({
+      pathname,
+      title: "เกี่ยวกับเส้นทางสู่ความสงบภายใน",
+      description: "ทำความรู้จักโครงการ แนวทาง คุณค่า และทีมงานของเส้นทางสู่ความสงบภายใน",
+    });
+  }
+
+  const content = pages[key];
+  if (!content) return {};
+
+  return pageMetadata({ pathname, title: content.title, description: content.intro });
+}
+
+export default async function ThaiCatchAllPage({ params }: ThaiPageProps) {
   const { slug = [] } = await params;
   if (slug[0] === "locations" && slug[1]) return <LocationPage slug={slug[1]} />;
   const key = slug.join("/") || "home";

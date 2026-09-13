@@ -12,6 +12,7 @@ export type RetreatEvent = {
   image: string;
   imageAlt: string;
   registrationType: "one-day-retreat" | "multi-day-retreat";
+  registrationUrl?: string;
 };
 
 export const retreatEvents: RetreatEvent[] = [
@@ -74,6 +75,7 @@ export const retreatEvents: RetreatEvent[] = [
     image: "/images/temples/heilbronn/map-card-01.png",
     imageAlt: "Wat Buddha Heilbronn in Wüstenrot",
     registrationType: "one-day-retreat",
+    registrationUrl: "https://forms.gle/aczmyqh3qfEhQ3v76",
   },
 ];
 

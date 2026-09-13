@@ -204,9 +204,20 @@ export default function EnglishRetreatsPage() {
                       </dl>
 
                       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <Button href="/en/contact" className="w-full sm:w-auto">
-                          Ask about this retreat
-                        </Button>
+                        {retreat.registrationUrl ? (
+                          <a
+                            href={retreat.registrationUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex w-full items-center justify-center rounded-full bg-[#153B36] px-6 py-3 text-center font-medium text-white shadow-[0_18px_40px_rgba(21,59,54,0.18)] transition-all duration-300 hover:bg-[#244B45] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-2 sm:w-auto"
+                          >
+                            Register for the One Day Retreat
+                          </a>
+                        ) : (
+                          <Button href="/en/contact" className="w-full sm:w-auto">
+                            Ask about this retreat
+                          </Button>
+                        )}
                         <Button href="#day-programme" variant="outline" className="w-full sm:w-auto">
                           View programme
                         </Button>

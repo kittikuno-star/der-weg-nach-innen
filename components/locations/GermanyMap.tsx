@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 type MapLocation = {
@@ -229,9 +230,15 @@ export default function GermanyMap({ language = "de" }: GermanyMapProps) {
               >
                 <foreignObject x="-165" y="-5" width="330" height="126" className="overflow-visible">
                   <div className="flex h-[116px] overflow-hidden rounded-[16px] border border-[#E3E0D8] bg-white p-3 shadow-[0_18px_45px_rgba(21,59,54,0.20)]">
-                    <div className="h-full w-[112px] shrink-0 overflow-hidden rounded-[10px] bg-[#EEEAE1]">
+                    <div className="relative h-full w-[112px] shrink-0 overflow-hidden rounded-[10px] bg-[#EEEAE1]">
                       {location.image ? (
-                        <img src={location.image} alt="" className="h-full w-full object-cover" />
+                        <Image
+                          src={location.image}
+                          alt=""
+                          fill
+                          sizes="112px"
+                          className="object-cover"
+                        />
                       ) : (
                         <div className="flex h-full items-center justify-center px-3 text-center text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9A845E]">
                           Tempelfoto folgt

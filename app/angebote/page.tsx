@@ -80,7 +80,7 @@ const offers = [
 
 export default function OffersPage() {
   return (
-    <main className="bg-[#F7F4ED]">
+    <div className="bg-[#F7F4ED]">
       <section className="border-b border-[#E5DED0] bg-white py-20 sm:py-24 lg:py-28">
         <Container>
           <FadeIn>
@@ -165,6 +165,6 @@ export default function OffersPage() {
           </FadeIn>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

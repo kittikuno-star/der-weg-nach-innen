@@ -49,7 +49,7 @@ const locations: LocationCard[] = [
 
 export default function LocationsPage() {
   return (
-    <main>
+    <div>
       <section className="bg-white pb-16 pt-12 sm:pt-16 lg:pb-20 lg:pt-20">
         <Container>
           <FadeIn>
@@ -162,6 +162,6 @@ export default function LocationsPage() {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

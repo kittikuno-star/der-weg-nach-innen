@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   CalendarDays,
   Check,
@@ -13,7 +14,14 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { getWeeklyCourseGroups } from "@/data/weeklyCourseEvents";
 import { routes } from "@/lib/routes";
+import { pageMetadata } from "@/lib/seo";
 
+export const metadata: Metadata = pageMetadata({
+  pathname: "/kurse",
+  title: "Meditationskurse in Deutschland",
+  description:
+    "Kostenlose Meditationskurse für Anfänger und Erfahrene: regelmäßig gemeinsam üben und Meditation an unseren Standorten kennenlernen.",
+});
 
 const weeklyCourseGroups = getWeeklyCourseGroups();
 

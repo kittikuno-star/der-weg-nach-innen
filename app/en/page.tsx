@@ -13,12 +13,14 @@ import {
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  pathname: "/en",
   title: "Meditation and Buddhism in Germany",
   description:
     "Meditation, retreats and Buddhist wisdom from Wat Phra Dhammakaya in Germany.",
-};
+});
 
 const offers = [
   {

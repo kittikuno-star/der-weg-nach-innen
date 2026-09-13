@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import RegistrationHub from "@/components/forms/RegistrationHub";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "ศูนย์ลงทะเบียน | Der Weg nach innen",
+export const metadata: Metadata = pageMetadata({
+  pathname: "/th/registration",
+  title: "ศูนย์ลงทะเบียน",
   description: "เลือกประเภทกิจกรรม แล้วไปยังแบบฟอร์มลงทะเบียนที่ถูกต้องโดยตรง",
-};
+});
 
 type Props = {
   searchParams: Promise<{
@@ -21,7 +23,7 @@ export default async function ThaiRegistrationPage({ searchParams }: Props) {
   const params = await searchParams;
 
   return (
-    <main className="bg-stone-50" lang="th">
+    <div className="bg-stone-50" lang="th">
       <section className="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-24">
         <RegistrationHub
           language="th"
@@ -33,6 +35,6 @@ export default async function ThaiRegistrationPage({ searchParams }: Props) {
           templeSlug={params.tempel}
         />
       </section>
-    </main>
+    </div>
   );
 }

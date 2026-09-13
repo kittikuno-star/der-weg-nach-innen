@@ -129,7 +129,7 @@ const dailyPractices = [
 
 export default function InspirationPage() {
   return (
-    <main>
+    <div>
       <section className="relative isolate overflow-hidden bg-[#153B36] py-24 text-white sm:py-28 lg:py-36">
         <div className="absolute -left-40 top-0 -z-10 h-[36rem] w-[36rem] rounded-full bg-[#B08D57]/20 blur-3xl" />
         <div className="absolute -bottom-48 right-0 -z-10 h-[38rem] w-[38rem] rounded-full bg-white/[0.06] blur-3xl" />
@@ -427,6 +427,6 @@ export default function InspirationPage() {
           </FadeIn>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

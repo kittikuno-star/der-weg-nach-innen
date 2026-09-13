@@ -21,7 +21,7 @@ export default async function EnglishRegistrationPage({ searchParams }: Props) {
   const params = await searchParams;
 
   return (
-    <main className="bg-stone-50" lang="en">
+    <div className="bg-stone-50" lang="en">
       <section className="mx-auto max-w-5xl px-6 py-16 lg:px-8 lg:py-24">
         <RegistrationHub
           language="en"
@@ -33,6 +33,6 @@ export default async function EnglishRegistrationPage({ searchParams }: Props) {
           templeSlug={params.tempel}
         />
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  pathname: "/meditation",
+  title: "Meditation lernen und innere Ruhe finden",
+  description:
+    "Meditation verständlich kennenlernen: Übungen und Angebote für Anfänger und erfahrene Meditierende an unseren Standorten in Deutschland.",
+});
 
 const benefits = [
   {
