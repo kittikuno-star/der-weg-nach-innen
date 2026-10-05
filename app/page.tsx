@@ -385,8 +385,8 @@ export default function HomePage() {
 
       <section id="retreat" className="relative min-h-[680px] scroll-mt-24 overflow-hidden bg-[#153B36] text-white">
         <Image
-          src="/images/retreat/retreat-hero-01.png"
-          alt="Ein stiller Ort für Meditation und Rückzug"
+          src="/images/retreat/retreat-real.jpg"
+          alt="Teilnehmer bei einem Meditationstag in einem buddhistischen Meditationszentrum in Deutschland"
           fill
           sizes="100vw"
           className="object-cover object-center"
