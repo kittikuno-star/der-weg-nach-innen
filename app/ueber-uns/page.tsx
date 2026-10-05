@@ -95,9 +95,9 @@ export default function AboutPage() {
               </h1>
 
               <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-white/80 sm:text-xl sm:leading-9">
-                „Der Weg nach Innen“ verbindet Meditationsangebote von sieben
-                buddhistischen Tempeln in Deutschland und macht Meditation in
-                einer verständlichen, offenen und zeitgemäßen Form zugänglich.
+                „Der Weg nach innen“ verbindet Meditationsangebote buddhistischer
+                Tempel in Deutschland und macht Meditation in einer
+                verständlichen, offenen und zeitgemäßen Form zugänglich.
               </p>
 
               <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
@@ -142,8 +142,8 @@ export default function AboutPage() {
                 </p>
                 <p>
                   Die Website bündelt regelmäßige Meditationskurse, Retreats,
-                  inspirierende Inhalte und Informationen zu sieben Tempeln in
-                  Deutschland.
+                  inspirierende Inhalte und Informationen zu buddhistischen
+                  Tempeln und Meditationszentren in Deutschland.
                 </p>
               </div>
             </FadeIn>
@@ -217,8 +217,8 @@ export default function AboutPage() {
               buddhistischer Lehre, Gemeinschaft, Medien und Technik.
             </p>
             <p className="mt-4 leading-7 text-slate-600">
-              „Der Weg nach Innen“ ist ein Projekt der DIDE - Dhammakaya
-              International Deutschland gemeinnützige GmbH.
+              „Der Weg nach innen“ wird von der DIDE – Dhammakaya International
+              Deutschland gemeinnützige GmbH getragen.
             </p>
           </div>
 
@@ -326,8 +326,8 @@ export default function AboutPage() {
                   Finden Sie Ihren eigenen Weg nach innen
                 </h2>
                 <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/75">
-                  Lernen Sie unsere Meditationsangebote kennen oder besuchen Sie
-                  einen der sieben Standorte in Deutschland.
+                  Lernen Sie unsere Meditationsangebote kennen oder entdecken Sie
+                  unsere Standorte in Deutschland.
                 </p>
                 <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
                   <Button href="/#meditationsangebote" size="lg">
