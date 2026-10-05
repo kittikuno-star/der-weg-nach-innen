@@ -90,12 +90,12 @@ export default function HomePage() {
     <>
       <section className="relative min-h-[620px] overflow-hidden bg-[#102F2B] text-white sm:min-h-[680px] lg:min-h-[calc(100svh-5rem)]">
         <Image
-          src="/images/hero/hero-01.png"
-          alt="Ruhige Landschaft im warmen Morgenlicht"
+          src="/images/temples/bavaria/hero-01.jpg"
+          alt="Wat Phra Dhammakaya Bavaria in Königsbrunn, buddhistisches Meditationszentrum der DIDE gGmbH"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[65%_center] sm:object-center lg:motion-safe:animate-[heroZoom_16s_ease-out_forwards]"
+          className="object-cover object-center lg:motion-safe:animate-[heroZoom_16s_ease-out_forwards]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B2522]/92 via-[#0B2522]/58 to-[#0B2522]/18 sm:from-[#0B2522]/90 sm:via-[#0B2522]/48 sm:to-[#0B2522]/12" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B2522]/75 via-transparent to-black/10" />
@@ -117,6 +117,10 @@ export default function HomePage() {
               Entdecken Sie Meditationskurse, Retreats und buddhistische
               Angebote in unseren Tempeln in Deutschland. Unsere Angebote stehen
               Anfängern ebenso offen wie Menschen mit Meditationserfahrung.
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">
+              Der Weg nach innen ist ein Projekt der DIDE – Dhammakaya
+              International Deutschland gemeinnützige GmbH.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 min-[390px]:gap-4 sm:mt-10 sm:flex-row">
