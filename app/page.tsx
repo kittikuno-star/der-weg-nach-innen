@@ -20,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
   pathname: "/",
   title: "Meditation und Buddhismus in Deutschland | Der Weg nach innen",
   description:
-    "Meditation, Retreats und buddhistische Weisheit von Wat Phra Dhammakaya Deutschland.",
+    "Meditation, Retreats und buddhistische Angebote in Deutschland. Der Weg nach innen wird von der DIDE – Dhammakaya International Deutschland gemeinnützige GmbH getragen.",
 });
 
 const offers = [
@@ -119,8 +119,9 @@ export default function HomePage() {
               Anfängern ebenso offen wie Menschen mit Meditationserfahrung.
             </p>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-white/75 sm:text-base">
-              Der Weg nach innen ist ein Projekt der DIDE – Dhammakaya
-              International Deutschland gemeinnützige GmbH.
+              Der Weg nach innen verbindet Meditationsangebote buddhistischer
+              Tempel in Deutschland und wird von der DIDE – Dhammakaya
+              International Deutschland gemeinnützige GmbH getragen.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 min-[390px]:gap-4 sm:mt-10 sm:flex-row">
