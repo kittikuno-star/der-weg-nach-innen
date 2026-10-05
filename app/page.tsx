@@ -317,8 +317,8 @@ export default function HomePage() {
             <FadeIn delay={0.08}>
               <div className="relative aspect-[4/5] overflow-hidden rounded-[34px] shadow-[0_30px_80px_rgba(21,59,54,0.13)] sm:aspect-[5/4] lg:aspect-[4/5]">
                 <Image
-                  src="/images/meditation/why-meditation-01.png"
-                  alt="Meditation in ruhiger Atmosphäre"
+                  src="/images/meditation/why-meditation-real.jpg"
+                  alt="Teilnehmer bei einer gemeinsamen Meditation in einem buddhistischen Meditationszentrum in Deutschland"
                   fill
                   sizes="(min-width: 1024px) 56vw, 100vw"
                   className="object-cover transition duration-1000 hover:scale-[1.025]"
