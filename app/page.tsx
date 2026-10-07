@@ -14,6 +14,7 @@ import {
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { templeLocationList } from "@/data/templeLocations";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -44,44 +45,6 @@ const offers = [
     text: "Ein ganzer Tag, um Abstand zu gewinnen, neue Kraft zu sammeln und nach innen zu hören.",
     href: "/retreats",
     image: "/images/courses/course-retreat-01.png",
-  },
-];
-
-const locations = [
-  {
-    name: "Wat Phra Dhammakaya Bavaria",
-    city: "Königsbrunn bei Augsburg",
-    href: "/standorte/bavaria",
-  },
-  {
-    name: "Wat Phra Dhammakaya Rheinland",
-    city: "Ingelheim am Rhein",
-    href: "/standorte/rheinland",
-  },
-  {
-    name: "Wat Buddha Nordrhein-Westfalen",
-    city: "Moers",
-    href: "/standorte/nrw",
-  },
-  {
-    name: "Wat Buddha Heilbronn",
-    city: "Wüstenrot",
-    href: "/standorte/heilbronn",
-  },
-  {
-    name: "Wat Phra Dhammakaya Schwarzwald",
-    city: "Kippenheim",
-    href: "/standorte/schwarzwald",
-  },
-  {
-    name: "Wat Phra Dhammakaya Hamburg",
-    city: "Gerdau",
-    href: "/standorte/hamburg",
-  },
-  {
-    name: "Wat Phra Dhammakaya Berlin",
-    city: "Blankenfelde-Mahlow",
-    href: "/standorte/berlin",
   },
 ];
 
@@ -479,14 +442,14 @@ export default function HomePage() {
             </FadeIn>
 
             <div className="grid gap-5 sm:grid-cols-2">
-              {locations.map((location, index) => (
+              {templeLocationList.map((location, index) => (
                 <div
-                  key={location.name}
-                  className={index === locations.length - 1 ? "sm:col-span-2" : undefined}
+                  key={location.slug}
+                  className={index === templeLocationList.length - 1 ? "sm:col-span-2" : undefined}
                 >
                   <FadeIn delay={index * 0.06}>
                     <Link
-                      href={location.href}
+                      href={`/standorte/${location.slug}`}
                       className="group flex h-full items-center justify-between gap-6 rounded-[28px] border border-white/12 bg-white/[0.055] p-7 transition duration-300 hover:border-[#D6BC8C]/45 hover:bg-white/[0.09] sm:p-8"
                     >
                       <div>

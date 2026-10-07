@@ -10,7 +10,7 @@ import {
 
 import FadeIn from "@/components/animations/FadeIn";
 import Container from "@/components/ui/Container";
-import { templeLocations } from "@/data/templeLocations";
+import { templeLocationList } from "@/data/templeLocations";
 import { routes } from "@/lib/routes";
 
 type OfferLocationsPageProps = {
@@ -24,20 +24,6 @@ type OfferLocationsPageProps = {
   contactText: string;
   contactForm?: ReactNode;
 };
-
-const locationOrder = [
-  "hamburg",
-  "berlin",
-  "nrw",
-  "rheinland",
-  "heilbronn",
-  "schwarzwald",
-  "bavaria",
-] as const;
-
-const locations = locationOrder.map(
-  (slug) => templeLocations[slug],
-);
 
 export default function OfferLocationsPage({
   eyebrow,
@@ -107,7 +93,7 @@ export default function OfferLocationsPage({
           <FadeIn>
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#9A7644]">
-                Alle sieben Standorte
+                Alle Standorte
               </p>
 
               <h2 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl">
@@ -121,7 +107,7 @@ export default function OfferLocationsPage({
           </FadeIn>
 
           <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {locations.map((location, index) => (
+            {templeLocationList.map((location, index) => (
               <div
                 key={location.slug}
                 className={

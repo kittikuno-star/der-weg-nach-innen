@@ -16,7 +16,7 @@ import Container from "@/components/ui/Container";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
-  title: "Angebote | Der Weg nach innen",
+  title: "Angebote",
   description:
     "Meditationskurse, Retreats, Schulbesuche, Tempelbesuche, Vorträge und besondere Veranstaltungen in unseren Tempeln in Deutschland.",
 };

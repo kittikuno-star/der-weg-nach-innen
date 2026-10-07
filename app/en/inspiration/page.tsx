@@ -19,7 +19,7 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 
 export const metadata: Metadata = {
-  title: "Inspiration | The Way Within",
+  title: "Inspiration",
   description:
     "Reflections on meditation, mindfulness and Buddhist wisdom for greater calm, clarity and compassion in everyday life.",
 };

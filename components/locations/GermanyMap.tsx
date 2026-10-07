@@ -1,105 +1,76 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type MapLocation = {
-  id: string;
-  name: string;
-  city: string;
-  href: string;
+import {
+  templeLocationOrder,
+  templeLocations,
+  type TempleLocationSlug,
+} from "@/data/templeLocations";
+
+type MapPosition = {
   x: number;
   y: number;
   labelX: number;
   labelY: number;
   labelWidth: number;
-  image?: string;
 };
 
-const locations: MapLocation[] = [
-  {
-    id: "hamburg",
-    name: "Wat Phra Dhammakaya Hamburg",
-    city: "Gerdau",
-    href: "/standorte/hamburg",
+const mapPositions: Record<TempleLocationSlug, MapPosition> = {
+  hamburg: {
     x: 289,
     y: 190,
     labelX: 18,
     labelY: -20,
     labelWidth: 150,
-    image: "/images/temples/hamburg/map-card-01.png",
   },
-  {
-    id: "berlin",
-    name: "Wat Phra Dhammakaya Berlin",
-    city: "Blankenfelde-Mahlow",
-    href: "/standorte/berlin",
+  berlin: {
     x: 429,
     y: 256,
     labelX: 25,
     labelY: -20,
     labelWidth: 150,
-    image: "/images/temples/berlin/map-card-01.jpg",
   },
-  {
-    id: "nrw",
-    name: "Wat Buddha Nordrhein-Westfalen",
-    city: "Moers",
-    href: "/standorte/nrw",
+  nrw: {
     x: 115,
     y: 340,
     labelX: 25,
     labelY: -20,
     labelWidth: 250,
-    image: "/images/temples/nrw/map-card-01.jpg",
   },
-  {
-    id: "rheinland",
-    name: "Wat Phra Dhammakaya Rheinland",
-    city: "Ingelheim am Rhein",
-    href: "/standorte/rheinland",
+  rheinland: {
     x: 176,
     y: 481,
     labelX: 25,
     labelY: -20,
     labelWidth: 165,
-    image: "/images/temples/rheinland/map-card-01.jpg",
   },
-  {
-    id: "heilbronn",
-    name: "Wat Buddha Heilbronn",
-    city: "Wüstenrot",
-    href: "/standorte/heilbronn",
+  heilbronn: {
     x: 240,
     y: 580,
     labelX: 25,
     labelY: -16,
     labelWidth: 150,
-    image: "/images/temples/heilbronn/map-card-01.png",
   },
-  {
-    id: "schwarzwald",
-    name: "Wat Phra Dhammakaya Schwarzwald",
-    city: "Kippenheim",
-    href: "/standorte/schwarzwald",
+  schwarzwald: {
     x: 160,
     y: 633,
     labelX: 25,
     labelY: -20,
     labelWidth: 170,
-    image: "/images/temples/schwarzwald/map-card-01.jpg",
   },
-  {
-    id: "bavaria",
-    name: "Wat Phra Dhammakaya Bavaria",
-    city: "Königsbrunn",
-    href: "/standorte/bavaria",
+  bavaria: {
     x: 326,
     y: 650,
     labelX: 25,
     labelY: -18,
     labelWidth: 150,
-    image: "/images/temples/bavaria/map-card-01.jpg",
   },
-];
+};
+
+const locations = templeLocationOrder.map((slug) => ({
+  ...templeLocations[slug],
+  ...mapPositions[slug],
+}));
 
 type GermanyMapProps = {
   language?: "de" | "en" | "th";
@@ -108,17 +79,17 @@ type GermanyMapProps = {
 const mapCopy = {
   de: {
     title: "Standorte in Deutschland",
-    description: "Vollständige Deutschlandkarte mit sieben Tempel- und Meditationsstandorten.",
+    description: "Deutschlandkarte mit buddhistischen Tempeln und Meditationsstandorten.",
     activity: "Meditation · Dhamma · Gemeinschaft",
   },
   en: {
     title: "Locations in Germany",
-    description: "Map of Germany showing seven Buddhist temples and meditation centres.",
+    description: "Map of Germany showing Buddhist temples and meditation centres.",
     activity: "Meditation · Dhamma · Community",
   },
   th: {
     title: "สถานที่ในประเทศเยอรมนี",
-    description: "แผนที่ประเทศเยอรมนีแสดงวัดและศูนย์ปฏิบัติธรรมเจ็ดแห่ง",
+    description: "แผนที่ประเทศเยอรมนีแสดงวัดและศูนย์ปฏิบัติธรรม",
     activity: "สมาธิ · ธรรมะ · กัลยาณมิตร",
   },
 } as const;
@@ -169,8 +140,8 @@ export default function GermanyMap({ language = "de" }: GermanyMapProps) {
 
         {locations.map((location) => (
           <Link
-            key={location.id}
-            href={locationHref(location.id)}
+            key={location.slug}
+            href={locationHref(location.slug)}
             aria-label={`${location.name}, ${location.city}`}
             className="group outline-none"
           >

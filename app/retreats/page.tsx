@@ -29,7 +29,7 @@ import {
 } from "@/data/retreatEvents";
 
 export const metadata: Metadata = {
-  title: "Retreats | Der Weg nach innen",
+  title: "Retreats",
   description:
     "Entdecken Sie Meditationstage und Retreats von Wat Phra Dhammakaya in Deutschland. Zeit für Ruhe, Achtsamkeit und neue innere Klarheit.",
 };

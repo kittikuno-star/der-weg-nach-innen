@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 
 export const metadata: Metadata = {
-  title: "Meditation | The Way Within",
+  title: "Meditation",
   description:
     "Discover how meditation can support inner calm, clarity and a more compassionate way of living.",
 };

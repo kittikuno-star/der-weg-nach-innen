@@ -15,7 +15,7 @@ import Container from "@/components/ui/Container";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
-  title: "Über uns | Der Weg nach Innen",
+  title: "Über uns",
   description:
     "Erfahren Sie mehr über Der Weg nach Innen, unsere Ausrichtung, unsere Werte und die Menschen hinter dem Projekt.",
 };

@@ -7,45 +7,13 @@ import FadeIn from "@/components/animations/FadeIn";
 import GermanyMap from "@/components/locations/GermanyMap";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { templeLocationList } from "@/data/templeLocations";
 
 export const metadata: Metadata = {
-  title: "Standorte | Der Weg nach innen",
+  title: "Standorte",
   description:
     "Entdecken Sie die Tempel und Meditationsorte von Wat Phra Dhammakaya in Deutschland.",
 };
-
-type LocationCard = {
-  id: string;
-  name: string;
-  city: string;
-  region: string;
-  image?: string;
-  href: string;
-};
-
-const locations: LocationCard[] = [
-  {
-  id: "hamburg",
-  name: "Wat Phra Dhammakaya Hamburg",
-  city: "Gerdau",
-  region: "Niedersachsen",
-  image: "/images/temples/hamburg/map-card-01.png",
-  href: "/standorte/hamburg",
-},
-  { id: "berlin", name: "Wat Phra Dhammakaya Berlin", city: "Blankenfelde-Mahlow", region: "Brandenburg", image: "/images/temples/berlin/map-card-01.jpg", href: "/standorte/berlin" },
-  { id: "nrw", name: "Wat Buddha Nordrhein-Westfalen", city: "Moers", region: "Nordrhein-Westfalen", image: "/images/temples/nrw/map-card-01.jpg", href: "/standorte/nrw" },
-  { id: "rheinland", name: "Wat Phra Dhammakaya Rheinland", city: "Ingelheim am Rhein", region: "Rheinland-Pfalz", image: "/images/temples/rheinland/map-card-01.jpg", href: "/standorte/rheinland" },
-  { id: "heilbronn", name: "Wat Buddha Heilbronn", city: "Wüstenrot", region: "Baden-Württemberg", image: "/images/temples/heilbronn/map-card-01.png", href: "/standorte/heilbronn" },
-  { id: "schwarzwald", name: "Wat Phra Dhammakaya Schwarzwald", city: "Kippenheim", region: "Baden-Württemberg", image: "/images/temples/schwarzwald/map-card-01.jpg", href: "/standorte/schwarzwald" },
-  {
-    id: "bavaria",
-    name: "Wat Phra Dhammakaya Bavaria",
-    city: "Königsbrunn",
-    region: "Bayern",
-    image: "/images/temples/bavaria/map-card-01.jpg",
-    href: "/standorte/bavaria",
-  },
-];
 
 export default function LocationsPage() {
   return (
@@ -56,7 +24,7 @@ export default function LocationsPage() {
             <div className="mx-auto max-w-5xl rounded-[32px] border border-[#DEDCD4] bg-[#FAF9F5] px-6 py-12 shadow-[0_24px_70px_rgba(21,59,54,0.08)] sm:px-10 lg:px-16">
               <div className="mx-auto max-w-3xl text-center">
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#B08D57]">
-                  7 Standorte in Deutschland
+                  {templeLocationList.length} Standorte in Deutschland
                 </p>
                 <h1 className="mt-4 font-serif text-3xl leading-tight text-[#153B36] sm:text-4xl lg:text-5xl">
                   Meditation in Ihrer Nähe
@@ -108,14 +76,14 @@ export default function LocationsPage() {
           </FadeIn>
 
           <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {locations.map((location, index) => (
+            {templeLocationList.map((location, index) => (
               <div
-                key={location.id}
-                className={location.id === "bavaria" ? "xl:col-start-2" : undefined}
+                key={location.slug}
+                className={location.slug === "bavaria" ? "xl:col-start-2" : undefined}
               >
                 <FadeIn delay={index * 0.06}>
                   <Link
-                    href={location.href}
+                    href={`/standorte/${location.slug}`}
                     className="group block h-full overflow-hidden rounded-[28px] border border-[#E0E1DC] bg-white shadow-[0_16px_50px_rgba(21,59,54,0.05)] outline-none transition-all duration-500 hover:-translate-y-2 hover:border-[#D2B982] hover:shadow-[0_28px_80px_rgba(21,59,54,0.12)] focus-visible:ring-2 focus-visible:ring-[#B08D57] focus-visible:ring-offset-4"
                   >
                     <article className="flex h-full flex-col">

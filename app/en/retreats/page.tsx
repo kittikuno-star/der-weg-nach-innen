@@ -31,7 +31,7 @@ import {
 } from "@/data/retreatEvents";
 
 export const metadata: Metadata = {
-  title: "Meditation Retreats in Germany | The Way Within",
+  title: "Meditation Retreats in Germany",
   description:
     "Discover one-day meditation retreats at Buddhist temples in Germany, with guided meditation, Dhamma talks and mindful breaks.",
 };

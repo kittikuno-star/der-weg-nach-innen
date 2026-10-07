@@ -14,7 +14,7 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 
 export const metadata: Metadata = {
-  title: "About us | The Way Within",
+  title: "About us",
   description:
     "Learn more about The Way Within, our purpose, our values and the people behind the project.",
 };
@@ -92,7 +92,7 @@ export default function AboutPage() {
               </h1>
 
               <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-white/80 sm:text-xl sm:leading-9">
-                The Way Within brings together meditation activities from seven
+                The Way Within brings together meditation activities from
                 Buddhist temples in Germany and makes meditation accessible in
                 a clear, open and contemporary way.
               </p>
@@ -138,7 +138,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   This website brings together regular meditation courses,
-                  retreats, inspiring content and information about seven
+                  retreats, inspiring content and information about Buddhist
                   temples in Germany.
                 </p>
               </div>
@@ -321,8 +321,8 @@ export default function AboutPage() {
                   Find your own way within
                 </h2>
                 <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/75">
-                  Discover our meditation courses or visit one of our seven
-                  locations in Germany.
+                  Discover our meditation courses or visit one of our locations
+                  in Germany.
                 </p>
                 <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
                   <Button href="/en/courses" size="lg">

@@ -6,7 +6,7 @@ import { templeLocations } from "@/data/templeLocations";
 const location = templeLocations["hamburg"];
 
 export const metadata: Metadata = {
-  title: `${location.name} | The Way Within`,
+  title: location.name,
   description: `${location.name} in ${location.city}.`,
 };
 

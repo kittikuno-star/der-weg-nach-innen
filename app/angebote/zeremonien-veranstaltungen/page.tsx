@@ -8,9 +8,9 @@ import { buddhistEvents } from "@/data/buddhistEvents";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
-  title: "Buddhistische Angebote | Der Weg nach innen",
+  title: "Buddhistische Angebote",
   description:
-    "Buddhistische Feiertage, Bucha Khao Phra, Gedenktage und Tempelveranstaltungen an sieben Standorten in Deutschland.",
+    "Buddhistische Feiertage, Bucha Khao Phra, Gedenktage und Tempelveranstaltungen an unseren Standorten in Deutschland.",
 };
 
 const sections = [

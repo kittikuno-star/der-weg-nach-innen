@@ -9,7 +9,7 @@ import GermanyMap from "@/components/locations/GermanyMap";
 import TempleLocationPage from "@/components/locations/TempleLocationPage";
 import Container from "@/components/ui/Container";
 import { getPastRetreatEvents, getUpcomingRetreatEvents } from "@/data/retreatEvents";
-import { templeLocations } from "@/data/templeLocations";
+import { templeLocationList, templeLocations } from "@/data/templeLocations";
 import { getWeeklyCourseGroups } from "@/data/weeklyCourseEvents";
 import { pageMetadata } from "@/lib/seo";
 
@@ -85,15 +85,13 @@ function LocationPage({ slug }: { slug: string }) {
 }
 
 function ThaiLocationsPage() {
-  const locations = Object.values(templeLocations);
-
   return (
     <div lang="th" className="bg-[#F7F6F2] text-slate-700">
       <section className="border-b border-[#E5DED0] bg-white pb-16 pt-10 sm:pt-12 lg:pb-20">
         <Container>
           <FadeIn>
             <div className="mx-auto max-w-5xl rounded-[32px] border border-[#E4DED1] bg-[#FBFAF6] px-5 py-9 text-center shadow-[0_24px_70px_rgba(21,59,54,0.08)] sm:px-10 lg:px-14">
-              <p className="text-xs font-semibold tracking-[0.2em] text-[#9A7644]">สถานที่ทั้ง 7 แห่งในประเทศเยอรมนี</p>
+              <p className="text-xs font-semibold tracking-[0.2em] text-[#9A7644]">สถานที่ทั้ง {templeLocationList.length} แห่งในประเทศเยอรมนี</p>
               <h1 className="mx-auto mt-4 max-w-3xl text-3xl font-semibold leading-tight text-[#153B36] sm:text-4xl lg:text-5xl">ค้นหาวัดและศูนย์ปฏิบัติธรรมใกล้คุณ</h1>
               <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">เลือกจุดบนแผนที่เพื่อดูที่อยู่ ตารางสมาธิ และกิจกรรมล่าสุดของแต่ละวัด</p>
               <div className="mt-7 rounded-[26px] border border-[#E4DED1] bg-white px-2 py-6 sm:px-8">
@@ -108,7 +106,7 @@ function ThaiLocationsPage() {
       <section id="thai-locations" className="scroll-mt-28 py-16 lg:py-24">
         <Container>
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {locations.map((temple, index) => (
+            {templeLocationList.map((temple, index) => (
               <FadeIn key={temple.slug} delay={index * 0.05}>
                 <Link href={`/th/locations/${temple.slug}`} className="group block h-full overflow-hidden rounded-[28px] border border-[#E0E1DC] bg-white shadow-[0_16px_50px_rgba(21,59,54,0.05)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_28px_80px_rgba(21,59,54,0.12)]">
                   <article className="flex h-full flex-col">
@@ -403,7 +401,7 @@ function ThaiAboutPage() {
             <div className="mx-auto max-w-4xl text-center">
               <p className="text-sm font-semibold tracking-[0.3em] text-[#D6BC8C]">เกี่ยวกับเรา</p>
               <h1 className="mt-5 text-4xl font-semibold leading-[1.18] text-white sm:text-5xl lg:text-6xl">เส้นทางร่วมกัน<span className="block text-[#E7D7B8]">สู่ความสงบภายใน</span></h1>
-              <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">“Der Weg nach Innen” เชื่อมโยงกิจกรรมสมาธิของวัดพุทธทั้งเจ็ดแห่งในประเทศเยอรมนี และทำให้การเรียนรู้สมาธิเข้าถึงได้อย่างเปิดกว้าง เข้าใจง่าย และร่วมสมัย</p>
+              <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-white/80 sm:text-lg">“Der Weg nach Innen” เชื่อมโยงกิจกรรมสมาธิของวัดพุทธในประเทศเยอรมนี และทำให้การเรียนรู้สมาธิเข้าถึงได้อย่างเปิดกว้าง เข้าใจง่าย และร่วมสมัย</p>
               <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
                 <Link href="/th/offers" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E4CFA7] px-7 py-3.5 font-semibold text-[#153B36] transition hover:bg-white">ดูกิจกรรม<ArrowRight className="h-4 w-4" /></Link>
                 <Link href="/th/locations" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-7 py-3.5 font-semibold text-white transition hover:bg-white/10">ดูสถานที่</Link>
@@ -417,7 +415,7 @@ function ThaiAboutPage() {
         <Container>
           <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             <FadeIn><div><p className="text-sm font-semibold tracking-[0.3em] text-[#B08D57]">แนวทางของเรา</p><h2 className="mt-5 text-3xl font-semibold leading-tight text-[#153B36] sm:text-4xl">สมาธิคือก้าวแรก</h2></div></FadeIn>
-            <FadeIn delay={0.1}><div className="space-y-5 text-base leading-8 text-slate-600 sm:text-lg"><p>เราต้องการช่วยให้ผู้คนได้หยุดพัก เข้าใจจิตใจของตนเองมากขึ้น และพัฒนาสติในชีวิตประจำวัน</p><p>เนื้อหาของเรามีพื้นฐานจากประเพณีการทำสมาธิทางพระพุทธศาสนา แต่ถ่ายทอดในรูปแบบที่ผู้ไม่มีพื้นฐานทางศาสนาก็สามารถเข้าถึงได้อย่างเป็นธรรมชาติ</p><p>เว็บไซต์นี้รวบรวมหลักสูตรสมาธิ Retreat เนื้อหาสร้างแรงบันดาลใจ และข้อมูลของวัดทั้งเจ็ดแห่งในประเทศเยอรมนี</p></div></FadeIn>
+            <FadeIn delay={0.1}><div className="space-y-5 text-base leading-8 text-slate-600 sm:text-lg"><p>เราต้องการช่วยให้ผู้คนได้หยุดพัก เข้าใจจิตใจของตนเองมากขึ้น และพัฒนาสติในชีวิตประจำวัน</p><p>เนื้อหาของเรามีพื้นฐานจากประเพณีการทำสมาธิทางพระพุทธศาสนา แต่ถ่ายทอดในรูปแบบที่ผู้ไม่มีพื้นฐานทางศาสนาก็สามารถเข้าถึงได้อย่างเป็นธรรมชาติ</p><p>เว็บไซต์นี้รวบรวมหลักสูตรสมาธิ Retreat เนื้อหาสร้างแรงบันดาลใจ และข้อมูลของวัดในประเทศเยอรมนี</p></div></FadeIn>
           </div>
         </Container>
       </section>
@@ -504,7 +502,7 @@ export async function generateMetadata({ params }: ThaiPageProps): Promise<Metad
     return pageMetadata({
       pathname,
       title: "วัดและศูนย์ปฏิบัติธรรมในประเทศเยอรมนี",
-      description: "ค้นหาวัดและศูนย์ปฏิบัติธรรมทั้งเจ็ดแห่ง พร้อมข้อมูลที่อยู่ หลักสูตรสมาธิ และกิจกรรม",
+      description: "ค้นหาวัดและศูนย์ปฏิบัติธรรม พร้อมข้อมูลที่อยู่ หลักสูตรสมาธิ และกิจกรรม",
     });
   }
 
@@ -535,7 +533,7 @@ export async function generateMetadata({ params }: ThaiPageProps): Promise<Metad
   if (key === "about-us") {
     return pageMetadata({
       pathname,
-      title: "เกี่ยวกับเส้นทางสู่ความสงบภายใน",
+      title: "เกี่ยวกับเรา",
       description: "ทำความรู้จักโครงการ แนวทาง คุณค่า และทีมงานของเส้นทางสู่ความสงบภายใน",
     });
   }

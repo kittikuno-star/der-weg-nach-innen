@@ -6,27 +6,15 @@ import { ArrowRight, MapPin, Navigation } from "lucide-react";
 import FadeIn from "@/components/animations/FadeIn";
 import GermanyMap from "@/components/locations/GermanyMap";
 import Container from "@/components/ui/Container";
-import { templeLocations } from "@/data/templeLocations";
+import { templeLocationList } from "@/data/templeLocations";
 
 export const metadata: Metadata = {
-  title: "Locations | The Way Within",
+  title: "Locations",
   description:
     "Discover Buddhist temples and meditation centres throughout Germany.",
 };
 
-const locationOrder = [
-  "hamburg",
-  "berlin",
-  "nrw",
-  "rheinland",
-  "heilbronn",
-  "schwarzwald",
-  "bavaria",
-] as const;
-
 export default function EnglishLocationsPage() {
-  const locations = locationOrder.map((slug) => templeLocations[slug]);
-
   return (
     <div>
       <section className="border-b border-[#E5DED0] bg-white pb-16 pt-10 sm:pt-12 lg:pb-20">
@@ -34,7 +22,7 @@ export default function EnglishLocationsPage() {
           <FadeIn>
             <div className="mx-auto max-w-5xl rounded-[32px] border border-[#E4DED1] bg-[#FBFAF6] px-5 py-9 text-center shadow-[0_24px_70px_rgba(21,59,54,0.08)] sm:px-10 lg:px-14">
               <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#9A7644]">
-                Seven locations in Germany
+                {templeLocationList.length} locations in Germany
               </p>
               <h1 className="mt-4 font-serif text-4xl leading-[1.08] tracking-[-0.025em] text-[#153B36] sm:text-5xl lg:text-6xl">
                 Find a place near you
@@ -58,7 +46,7 @@ export default function EnglishLocationsPage() {
       <section id="english-locations" className="scroll-mt-28 bg-[#F7F6F2] py-16 lg:py-24">
         <Container>
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {locations.map((location, index) => (
+            {templeLocationList.map((location, index) => (
               <div
                 key={location.slug}
                 className={location.slug === "bavaria" ? "xl:col-start-2" : undefined}

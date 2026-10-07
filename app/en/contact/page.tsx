@@ -20,7 +20,7 @@ import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 
 export const metadata: Metadata = {
-  title: "Contact | The Way Within",
+  title: "Contact",
   description:
     "Contact us with questions about meditation, courses, retreats, temple visits and Buddhist events in Germany.",
 };

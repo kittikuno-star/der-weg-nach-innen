@@ -20,7 +20,7 @@ import Container from "@/components/ui/Container";
 import GeneralContactForm from "@/components/forms/GeneralContactForm";
 
 export const metadata: Metadata = {
-  title: "Kontakt | Der Weg nach innen",
+  title: "Kontakt",
   description:
     "Kontaktieren Sie uns bei Fragen zu Meditation, Kursen, Retreats, Tempelbesuchen und buddhistischen Veranstaltungen.",
 };

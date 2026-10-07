@@ -21,7 +21,7 @@ import Container from "@/components/ui/Container";
 import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
-  title: "Inspiration | Der Weg nach innen",
+  title: "Inspiration",
   description:
     "Impulse zu Meditation, Achtsamkeit und buddhistischer Weisheit für mehr Ruhe, Klarheit und Mitgefühl im Alltag.",
 };

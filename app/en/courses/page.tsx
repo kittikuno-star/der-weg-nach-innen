@@ -16,7 +16,7 @@ import { getWeeklyCourseGroups } from "@/data/weeklyCourseEvents";
 
 
 export const metadata: Metadata = {
-  title: "Meditation Courses | The Way Within",
+  title: "Meditation Courses",
   description:
     "Free meditation courses held in German at Buddhist temples in Germany, suitable for beginners and experienced meditators.",
 };

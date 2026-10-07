@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import RegistrationHub from "@/components/forms/RegistrationHub";
 
 export const metadata: Metadata = {
-  title: "Central registration | The Way Within",
+  title: "Central registration",
   description: "Choose an offer and continue directly to the correct registration form.",
 };
 

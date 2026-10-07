@@ -110,6 +110,10 @@ export function getRetreatEvent(id?: string) {
   return retreatEvents.find((event) => event.id === id);
 }
 
+export function getUpcomingRetreatEvent(id?: string, now = new Date()) {
+  return getUpcomingRetreatEvents(now).find((event) => event.id === id);
+}
+
 export function getRetreatEventsByTemple(temple: string) {
   return retreatEvents.filter((event) => event.temple === temple);
 }

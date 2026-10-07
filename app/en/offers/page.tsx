@@ -13,6 +13,7 @@ import {
 import FadeIn from "@/components/animations/FadeIn";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { templeLocationList } from "@/data/templeLocations";
 
 export const metadata: Metadata = {
   title: "Meditation and Buddhism in Germany",
@@ -42,16 +43,6 @@ const offers = [
     href: "/en/retreats",
     image: "/images/courses/course-retreat-01.png",
   },
-];
-
-const locations = [
-  { name: "Wat Phra Dhammakaya Bavaria", city: "Königsbrunn near Augsburg", href: "/en/locations/bavaria" },
-  { name: "Wat Phra Dhammakaya Rheinland", city: "Ingelheim am Rhein", href: "/en/locations/rheinland" },
-  { name: "Wat Buddha Nordrhein-Westfalen", city: "Moers", href: "/en/locations/nrw" },
-  { name: "Wat Buddha Heilbronn", city: "Wüstenrot", href: "/en/locations/heilbronn" },
-  { name: "Wat Phra Dhammakaya Schwarzwald", city: "Kippenheim", href: "/en/locations/schwarzwald" },
-  { name: "Wat Phra Dhammakaya Hamburg", city: "Gerdau", href: "/en/locations/hamburg" },
-  { name: "Wat Phra Dhammakaya Berlin", city: "Blankenfelde-Mahlow", href: "/en/locations/berlin" },
 ];
 
 export default function EnglishHomePage() {
@@ -214,10 +205,10 @@ export default function EnglishHomePage() {
               </div>
             </FadeIn>
             <div className="grid gap-5 sm:grid-cols-2">
-              {locations.map((location, index) => (
-                <div key={location.name} className={index === locations.length - 1 ? "sm:col-span-2" : undefined}>
+              {templeLocationList.map((location, index) => (
+                <div key={location.slug} className={index === templeLocationList.length - 1 ? "sm:col-span-2" : undefined}>
                   <FadeIn delay={index * 0.06}>
-                    <Link href={location.href} className="group flex h-full items-center justify-between gap-6 rounded-[28px] border border-white/12 bg-white/[0.055] p-7 transition duration-300 hover:border-[#D6BC8C]/45 hover:bg-white/[0.09] sm:p-8">
+                    <Link href={`/en/locations/${location.slug}`} className="group flex h-full items-center justify-between gap-6 rounded-[28px] border border-white/12 bg-white/[0.055] p-7 transition duration-300 hover:border-[#D6BC8C]/45 hover:bg-white/[0.09] sm:p-8">
                       <div><h3 className="font-serif text-2xl sm:text-3xl">{location.name}</h3><p className="mt-2 text-white/60">{location.city}</p></div>
                       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/18 text-[#D6BC8C] transition group-hover:translate-x-1 group-hover:bg-[#D6BC8C] group-hover:text-[#153B36]"><ArrowRight className="h-5 w-5" /></span>
                     </Link>

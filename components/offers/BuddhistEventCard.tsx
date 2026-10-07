@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { CalendarDays, MapPin } from "lucide-react";
 
-import type { BuddhistEvent } from "@/data/buddhistEvents";
+import {
+  getPastBuddhistEventDates,
+  getUpcomingBuddhistEventDates,
+  type BuddhistEvent,
+} from "@/data/buddhistEvents";
 import { templeLocations } from "@/data/templeLocations";
+import { getVenue } from "@/data/venues";
 
 const categoryLabels = {
   monthly: "Monatliche Zeremonie",
@@ -23,8 +28,14 @@ export default function BuddhistEventCard({
   const displayedTemples = templeSlug
     ? [templeLocations[templeSlug]]
     : event.templeSlugs.map((slug) => templeLocations[slug]);
-  const hasDate = event.dates.length > 0;
-  const canRegister = hasDate && event.registrationOpen;
+  const organizer = event.organizerTempleSlug
+    ? templeLocations[event.organizerTempleSlug]
+    : undefined;
+  const venue = getVenue(event.venueId);
+  const upcomingDates = getUpcomingBuddhistEventDates(event);
+  const pastDates = getPastBuddhistEventDates(event);
+  const hasUpcomingDate = upcomingDates.length > 0;
+  const canRegister = hasUpcomingDate && event.registrationOpen;
   const registrationHref = templeSlug
     ? `/anmeldung?ceremony=${event.id}&tempel=${templeSlug}`
     : `/anmeldung?ceremony=${event.id}`;
@@ -56,11 +67,15 @@ export default function BuddhistEventCard({
           <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" />
           <div>
             <p className="font-semibold text-[#153B36]">
-              {hasDate ? event.dates[0].label : "Termin folgt in Kürze"}
+              {hasUpcomingDate
+                ? upcomingDates[0].label
+                : pastDates.length > 0
+                  ? "Diese Veranstaltung ist beendet"
+                  : "Termin folgt in Kürze"}
             </p>
-            {event.dates.length > 1 ? (
+            {upcomingDates.length > 1 ? (
               <p className="mt-1 text-sm text-slate-500">
-                Weitere Monatstermine sind bei der Anmeldung auswählbar.
+                {upcomingDates.length - 1} weitere bestätigte Termine
               </p>
             ) : null}
           </div>
@@ -68,13 +83,23 @@ export default function BuddhistEventCard({
 
         <div className="flex items-start gap-3">
           <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" />
-          <p className="text-sm leading-6 text-slate-600">
-            {displayedTemples.length === 1
-              ? `${displayedTemples[0].name}, ${displayedTemples[0].city}`
-              : displayedTemples.length === 7
-                ? "An allen sieben Tempelstandorten"
-                : displayedTemples.map((temple) => temple.name).join(", ")}
-          </p>
+          <div className="text-sm leading-6 text-slate-600">
+            {venue ? (
+              <>
+                <p className="font-semibold text-[#153B36]">{venue.name}</p>
+                <p>{venue.street}, {venue.postalCode} {venue.city}</p>
+                {organizer ? <p className="mt-2">Organisiert durch {organizer.name}</p> : null}
+              </>
+            ) : (
+              <p>
+                {displayedTemples.length === 1
+                  ? `${displayedTemples[0].name}, ${displayedTemples[0].city}`
+                  : displayedTemples.length === 7
+                    ? "An allen Tempelstandorten"
+                    : displayedTemples.map((temple) => temple.name).join(", ")}
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
@@ -102,7 +127,11 @@ export default function BuddhistEventCard({
         </div>
       ) : (
         <p className="mt-7 w-fit rounded-full bg-[#F1EEE7] px-5 py-2.5 text-sm font-semibold text-[#806C4C]">
-          {hasDate ? "Anmeldung wird noch freigeschaltet" : "Termin folgt in Kürze"}
+          {hasUpcomingDate
+            ? "Anmeldung wird noch freigeschaltet"
+            : pastDates.length > 0
+              ? "Veranstaltung beendet"
+              : "Termin folgt in Kürze"}
         </p>
       )}
     </article>

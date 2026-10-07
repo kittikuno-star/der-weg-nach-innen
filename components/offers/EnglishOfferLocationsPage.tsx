@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, MapPin, Navigation } from "lucide-react";
 
 import FadeIn from "@/components/animations/FadeIn";
 import Container from "@/components/ui/Container";
-import { templeLocations } from "@/data/templeLocations";
+import { templeLocationList } from "@/data/templeLocations";
 
 type EnglishOfferLocationsPageProps = {
   eyebrow: string;
@@ -16,18 +16,6 @@ type EnglishOfferLocationsPageProps = {
   sectionDescription: string;
   contactText: string;
 };
-
-const locationOrder = [
-  "hamburg",
-  "berlin",
-  "nrw",
-  "rheinland",
-  "heilbronn",
-  "schwarzwald",
-  "bavaria",
-] as const;
-
-const locations = locationOrder.map((slug) => templeLocations[slug]);
 
 export default function EnglishOfferLocationsPage({
   eyebrow,
@@ -90,7 +78,7 @@ export default function EnglishOfferLocationsPage({
           <FadeIn>
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#9A7644]">
-                All seven locations
+                All locations
               </p>
               <h2 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl">
                 {sectionTitle}
@@ -102,7 +90,7 @@ export default function EnglishOfferLocationsPage({
           </FadeIn>
 
           <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {locations.map((location, index) => (
+            {templeLocationList.map((location, index) => (
               <div
                 key={location.slug}
                 className={location.slug === "bavaria" ? "xl:col-start-2" : undefined}

@@ -1,4 +1,4 @@
-import { templeLocations } from "@/data/templeLocations";
+import { templeLocations, type TempleLocationSlug } from "@/data/templeLocations";
 
 export type BuddhistEventCategory =
   | "monthly"
@@ -11,6 +11,11 @@ export type BuddhistEventDate = {
   label: string;
 };
 
+export type BuddhistEventProgramItem = {
+  time: string;
+  items: string[];
+};
+
 export type BuddhistEvent = {
   id: string;
   title: string;
@@ -19,6 +24,11 @@ export type BuddhistEvent = {
   description: string;
   dates: BuddhistEventDate[];
   templeSlugs: string[];
+  organizerTempleSlug?: TempleLocationSlug;
+  venueId?: string;
+  contactEmail?: string;
+  contactPerson?: string;
+  program?: BuddhistEventProgramItem[];
   participationOptions?: string[];
   registrationOpen?: boolean;
   registrationUrl?: string;
@@ -28,6 +38,50 @@ export type BuddhistEvent = {
 export const allTempleSlugs = Object.keys(templeLocations);
 
 export const buddhistEvents: BuddhistEvent[] = [
+  {
+    id: "stuttgart-buddhistische-andacht",
+    title: "Buddhistische Andacht",
+    category: "monthly",
+    description:
+      "Gedenkzeremonie für Verstorbene · Meditation · Gedenken · gute Taten",
+    dates: [
+      { value: "2026-12-13", label: "Sonntag, 13. Dezember 2026" },
+      { value: "2027-01-10", label: "Sonntag, 10. Januar 2027" },
+      { value: "2027-02-14", label: "Sonntag, 14. Februar 2027" },
+      { value: "2027-03-14", label: "Sonntag, 14. März 2027" },
+      { value: "2027-04-11", label: "Sonntag, 11. April 2027" },
+      { value: "2027-05-09", label: "Sonntag, 9. Mai 2027" },
+      { value: "2027-06-13", label: "Sonntag, 13. Juni 2027" },
+      { value: "2027-07-11", label: "Sonntag, 11. Juli 2027" },
+      { value: "2027-08-08", label: "Sonntag, 8. August 2027" },
+      { value: "2027-09-12", label: "Sonntag, 12. September 2027" },
+      { value: "2027-12-12", label: "Sonntag, 12. Dezember 2027" },
+    ],
+    templeSlugs: ["heilbronn"],
+    organizerTempleSlug: "heilbronn",
+    venueId: "stuttgart-vij",
+    contactEmail: "info@derwegnachinnen.de",
+    contactPerson: "Phra Kittikuno",
+    program: [
+      {
+        time: "10:00 Uhr",
+        items: [
+          "Buddhistische Andacht und Gedenkzeremonie",
+          "Geführte Meditation",
+          "Verehrung der Drei Juwelen",
+          "Annahme der buddhistischen Verhaltensregeln",
+          "Pāli-Übergabetext und Darbringung gemeinsamer Gaben",
+          "Namentliches Gedenken an die Verstorbenen",
+          "Widmung des Verdienstes und Segenswünsche",
+          "Takbat: Gabe von Trockenlebensmitteln an die Mönche",
+        ],
+      },
+      {
+        time: "11:30 Uhr",
+        items: ["Gemeinsames Essen"],
+      },
+    ],
+  },
   {
     id: "bucha-khao-phra",
     title: "Bucha Khao Phra",
@@ -256,4 +310,27 @@ export function getBuddhistEvent(id?: string) {
 
 export function getBuddhistEventsByTemple(templeSlug: string) {
   return buddhistEvents.filter((event) => event.templeSlugs.includes(templeSlug));
+}
+
+function getLocalDateValue(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function getUpcomingBuddhistEventDates(
+  event: BuddhistEvent,
+  now = new Date(),
+) {
+  const today = getLocalDateValue(now);
+  return event.dates.filter((date) => date.value >= today);
+}
+
+export function getPastBuddhistEventDates(
+  event: BuddhistEvent,
+  now = new Date(),
+) {
+  const today = getLocalDateValue(now);
+  return event.dates.filter((date) => date.value < today);
 }

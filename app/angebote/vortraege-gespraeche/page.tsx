@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import OfferLocationsPage from "@/components/offers/OfferLocationsPage";
 
 export const metadata: Metadata = {
-  title: "Vorträge und Gespräche | Der Weg nach innen",
+  title: "Vorträge und Gespräche",
   description:
-    "Vorträge und persönliche Gespräche über Meditation und buddhistische Lebenspraxis an allen sieben Standorten.",
+    "Vorträge und persönliche Gespräche über Meditation und buddhistische Lebenspraxis an unseren Standorten.",
 };
 
 export default function TalksPage() {

@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import EnglishOfferLocationsPage from "@/components/offers/EnglishOfferLocationsPage";
 
 export const metadata: Metadata = {
-  title: "Talks and conversations | The Way Within",
+  title: "Talks and conversations",
   description:
-    "Talks and personal conversations about meditation and Buddhist practice at all seven locations.",
+    "Talks and personal conversations about meditation and Buddhist practice at our locations.",
 };
 
 export default function TalksAndConversationsPage() {

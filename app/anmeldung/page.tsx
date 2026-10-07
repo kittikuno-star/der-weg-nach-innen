@@ -1,7 +1,7 @@
 import RegistrationHub from "@/components/forms/RegistrationHub";
 
 export const metadata = {
-  title: "Zentrale Anmeldung | Der Weg nach Innen",
+  title: "Zentrale Anmeldung",
   description: "Zentrale Anmeldung für Meditation, Retreats, Veranstaltungen sowie Schul- und Gruppenbesuche.",
 };
 

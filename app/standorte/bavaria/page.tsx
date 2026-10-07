@@ -6,7 +6,7 @@ import { templeLocations } from "@/data/templeLocations";
 const location = templeLocations["bavaria"];
 
 export const metadata: Metadata = {
-  title: `${location.name} | Der Weg nach innen`,
+  title: location.name,
   description: `${location.name} in ${location.city}.`,
 };
 

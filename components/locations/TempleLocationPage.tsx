@@ -10,9 +10,15 @@ import {
 } from "lucide-react";
 
 import Container from "@/components/ui/Container";
+import {
+  getBuddhistEventsByTemple,
+  getPastBuddhistEventDates,
+  getUpcomingBuddhistEventDates,
+} from "@/data/buddhistEvents";
 import { getUpcomingRetreatEventsByTemple } from "@/data/retreatEvents";
 import { getWeeklyCourseEventsByTemple } from "@/data/weeklyCourseEvents";
 import type { TempleLocation } from "@/data/templeLocations";
+import { getVenue } from "@/data/venues";
 
 type SupportedLanguage = "de" | "en" | "th";
 
@@ -181,7 +187,12 @@ export default function TempleLocationPage({
   const t = copy[language];
   const weeklyCourses = getWeeklyCourseEventsByTemple(location.name);
   const retreats = getUpcomingRetreatEventsByTemple(location.name);
+  const regionalEvents = language === "de"
+    ? getBuddhistEventsByTemple(location.slug).filter((event) => event.venueId)
+    : [];
   const hasOffers = weeklyCourses.length > 0 || retreats.length > 0;
+  const profile = location.profile?.[language];
+  const featuredOffer = location.featuredOffer?.[language];
   const displayName =
     language === "th" ? location.nameTh ?? location.name : location.name;
   const description =
@@ -301,6 +312,93 @@ export default function TempleLocationPage({
         </Container>
       </section>
 
+      {profile ? (
+        <section
+          aria-labelledby={`temple-today-heading-${language}`}
+          className="border-t border-[#E5E2DA] bg-white py-20 lg:py-24"
+        >
+          <Container>
+            <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
+              <div>
+                {profile.today.eyebrow ? (
+                  <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
+                    {profile.today.eyebrow}
+                  </p>
+                ) : null}
+                <h2
+                  id={`temple-today-heading-${language}`}
+                  className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
+                >
+                  {profile.today.title}
+                </h2>
+              </div>
+
+              <div>
+                <p className="text-lg leading-8 text-slate-600">
+                  {profile.today.description}
+                </p>
+                {profile.today.items?.length ? (
+                  <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {profile.today.items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-[22px] border border-[#E3E1DA] bg-[#FAF9F5] px-6 py-5 leading-7 text-slate-600"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            </div>
+          </Container>
+        </section>
+      ) : null}
+
+      {featuredOffer ? (
+        <section
+          aria-labelledby={`featured-offer-heading-${language}`}
+          className="border-t border-[#E5E2DA] bg-[#F7F6F2] py-20 lg:py-24"
+        >
+          <Container>
+            <div className="mx-auto max-w-5xl rounded-[32px] border border-[#DED9CF] bg-white px-7 py-10 shadow-[0_20px_60px_rgba(21,59,54,0.07)] sm:px-10 lg:px-14 lg:py-14">
+              {featuredOffer.eyebrow ? (
+                <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
+                  {featuredOffer.eyebrow}
+                </p>
+              ) : null}
+              <h2
+                id={`featured-offer-heading-${language}`}
+                className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
+              >
+                {featuredOffer.title}
+              </h2>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+                {featuredOffer.description}
+              </p>
+              {featuredOffer.details?.length ? (
+                <ul className="mt-8 grid gap-4 md:grid-cols-2">
+                  {featuredOffer.details.map((detail) => (
+                    <li
+                      key={detail}
+                      className="border-l-2 border-[#D6BC8C] py-2 pl-5 leading-7 text-slate-600"
+                    >
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <Link
+                href={featuredOffer.href}
+                className="mt-9 inline-flex rounded-full bg-[#153B36] px-7 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+              >
+                {featuredOffer.linkLabel}
+              </Link>
+            </div>
+          </Container>
+        </section>
+      ) : null}
+
       {hasOffers ? (
         <section
           aria-labelledby={`location-offers-heading-${language}`}
@@ -309,17 +407,30 @@ export default function TempleLocationPage({
           <Container>
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
-                {t.offersEyebrow as string}
+                {profile?.currentOffers.eyebrow ?? (t.offersEyebrow as string)}
               </p>
               <h2
                 id={`location-offers-heading-${language}`}
                 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
               >
-                {(t.offersTitle as (city: string) => string)(location.city)}
+                {profile?.currentOffers.title ??
+                  (t.offersTitle as (city: string) => string)(location.city)}
               </h2>
               <p className="mt-6 text-lg leading-8 text-slate-600">
-                {t.offersText as string}
+                {profile?.currentOffers.description ?? (t.offersText as string)}
               </p>
+              {profile?.currentOffers.items?.length ? (
+                <ul className="mt-7 space-y-3 text-left leading-7 text-slate-600">
+                  {profile.currentOffers.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-2xl border border-[#E2DED4] bg-white px-5 py-4"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
 
             {weeklyCourses.length > 0 ? (
@@ -457,6 +568,149 @@ export default function TempleLocationPage({
                 </div>
               </div>
             ) : null}
+          </Container>
+        </section>
+      ) : null}
+
+      {profile ? (
+        <section
+          aria-labelledby={`temple-development-heading-${language}`}
+          className="border-t border-[#E5E2DA] bg-white py-20 lg:py-28"
+        >
+          <Container>
+            <div className="mx-auto max-w-5xl rounded-[32px] border border-[#DED9CF] bg-[#FAF9F5] px-7 py-10 shadow-[0_20px_60px_rgba(21,59,54,0.06)] sm:px-10 lg:px-14 lg:py-14">
+              {profile.development.eyebrow ? (
+                <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
+                  {profile.development.eyebrow}
+                </p>
+              ) : null}
+              <h2
+                id={`temple-development-heading-${language}`}
+                className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl"
+              >
+                {profile.development.title}
+              </h2>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+                {profile.development.description}
+              </p>
+              {profile.development.items?.length ? (
+                <ul className="mt-9 grid gap-4 md:grid-cols-2">
+                  {profile.development.items.map((item) => (
+                    <li
+                      key={item}
+                      className="border-l-2 border-[#D6BC8C] py-2 pl-5 leading-7 text-slate-600"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </Container>
+        </section>
+      ) : null}
+
+      {regionalEvents.length > 0 ? (
+        <section className="border-t border-[#E5DED0] bg-white py-20 lg:py-28">
+          <Container>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#B08D57]">
+                Regionale Angebote
+              </p>
+              <h2 className="mt-5 font-serif text-4xl leading-tight text-[#153B36] sm:text-5xl">
+                Angebote außerhalb des Tempels
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-600">
+                Diese Veranstaltungen werden von {location.name} organisiert
+                und finden an einem externen Veranstaltungsort statt.
+              </p>
+            </div>
+
+            <div className="mx-auto mt-12 max-w-4xl space-y-8">
+              {regionalEvents.map((event) => {
+                const venue = getVenue(event.venueId);
+                const upcomingDates = getUpcomingBuddhistEventDates(event);
+                const pastDates = getPastBuddhistEventDates(event);
+
+                if (!venue) return null;
+
+                return (
+                  <article
+                    key={event.id}
+                    className="rounded-[30px] border border-[#DED9CF] bg-[#FAF9F5] p-7 shadow-[0_20px_60px_rgba(21,59,54,0.07)] sm:p-10"
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#9A7644]">
+                      Organisiert durch {location.name}
+                    </p>
+                    <h3 className="mt-4 font-serif text-3xl leading-tight text-[#153B36] sm:text-4xl">
+                      {event.title}
+                    </h3>
+                    <p className="mt-4 text-lg leading-8 text-slate-600">
+                      {event.description}
+                    </p>
+
+                    <div className="mt-8 grid gap-6 border-t border-[#E2DDD3] pt-7 md:grid-cols-2">
+                      <div className="flex items-start gap-3">
+                        <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#B08D57]" />
+                        <address className="not-italic leading-7 text-slate-600">
+                          <span className="block font-semibold text-[#153B36]">{venue.name}</span>
+                          <span className="block">{venue.street}</span>
+                          <span className="block">{venue.postalCode} {venue.city}</span>
+                        </address>
+                      </div>
+                      <div className="leading-7 text-slate-600">
+                        <p className="font-semibold text-[#153B36]">Kontakt</p>
+                        {event.contactPerson ? <p>{event.contactPerson}</p> : null}
+                        {event.contactEmail ? (
+                          <a className="font-medium text-[#153B36] underline decoration-[#B08D57] underline-offset-4" href={`mailto:${event.contactEmail}`}>
+                            {event.contactEmail}
+                          </a>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    {upcomingDates.length > 0 ? (
+                      <div className="mt-9">
+                        <h4 className="font-serif text-2xl text-[#153B36]">Bestätigte kommende Termine</h4>
+                        <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                          {upcomingDates.map((date) => (
+                            <li key={date.value} className="flex items-start gap-3 rounded-2xl border border-[#E2DDD3] bg-white px-5 py-4 text-slate-600">
+                              <CalendarDays className="mt-0.5 h-5 w-5 shrink-0 text-[#B08D57]" />
+                              <span>{date.label}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+
+                    {pastDates.length > 0 ? (
+                      <div className="mt-9">
+                        <h4 className="font-serif text-2xl text-[#153B36]">Vergangene Termine</h4>
+                        <ul className="mt-4 space-y-2 text-slate-500">
+                          {pastDates.map((date) => <li key={date.value}>{date.label}</li>)}
+                        </ul>
+                      </div>
+                    ) : null}
+
+                    {event.program ? (
+                      <div className="mt-10">
+                        <h4 className="font-serif text-2xl text-[#153B36]">Programm</h4>
+                        <div className="mt-5 space-y-6">
+                          {event.program.map((programItem) => (
+                            <div key={programItem.time} className="grid gap-3 border-l-2 border-[#D6BC8C] pl-5 sm:grid-cols-[110px_1fr]">
+                              <p className="font-semibold text-[#153B36]">{programItem.time}</p>
+                              <ul className="space-y-2 text-slate-600">
+                                {programItem.items.map((item) => <li key={item}>{item}</li>)}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                  </article>
+                );
+              })}
+            </div>
           </Container>
         </section>
       ) : null}
