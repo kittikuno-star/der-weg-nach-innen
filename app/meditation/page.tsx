@@ -77,8 +77,8 @@ export default function MeditationPage() {
               </p>
 
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Button href="/#meditationsangebote" size="lg">
-                  Meditationsangebote ansehen
+                <Button href="/kurse" size="lg">
+                  Meditationskurs besuchen
                 </Button>
 
                 <Button
@@ -226,21 +226,21 @@ export default function MeditationPage() {
                 </h2>
 
                 <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/75">
-                  Unsere regelmäßigen Meditationsangebote sind kostenfrei,
-                  offen für alle und ohne Vorkenntnisse zugänglich.
+                  Unsere regelmäßigen Meditationskurse sind kostenfrei, offen
+                  für alle und ohne Vorkenntnisse zugänglich.
                 </p>
 
                 <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                  <Button href="/#meditationsangebote" size="lg">
-                    Angebote ansehen
+                  <Button href="/kurse" size="lg">
+                    Meditationskurs besuchen
                   </Button>
 
                   <Button
-                    href="/#retreat"
+                    href="/retreats"
                     size="lg"
                     variant="secondary"
                   >
-                    Retreats entdecken
+                    Retreat besuchen
                   </Button>
                 </div>
 

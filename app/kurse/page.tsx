@@ -88,28 +88,6 @@ const courseFormats = [
       },
     ],
   },
-  {
-    eyebrow: "Mehr Zeit für sich",
-    title: "Meditationstage",
-    description:
-      "Ein ganzer Tag bietet Ihnen die Möglichkeit, zur Ruhe zu kommen und Ihre Meditation in geschützter Atmosphäre zu vertiefen.",
-    href: routes.retreats,
-    actionLabel: "Retreats ansehen",
-    details: [
-      {
-        icon: Clock3,
-        text: "Ein- oder mehrtägige Angebote",
-      },
-      {
-        icon: Sparkles,
-        text: "Meditation und Dhamma-Impulse",
-      },
-      {
-        icon: MapPin,
-        text: "An ausgewählten Standorten",
-      },
-    ],
-  },
 ];
 
 const courseSteps = [
@@ -170,7 +148,7 @@ export default function CoursesPage() {
               </h1>
 
               <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl sm:leading-9">
-                Unsere Meditationsangebote begleiten Sie auf verständliche und
+                Unsere Meditationskurse begleiten Sie auf verständliche und
                 praxisnahe Weise – unabhängig davon, ob Sie neu beginnen oder
                 Ihre bisherige Praxis vertiefen möchten.
               </p>
@@ -190,7 +168,7 @@ export default function CoursesPage() {
               </div>
 
               <p className="mt-7 text-sm leading-6 text-white/55">
-                Die regelmäßigen Meditationsangebote sind kostenfrei und ohne
+                Die regelmäßigen Meditationskurse sind kostenfrei und ohne
                 Vorkenntnisse zugänglich.
               </p>
             </div>
@@ -299,7 +277,7 @@ export default function CoursesPage() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-3">
+          <div className="mx-auto mt-14 grid max-w-4xl gap-8 lg:grid-cols-2">
             {courseFormats.map((course, index) => (
               <FadeIn
                 key={course.title}
@@ -638,7 +616,7 @@ export default function CoursesPage() {
                 </p>
 
                 <h2 className="mt-6 font-serif text-4xl leading-tight sm:text-5xl">
-                  Entdecken Sie ein Meditationsangebot in Ihrer Nähe
+                  Entdecken Sie einen Meditationskurs in Ihrer Nähe
                 </h2>
 
                 <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/75">
@@ -660,6 +638,25 @@ export default function CoursesPage() {
                   </Button>
                 </div>
               </div>
+            </div>
+          </FadeIn>
+        </Container>
+      </section>
+
+      <section className="border-t border-[#E5E2DA] bg-[#F7F6F2] py-14 sm:py-16">
+        <Container>
+          <FadeIn>
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="font-serif text-3xl leading-tight text-[#153B36] sm:text-4xl">
+                Sie möchten sich mehr Zeit für die Meditation nehmen?
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+                Unsere Meditationstage und Retreats bieten mehr Raum für
+                vertiefte Praxis.
+              </p>
+              <Button href={routes.retreats} className="mt-7">
+                Retreats ansehen
+              </Button>
             </div>
           </FadeIn>
         </Container>

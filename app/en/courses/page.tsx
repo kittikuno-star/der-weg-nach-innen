@@ -84,28 +84,6 @@ const courseFormats = [
       },
     ],
   },
-  {
-    eyebrow: "More time for yourself",
-    title: "Meditation days",
-    description:
-      "A full day gives you the opportunity to slow down and deepen your meditation in a supportive setting.",
-    href: "/en/retreats",
-    actionLabel: "View retreats",
-    details: [
-      {
-        icon: Clock3,
-        text: "One-day or multi-day programmes",
-      },
-      {
-        icon: Sparkles,
-        text: "Meditation and Dhamma reflections",
-      },
-      {
-        icon: MapPin,
-        text: "At selected locations",
-      },
-    ],
-  },
 ];
 
 const courseSteps = [
@@ -298,7 +276,7 @@ export default function EnglishCoursesPage() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-3">
+          <div className="mx-auto mt-14 grid max-w-4xl gap-8 lg:grid-cols-2">
             {courseFormats.map((course, index) => (
               <FadeIn
                 key={course.title}
@@ -647,6 +625,25 @@ export default function EnglishCoursesPage() {
                   </Button>
                 </div>
               </div>
+            </div>
+          </FadeIn>
+        </Container>
+      </section>
+
+      <section className="border-t border-[#E5E2DA] bg-[#F7F6F2] py-14 sm:py-16">
+        <Container>
+          <FadeIn>
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="font-serif text-3xl leading-tight text-[#153B36] sm:text-4xl">
+                Would you like more time for meditation?
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+                Our meditation days and retreats offer more space for deeper
+                practice.
+              </p>
+              <Button href="/en/retreats" className="mt-7">
+                View retreats
+              </Button>
             </div>
           </FadeIn>
         </Container>

@@ -33,15 +33,15 @@ const offers = [
     image: "/images/courses/course-introduction-01.png",
   },
   {
-    eyebrow: "Wochenkurse",
-    title: "Gemeinsam üben",
+    eyebrow: "Meditationskurse",
+    title: "Regelmäßig meditieren",
     text: "Regelmäßige Meditation vor Ort und online für eine beständige Praxis.",
     href: "/kurse",
     image: "/images/courses/course-weekly-01.png",
   },
   {
     eyebrow: "Retreats",
-    title: "Zeit für Stille",
+    title: "Mehr Zeit für die Praxis",
     text: "Ein ganzer Tag, um Abstand zu gewinnen, neue Kraft zu sammeln und nach innen zu hören.",
     href: "/retreats",
     image: "/images/courses/course-retreat-01.png",
@@ -66,7 +66,7 @@ export default function HomePage() {
         <Container className="relative flex min-h-[620px] items-center py-16 sm:min-h-[680px] sm:py-20 lg:min-h-[calc(100svh-5rem)] lg:py-24">
           <div className="max-w-3xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E2CFA8] min-[390px]:text-xs min-[390px]:tracking-[0.28em] sm:text-sm sm:tracking-[0.34em]">
-              Meditation · Kurse · Retreats
+              Meditation · Meditationskurse · Retreats
             </p>
 
             <h1 className="mt-5 max-w-3xl font-serif text-[2.8rem] leading-[1.02] tracking-[-0.025em] min-[390px]:text-[3.2rem] sm:mt-7 sm:text-6xl lg:text-[5.4rem]">
@@ -480,8 +480,8 @@ export default function HomePage() {
                 Bereit für Ihren nächsten Schritt?
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/68">
-                Beginnen Sie dort, wo es für Sie stimmig ist – mit einem Kurs,
-                einem Retreat oder einem Besuch im Tempel.
+                Beginnen Sie dort, wo es für Sie stimmig ist – mit einem
+                Meditationskurs, einem Retreat oder einem Besuch im Tempel.
               </p>
               <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
                 <Button href="/anmeldung" size="lg" variant="secondary">
