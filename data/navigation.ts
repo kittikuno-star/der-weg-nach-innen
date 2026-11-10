@@ -15,6 +15,12 @@ export const navigation: NavigationItem[] = [
     visible: true,
   },
   {
+    id: "buddhismus",
+    label: "Buddhismus",
+    href: routes.buddhismus,
+    visible: true,
+  },
+  {
     id: "courses",
     label: "Meditationskurse",
     href: routes.courses,
