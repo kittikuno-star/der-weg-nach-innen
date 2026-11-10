@@ -5,6 +5,7 @@ export const routes = {
   talks: "/angebote/vortraege-gespraeche",
   ceremonies: "/angebote/zeremonien-veranstaltungen",
   meditation: "/meditation",
+  buddhismus: "/buddhismus",
   courses: "/kurse",
   retreats: "/retreats",
   locations: "/standorte",
